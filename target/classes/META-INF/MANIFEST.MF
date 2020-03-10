@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: autotest
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: lixingli
+Implementation-Vendor-Id: com.backend
+Build-Jdk: 1.8.0_241
+Implementation-URL: http://projects.spring.io/spring-boot/autotest/
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+
