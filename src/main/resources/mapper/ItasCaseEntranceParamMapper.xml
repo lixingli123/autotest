@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="autotest.com.bocom.dao.ItasCaseEntranceParamMapper">
+  <resultMap id="BaseResultMap" type="autotest.com.bocom.entity.ItasCaseEntranceParam">
+    <id column="CASE_ENTRANCE_PARAM_ID" jdbcType="INTEGER" property="caseEntranceParamId" />
+    <result column="CASE_ID" jdbcType="INTEGER" property="caseId" />
+    <result column="ENTRANCE_PARAM_ID" jdbcType="INTEGER" property="entranceParamId" />
+    <result column="PARAM_VALUE" jdbcType="VARCHAR" property="paramValue" />
+    <result column="PARAM_DESC" jdbcType="VARCHAR" property="paramDesc" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    CASE_ENTRANCE_PARAM_ID, CASE_ID, ENTRANCE_PARAM_ID, PARAM_VALUE, PARAM_DESC
+  </sql>
+  <select id="selectByExample" parameterType="autotest.com.bocom.entity.ItasCaseEntranceParamExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from ITAS_CASE_ENTRANCE_PARAM
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ITAS_CASE_ENTRANCE_PARAM
+    where CASE_ENTRANCE_PARAM_ID = #{caseEntranceParamId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ITAS_CASE_ENTRANCE_PARAM
+    where CASE_ENTRANCE_PARAM_ID = #{caseEntranceParamId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="autotest.com.bocom.entity.ItasCaseEntranceParamExample">
+    delete from ITAS_CASE_ENTRANCE_PARAM
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="autotest.com.bocom.entity.ItasCaseEntranceParam">
+    insert into ITAS_CASE_ENTRANCE_PARAM (CASE_ENTRANCE_PARAM_ID, CASE_ID, ENTRANCE_PARAM_ID, 
+      PARAM_VALUE, PARAM_DESC)
+    values (#{caseEntranceParamId,jdbcType=INTEGER}, #{caseId,jdbcType=INTEGER}, #{entranceParamId,jdbcType=INTEGER}, 
+      #{paramValue,jdbcType=VARCHAR}, #{paramDesc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="autotest.com.bocom.entity.ItasCaseEntranceParam">
+    insert into ITAS_CASE_ENTRANCE_PARAM
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="caseEntranceParamId != null">
+        CASE_ENTRANCE_PARAM_ID,
+      </if>
+      <if test="caseId != null">
+        CASE_ID,
+      </if>
+      <if test="entranceParamId != null">
+        ENTRANCE_PARAM_ID,
+      </if>
+      <if test="paramValue != null">
+        PARAM_VALUE,
+      </if>
+      <if test="paramDesc != null">
+        PARAM_DESC,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="caseEntranceParamId != null">
+        #{caseEntranceParamId,jdbcType=INTEGER},
+      </if>
+      <if test="caseId != null">
+        #{caseId,jdbcType=INTEGER},
+      </if>
+      <if test="entranceParamId != null">
+        #{entranceParamId,jdbcType=INTEGER},
+      </if>
+      <if test="paramValue != null">
+        #{paramValue,jdbcType=VARCHAR},
+      </if>
+      <if test="paramDesc != null">
+        #{paramDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="autotest.com.bocom.entity.ItasCaseEntranceParamExample" resultType="java.lang.Long">
+    select count(*) from ITAS_CASE_ENTRANCE_PARAM
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ITAS_CASE_ENTRANCE_PARAM
+    <set>
+      <if test="record.caseEntranceParamId != null">
+        CASE_ENTRANCE_PARAM_ID = #{record.caseEntranceParamId,jdbcType=INTEGER},
+      </if>
+      <if test="record.caseId != null">
+        CASE_ID = #{record.caseId,jdbcType=INTEGER},
+      </if>
+      <if test="record.entranceParamId != null">
+        ENTRANCE_PARAM_ID = #{record.entranceParamId,jdbcType=INTEGER},
+      </if>
+      <if test="record.paramValue != null">
+        PARAM_VALUE = #{record.paramValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paramDesc != null">
+        PARAM_DESC = #{record.paramDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ITAS_CASE_ENTRANCE_PARAM
+    set CASE_ENTRANCE_PARAM_ID = #{record.caseEntranceParamId,jdbcType=INTEGER},
+      CASE_ID = #{record.caseId,jdbcType=INTEGER},
+      ENTRANCE_PARAM_ID = #{record.entranceParamId,jdbcType=INTEGER},
+      PARAM_VALUE = #{record.paramValue,jdbcType=VARCHAR},
+      PARAM_DESC = #{record.paramDesc,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="autotest.com.bocom.entity.ItasCaseEntranceParam">
+    update ITAS_CASE_ENTRANCE_PARAM
+    <set>
+      <if test="caseId != null">
+        CASE_ID = #{caseId,jdbcType=INTEGER},
+      </if>
+      <if test="entranceParamId != null">
+        ENTRANCE_PARAM_ID = #{entranceParamId,jdbcType=INTEGER},
+      </if>
+      <if test="paramValue != null">
+        PARAM_VALUE = #{paramValue,jdbcType=VARCHAR},
+      </if>
+      <if test="paramDesc != null">
+        PARAM_DESC = #{paramDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CASE_ENTRANCE_PARAM_ID = #{caseEntranceParamId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="autotest.com.bocom.entity.ItasCaseEntranceParam">
+    update ITAS_CASE_ENTRANCE_PARAM
+    set CASE_ID = #{caseId,jdbcType=INTEGER},
+      ENTRANCE_PARAM_ID = #{entranceParamId,jdbcType=INTEGER},
+      PARAM_VALUE = #{paramValue,jdbcType=VARCHAR},
+      PARAM_DESC = #{paramDesc,jdbcType=VARCHAR}
+    where CASE_ENTRANCE_PARAM_ID = #{caseEntranceParamId,jdbcType=INTEGER}
+  </update>
+</mapper>

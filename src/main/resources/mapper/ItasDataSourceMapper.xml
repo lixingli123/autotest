@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="autotest.com.bocom.dao.ItasDataSourceMapper">
+  <resultMap id="BaseResultMap" type="autotest.com.bocom.entity.ItasDataSource">
+    <id column="SOURCE_ID" jdbcType="INTEGER" property="sourceId" />
+    <result column="SOURCE_NAME" jdbcType="VARCHAR" property="sourceName" />
+    <result column="SYSTEM_ID" jdbcType="INTEGER" property="systemId" />
+    <result column="SOURCE_TYPE" jdbcType="CHAR" property="sourceType" />
+    <result column="SOURCE_STATUS" jdbcType="CHAR" property="sourceStatus" />
+    <result column="SOURCE_DRIVER" jdbcType="VARCHAR" property="sourceDriver" />
+    <result column="SOURCE_URL" jdbcType="VARCHAR" property="sourceUrl" />
+    <result column="SOURCE_USER" jdbcType="VARCHAR" property="sourceUser" />
+    <result column="SOURCE_PASSWD" jdbcType="VARCHAR" property="sourcePasswd" />
+    <result column="SOURCE_DESC" jdbcType="VARCHAR" property="sourceDesc" />
+    <result column="CREATOR" jdbcType="INTEGER" property="creator" />
+    <result column="REVISER" jdbcType="INTEGER" property="reviser" />
+    <result column="TIME_CREATED" jdbcType="TIMESTAMP" property="timeCreated" />
+    <result column="TIME_REVISED" jdbcType="TIMESTAMP" property="timeRevised" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    SOURCE_ID, SOURCE_NAME, SYSTEM_ID, SOURCE_TYPE, SOURCE_STATUS, SOURCE_DRIVER, SOURCE_URL, 
+    SOURCE_USER, SOURCE_PASSWD, SOURCE_DESC, CREATOR, REVISER, TIME_CREATED, TIME_REVISED
+  </sql>
+  <select id="selectByExample" parameterType="autotest.com.bocom.entity.ItasDataSourceExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from ITAS_DATA_SOURCE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ITAS_DATA_SOURCE
+    where SOURCE_ID = #{sourceId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ITAS_DATA_SOURCE
+    where SOURCE_ID = #{sourceId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="autotest.com.bocom.entity.ItasDataSourceExample">
+    delete from ITAS_DATA_SOURCE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="autotest.com.bocom.entity.ItasDataSource">
+    insert into ITAS_DATA_SOURCE (SOURCE_ID, SOURCE_NAME, SYSTEM_ID, 
+      SOURCE_TYPE, SOURCE_STATUS, SOURCE_DRIVER, 
+      SOURCE_URL, SOURCE_USER, SOURCE_PASSWD, 
+      SOURCE_DESC, CREATOR, REVISER, 
+      TIME_CREATED, TIME_REVISED)
+    values (#{sourceId,jdbcType=INTEGER}, #{sourceName,jdbcType=VARCHAR}, #{systemId,jdbcType=INTEGER}, 
+      #{sourceType,jdbcType=CHAR}, #{sourceStatus,jdbcType=CHAR}, #{sourceDriver,jdbcType=VARCHAR}, 
+      #{sourceUrl,jdbcType=VARCHAR}, #{sourceUser,jdbcType=VARCHAR}, #{sourcePasswd,jdbcType=VARCHAR}, 
+      #{sourceDesc,jdbcType=VARCHAR}, #{creator,jdbcType=INTEGER}, #{reviser,jdbcType=INTEGER}, 
+      #{timeCreated,jdbcType=TIMESTAMP}, #{timeRevised,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="autotest.com.bocom.entity.ItasDataSource">
+    insert into ITAS_DATA_SOURCE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sourceId != null">
+        SOURCE_ID,
+      </if>
+      <if test="sourceName != null">
+        SOURCE_NAME,
+      </if>
+      <if test="systemId != null">
+        SYSTEM_ID,
+      </if>
+      <if test="sourceType != null">
+        SOURCE_TYPE,
+      </if>
+      <if test="sourceStatus != null">
+        SOURCE_STATUS,
+      </if>
+      <if test="sourceDriver != null">
+        SOURCE_DRIVER,
+      </if>
+      <if test="sourceUrl != null">
+        SOURCE_URL,
+      </if>
+      <if test="sourceUser != null">
+        SOURCE_USER,
+      </if>
+      <if test="sourcePasswd != null">
+        SOURCE_PASSWD,
+      </if>
+      <if test="sourceDesc != null">
+        SOURCE_DESC,
+      </if>
+      <if test="creator != null">
+        CREATOR,
+      </if>
+      <if test="reviser != null">
+        REVISER,
+      </if>
+      <if test="timeCreated != null">
+        TIME_CREATED,
+      </if>
+      <if test="timeRevised != null">
+        TIME_REVISED,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sourceId != null">
+        #{sourceId,jdbcType=INTEGER},
+      </if>
+      <if test="sourceName != null">
+        #{sourceName,jdbcType=VARCHAR},
+      </if>
+      <if test="systemId != null">
+        #{systemId,jdbcType=INTEGER},
+      </if>
+      <if test="sourceType != null">
+        #{sourceType,jdbcType=CHAR},
+      </if>
+      <if test="sourceStatus != null">
+        #{sourceStatus,jdbcType=CHAR},
+      </if>
+      <if test="sourceDriver != null">
+        #{sourceDriver,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceUrl != null">
+        #{sourceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceUser != null">
+        #{sourceUser,jdbcType=VARCHAR},
+      </if>
+      <if test="sourcePasswd != null">
+        #{sourcePasswd,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceDesc != null">
+        #{sourceDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="reviser != null">
+        #{reviser,jdbcType=INTEGER},
+      </if>
+      <if test="timeCreated != null">
+        #{timeCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeRevised != null">
+        #{timeRevised,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="autotest.com.bocom.entity.ItasDataSourceExample" resultType="java.lang.Long">
+    select count(*) from ITAS_DATA_SOURCE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ITAS_DATA_SOURCE
+    <set>
+      <if test="record.sourceId != null">
+        SOURCE_ID = #{record.sourceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.sourceName != null">
+        SOURCE_NAME = #{record.sourceName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.systemId != null">
+        SYSTEM_ID = #{record.systemId,jdbcType=INTEGER},
+      </if>
+      <if test="record.sourceType != null">
+        SOURCE_TYPE = #{record.sourceType,jdbcType=CHAR},
+      </if>
+      <if test="record.sourceStatus != null">
+        SOURCE_STATUS = #{record.sourceStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.sourceDriver != null">
+        SOURCE_DRIVER = #{record.sourceDriver,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sourceUrl != null">
+        SOURCE_URL = #{record.sourceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sourceUser != null">
+        SOURCE_USER = #{record.sourceUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sourcePasswd != null">
+        SOURCE_PASSWD = #{record.sourcePasswd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sourceDesc != null">
+        SOURCE_DESC = #{record.sourceDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creator != null">
+        CREATOR = #{record.creator,jdbcType=INTEGER},
+      </if>
+      <if test="record.reviser != null">
+        REVISER = #{record.reviser,jdbcType=INTEGER},
+      </if>
+      <if test="record.timeCreated != null">
+        TIME_CREATED = #{record.timeCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.timeRevised != null">
+        TIME_REVISED = #{record.timeRevised,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ITAS_DATA_SOURCE
+    set SOURCE_ID = #{record.sourceId,jdbcType=INTEGER},
+      SOURCE_NAME = #{record.sourceName,jdbcType=VARCHAR},
+      SYSTEM_ID = #{record.systemId,jdbcType=INTEGER},
+      SOURCE_TYPE = #{record.sourceType,jdbcType=CHAR},
+      SOURCE_STATUS = #{record.sourceStatus,jdbcType=CHAR},
+      SOURCE_DRIVER = #{record.sourceDriver,jdbcType=VARCHAR},
+      SOURCE_URL = #{record.sourceUrl,jdbcType=VARCHAR},
+      SOURCE_USER = #{record.sourceUser,jdbcType=VARCHAR},
+      SOURCE_PASSWD = #{record.sourcePasswd,jdbcType=VARCHAR},
+      SOURCE_DESC = #{record.sourceDesc,jdbcType=VARCHAR},
+      CREATOR = #{record.creator,jdbcType=INTEGER},
+      REVISER = #{record.reviser,jdbcType=INTEGER},
+      TIME_CREATED = #{record.timeCreated,jdbcType=TIMESTAMP},
+      TIME_REVISED = #{record.timeRevised,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="autotest.com.bocom.entity.ItasDataSource">
+    update ITAS_DATA_SOURCE
+    <set>
+      <if test="sourceName != null">
+        SOURCE_NAME = #{sourceName,jdbcType=VARCHAR},
+      </if>
+      <if test="systemId != null">
+        SYSTEM_ID = #{systemId,jdbcType=INTEGER},
+      </if>
+      <if test="sourceType != null">
+        SOURCE_TYPE = #{sourceType,jdbcType=CHAR},
+      </if>
+      <if test="sourceStatus != null">
+        SOURCE_STATUS = #{sourceStatus,jdbcType=CHAR},
+      </if>
+      <if test="sourceDriver != null">
+        SOURCE_DRIVER = #{sourceDriver,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceUrl != null">
+        SOURCE_URL = #{sourceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceUser != null">
+        SOURCE_USER = #{sourceUser,jdbcType=VARCHAR},
+      </if>
+      <if test="sourcePasswd != null">
+        SOURCE_PASSWD = #{sourcePasswd,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceDesc != null">
+        SOURCE_DESC = #{sourceDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        CREATOR = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="reviser != null">
+        REVISER = #{reviser,jdbcType=INTEGER},
+      </if>
+      <if test="timeCreated != null">
+        TIME_CREATED = #{timeCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeRevised != null">
+        TIME_REVISED = #{timeRevised,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where SOURCE_ID = #{sourceId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="autotest.com.bocom.entity.ItasDataSource">
+    update ITAS_DATA_SOURCE
+    set SOURCE_NAME = #{sourceName,jdbcType=VARCHAR},
+      SYSTEM_ID = #{systemId,jdbcType=INTEGER},
+      SOURCE_TYPE = #{sourceType,jdbcType=CHAR},
+      SOURCE_STATUS = #{sourceStatus,jdbcType=CHAR},
+      SOURCE_DRIVER = #{sourceDriver,jdbcType=VARCHAR},
+      SOURCE_URL = #{sourceUrl,jdbcType=VARCHAR},
+      SOURCE_USER = #{sourceUser,jdbcType=VARCHAR},
+      SOURCE_PASSWD = #{sourcePasswd,jdbcType=VARCHAR},
+      SOURCE_DESC = #{sourceDesc,jdbcType=VARCHAR},
+      CREATOR = #{creator,jdbcType=INTEGER},
+      REVISER = #{reviser,jdbcType=INTEGER},
+      TIME_CREATED = #{timeCreated,jdbcType=TIMESTAMP},
+      TIME_REVISED = #{timeRevised,jdbcType=TIMESTAMP}
+    where SOURCE_ID = #{sourceId,jdbcType=INTEGER}
+  </update>
+</mapper>

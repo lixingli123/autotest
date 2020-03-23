@@ -27,6 +27,13 @@
 		    <artifactId>httpclient</artifactId>
 		    <version>4.5.10</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.ibatis/ibatis-core -->
+		<dependency>
+			<groupId>org.apache.ibatis</groupId>
+			<artifactId>ibatis-core</artifactId>
+			<version>3.0</version>
+		</dependency>
+        
 		<dependency>
 			  <groupId>org.quartz-scheduler</groupId>
 			  <artifactId>quartz</artifactId>
@@ -59,6 +66,37 @@
 				    <artifactId>gen-test-plugin</artifactId>
 				    <version>0.0.1</version>
 			</plugin>
+			<!-- mybatis generator 自动生成代码插件 -->
+			<plugin>
+			    <groupId>org.mybatis.generator</groupId>
+			    <artifactId>mybatis-generator-maven-plugin</artifactId>
+			    <version>1.4.0</version>
+			    <configuration>
+			        <configurationFile>${basedir}/src/main/resources/generatorConfig.xml</configurationFile>
+			        <overwrite>true</overwrite>
+			        <verbose>true</verbose>
+			    </configuration>
+			    <dependencies>
+			    	<dependency>
+		            <groupId>org.mybatis.generator</groupId>
+		            <artifactId>mybatis-generator-core</artifactId>
+		            <version>1.3.7</version>
+			        </dependency>
+			        <!--mysql驱动包-->
+			        <dependency>
+			            <groupId>mysql</groupId>
+			            <artifactId>mysql-connector-java</artifactId>
+			            <version>8.0.11</version>
+			        </dependency>
+			        <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
+					<dependency>
+					    <groupId>org.mybatis</groupId>
+					    <artifactId>mybatis</artifactId>
+					    <version>3.4.6</version>
+					</dependency>	        
+			    </dependencies>			
+			</plugin>
+			
 		</plugins>
 	</build>
 

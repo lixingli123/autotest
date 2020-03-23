@@ -1,0 +1,751 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="autotest.com.bocom.dao.ItasInterfaceTaskMapper">
+  <resultMap id="BaseResultMap" type="autotest.com.bocom.entity.ItasInterfaceTask">
+    <id column="TASK_ID" jdbcType="INTEGER" property="taskId" />
+    <result column="API_ID" jdbcType="INTEGER" property="apiId" />
+    <result column="CQ_ID" jdbcType="VARCHAR" property="cqId" />
+    <result column="CQ_NO" jdbcType="INTEGER" property="cqNo" />
+    <result column="PRD_DATE" jdbcType="VARCHAR" property="prdDate" />
+    <result column="APPLY_USER" jdbcType="VARCHAR" property="applyUser" />
+    <result column="APPLY_DATE" jdbcType="VARCHAR" property="applyDate" />
+    <result column="SYSTEM_CODE" jdbcType="VARCHAR" property="systemCode" />
+    <result column="SYSTEM_NAME" jdbcType="VARCHAR" property="systemName" />
+    <result column="SYSTEM_TYPE" jdbcType="CHAR" property="systemType" />
+    <result column="SERVICE_CODE" jdbcType="VARCHAR" property="serviceCode" />
+    <result column="SERVICE_NAME" jdbcType="VARCHAR" property="serviceName" />
+    <result column="ASSET_TYPE" jdbcType="CHAR" property="assetType" />
+    <result column="CHANGE_TYPE" jdbcType="CHAR" property="changeType" />
+    <result column="CHANGE_DESC" jdbcType="VARCHAR" property="changeDesc" />
+    <result column="API_MASTER" jdbcType="INTEGER" property="apiMaster" />
+    <result column="STATUS" jdbcType="CHAR" property="status" />
+    <result column="REQ_SYSTEM_CODE" jdbcType="VARCHAR" property="reqSystemCode" />
+    <result column="REQ_SYSTEM_NAME" jdbcType="VARCHAR" property="reqSystemName" />
+    <result column="REQ_SYSTEM_TYPE" jdbcType="CHAR" property="reqSystemType" />
+    <result column="REQ_SERVICE_CODE" jdbcType="VARCHAR" property="reqServiceCode" />
+    <result column="REQ_SERVICE_NAME" jdbcType="VARCHAR" property="reqServiceName" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="API_CODE" jdbcType="VARCHAR" property="apiCode" />
+    <result column="API_NAME" jdbcType="VARCHAR" property="apiName" />
+    <result column="API_DESC" jdbcType="VARCHAR" property="apiDesc" />
+    <result column="API_TYPE" jdbcType="CHAR" property="apiType" />
+    <result column="API_NATURE" jdbcType="VARCHAR" property="apiNature" />
+    <result column="FILE_URL" jdbcType="VARCHAR" property="fileUrl" />
+    <result column="SCHEMA_FINISH_DATE" jdbcType="VARCHAR" property="schemaFinishDate" />
+    <result column="ACTUAL_FINISH_DATE" jdbcType="VARCHAR" property="actualFinishDate" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="autotest.com.bocom.entity.ItasInterfaceTaskWithBLOBs">
+    <result column="REQ_SCHEMA" jdbcType="LONGVARCHAR" property="reqSchema" />
+    <result column="RSP_SCHEMA" jdbcType="LONGVARCHAR" property="rspSchema" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TASK_ID, API_ID, CQ_ID, CQ_NO, PRD_DATE, APPLY_USER, APPLY_DATE, SYSTEM_CODE, SYSTEM_NAME, 
+    SYSTEM_TYPE, SERVICE_CODE, SERVICE_NAME, ASSET_TYPE, CHANGE_TYPE, CHANGE_DESC, API_MASTER, 
+    STATUS, REQ_SYSTEM_CODE, REQ_SYSTEM_NAME, REQ_SYSTEM_TYPE, REQ_SERVICE_CODE, REQ_SERVICE_NAME, 
+    CREATE_TIME, API_CODE, API_NAME, API_DESC, API_TYPE, API_NATURE, FILE_URL, SCHEMA_FINISH_DATE, 
+    ACTUAL_FINISH_DATE
+  </sql>
+  <sql id="Blob_Column_List">
+    REQ_SCHEMA, RSP_SCHEMA
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="autotest.com.bocom.entity.ItasInterfaceTaskExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ITAS_INTERFACE_TASK
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="autotest.com.bocom.entity.ItasInterfaceTaskExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from ITAS_INTERFACE_TASK
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ITAS_INTERFACE_TASK
+    where TASK_ID = #{taskId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ITAS_INTERFACE_TASK
+    where TASK_ID = #{taskId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="autotest.com.bocom.entity.ItasInterfaceTaskExample">
+    delete from ITAS_INTERFACE_TASK
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="autotest.com.bocom.entity.ItasInterfaceTaskWithBLOBs">
+    insert into ITAS_INTERFACE_TASK (TASK_ID, API_ID, CQ_ID, 
+      CQ_NO, PRD_DATE, APPLY_USER, 
+      APPLY_DATE, SYSTEM_CODE, SYSTEM_NAME, 
+      SYSTEM_TYPE, SERVICE_CODE, SERVICE_NAME, 
+      ASSET_TYPE, CHANGE_TYPE, CHANGE_DESC, 
+      API_MASTER, STATUS, REQ_SYSTEM_CODE, 
+      REQ_SYSTEM_NAME, REQ_SYSTEM_TYPE, REQ_SERVICE_CODE, 
+      REQ_SERVICE_NAME, CREATE_TIME, API_CODE, 
+      API_NAME, API_DESC, API_TYPE, 
+      API_NATURE, FILE_URL, SCHEMA_FINISH_DATE, 
+      ACTUAL_FINISH_DATE, REQ_SCHEMA, RSP_SCHEMA
+      )
+    values (#{taskId,jdbcType=INTEGER}, #{apiId,jdbcType=INTEGER}, #{cqId,jdbcType=VARCHAR}, 
+      #{cqNo,jdbcType=INTEGER}, #{prdDate,jdbcType=VARCHAR}, #{applyUser,jdbcType=VARCHAR}, 
+      #{applyDate,jdbcType=VARCHAR}, #{systemCode,jdbcType=VARCHAR}, #{systemName,jdbcType=VARCHAR}, 
+      #{systemType,jdbcType=CHAR}, #{serviceCode,jdbcType=VARCHAR}, #{serviceName,jdbcType=VARCHAR}, 
+      #{assetType,jdbcType=CHAR}, #{changeType,jdbcType=CHAR}, #{changeDesc,jdbcType=VARCHAR}, 
+      #{apiMaster,jdbcType=INTEGER}, #{status,jdbcType=CHAR}, #{reqSystemCode,jdbcType=VARCHAR}, 
+      #{reqSystemName,jdbcType=VARCHAR}, #{reqSystemType,jdbcType=CHAR}, #{reqServiceCode,jdbcType=VARCHAR}, 
+      #{reqServiceName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{apiCode,jdbcType=VARCHAR}, 
+      #{apiName,jdbcType=VARCHAR}, #{apiDesc,jdbcType=VARCHAR}, #{apiType,jdbcType=CHAR}, 
+      #{apiNature,jdbcType=VARCHAR}, #{fileUrl,jdbcType=VARCHAR}, #{schemaFinishDate,jdbcType=VARCHAR}, 
+      #{actualFinishDate,jdbcType=VARCHAR}, #{reqSchema,jdbcType=LONGVARCHAR}, #{rspSchema,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="autotest.com.bocom.entity.ItasInterfaceTaskWithBLOBs">
+    insert into ITAS_INTERFACE_TASK
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="taskId != null">
+        TASK_ID,
+      </if>
+      <if test="apiId != null">
+        API_ID,
+      </if>
+      <if test="cqId != null">
+        CQ_ID,
+      </if>
+      <if test="cqNo != null">
+        CQ_NO,
+      </if>
+      <if test="prdDate != null">
+        PRD_DATE,
+      </if>
+      <if test="applyUser != null">
+        APPLY_USER,
+      </if>
+      <if test="applyDate != null">
+        APPLY_DATE,
+      </if>
+      <if test="systemCode != null">
+        SYSTEM_CODE,
+      </if>
+      <if test="systemName != null">
+        SYSTEM_NAME,
+      </if>
+      <if test="systemType != null">
+        SYSTEM_TYPE,
+      </if>
+      <if test="serviceCode != null">
+        SERVICE_CODE,
+      </if>
+      <if test="serviceName != null">
+        SERVICE_NAME,
+      </if>
+      <if test="assetType != null">
+        ASSET_TYPE,
+      </if>
+      <if test="changeType != null">
+        CHANGE_TYPE,
+      </if>
+      <if test="changeDesc != null">
+        CHANGE_DESC,
+      </if>
+      <if test="apiMaster != null">
+        API_MASTER,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="reqSystemCode != null">
+        REQ_SYSTEM_CODE,
+      </if>
+      <if test="reqSystemName != null">
+        REQ_SYSTEM_NAME,
+      </if>
+      <if test="reqSystemType != null">
+        REQ_SYSTEM_TYPE,
+      </if>
+      <if test="reqServiceCode != null">
+        REQ_SERVICE_CODE,
+      </if>
+      <if test="reqServiceName != null">
+        REQ_SERVICE_NAME,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="apiCode != null">
+        API_CODE,
+      </if>
+      <if test="apiName != null">
+        API_NAME,
+      </if>
+      <if test="apiDesc != null">
+        API_DESC,
+      </if>
+      <if test="apiType != null">
+        API_TYPE,
+      </if>
+      <if test="apiNature != null">
+        API_NATURE,
+      </if>
+      <if test="fileUrl != null">
+        FILE_URL,
+      </if>
+      <if test="schemaFinishDate != null">
+        SCHEMA_FINISH_DATE,
+      </if>
+      <if test="actualFinishDate != null">
+        ACTUAL_FINISH_DATE,
+      </if>
+      <if test="reqSchema != null">
+        REQ_SCHEMA,
+      </if>
+      <if test="rspSchema != null">
+        RSP_SCHEMA,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="taskId != null">
+        #{taskId,jdbcType=INTEGER},
+      </if>
+      <if test="apiId != null">
+        #{apiId,jdbcType=INTEGER},
+      </if>
+      <if test="cqId != null">
+        #{cqId,jdbcType=VARCHAR},
+      </if>
+      <if test="cqNo != null">
+        #{cqNo,jdbcType=INTEGER},
+      </if>
+      <if test="prdDate != null">
+        #{prdDate,jdbcType=VARCHAR},
+      </if>
+      <if test="applyUser != null">
+        #{applyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="applyDate != null">
+        #{applyDate,jdbcType=VARCHAR},
+      </if>
+      <if test="systemCode != null">
+        #{systemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="systemName != null">
+        #{systemName,jdbcType=VARCHAR},
+      </if>
+      <if test="systemType != null">
+        #{systemType,jdbcType=CHAR},
+      </if>
+      <if test="serviceCode != null">
+        #{serviceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceName != null">
+        #{serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="assetType != null">
+        #{assetType,jdbcType=CHAR},
+      </if>
+      <if test="changeType != null">
+        #{changeType,jdbcType=CHAR},
+      </if>
+      <if test="changeDesc != null">
+        #{changeDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="apiMaster != null">
+        #{apiMaster,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="reqSystemCode != null">
+        #{reqSystemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="reqSystemName != null">
+        #{reqSystemName,jdbcType=VARCHAR},
+      </if>
+      <if test="reqSystemType != null">
+        #{reqSystemType,jdbcType=CHAR},
+      </if>
+      <if test="reqServiceCode != null">
+        #{reqServiceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="reqServiceName != null">
+        #{reqServiceName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="apiCode != null">
+        #{apiCode,jdbcType=VARCHAR},
+      </if>
+      <if test="apiName != null">
+        #{apiName,jdbcType=VARCHAR},
+      </if>
+      <if test="apiDesc != null">
+        #{apiDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="apiType != null">
+        #{apiType,jdbcType=CHAR},
+      </if>
+      <if test="apiNature != null">
+        #{apiNature,jdbcType=VARCHAR},
+      </if>
+      <if test="fileUrl != null">
+        #{fileUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="schemaFinishDate != null">
+        #{schemaFinishDate,jdbcType=VARCHAR},
+      </if>
+      <if test="actualFinishDate != null">
+        #{actualFinishDate,jdbcType=VARCHAR},
+      </if>
+      <if test="reqSchema != null">
+        #{reqSchema,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="rspSchema != null">
+        #{rspSchema,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="autotest.com.bocom.entity.ItasInterfaceTaskExample" resultType="java.lang.Long">
+    select count(*) from ITAS_INTERFACE_TASK
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ITAS_INTERFACE_TASK
+    <set>
+      <if test="record.taskId != null">
+        TASK_ID = #{record.taskId,jdbcType=INTEGER},
+      </if>
+      <if test="record.apiId != null">
+        API_ID = #{record.apiId,jdbcType=INTEGER},
+      </if>
+      <if test="record.cqId != null">
+        CQ_ID = #{record.cqId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cqNo != null">
+        CQ_NO = #{record.cqNo,jdbcType=INTEGER},
+      </if>
+      <if test="record.prdDate != null">
+        PRD_DATE = #{record.prdDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyUser != null">
+        APPLY_USER = #{record.applyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyDate != null">
+        APPLY_DATE = #{record.applyDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.systemCode != null">
+        SYSTEM_CODE = #{record.systemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.systemName != null">
+        SYSTEM_NAME = #{record.systemName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.systemType != null">
+        SYSTEM_TYPE = #{record.systemType,jdbcType=CHAR},
+      </if>
+      <if test="record.serviceCode != null">
+        SERVICE_CODE = #{record.serviceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceName != null">
+        SERVICE_NAME = #{record.serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.assetType != null">
+        ASSET_TYPE = #{record.assetType,jdbcType=CHAR},
+      </if>
+      <if test="record.changeType != null">
+        CHANGE_TYPE = #{record.changeType,jdbcType=CHAR},
+      </if>
+      <if test="record.changeDesc != null">
+        CHANGE_DESC = #{record.changeDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.apiMaster != null">
+        API_MASTER = #{record.apiMaster,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        STATUS = #{record.status,jdbcType=CHAR},
+      </if>
+      <if test="record.reqSystemCode != null">
+        REQ_SYSTEM_CODE = #{record.reqSystemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reqSystemName != null">
+        REQ_SYSTEM_NAME = #{record.reqSystemName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reqSystemType != null">
+        REQ_SYSTEM_TYPE = #{record.reqSystemType,jdbcType=CHAR},
+      </if>
+      <if test="record.reqServiceCode != null">
+        REQ_SERVICE_CODE = #{record.reqServiceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reqServiceName != null">
+        REQ_SERVICE_NAME = #{record.reqServiceName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.apiCode != null">
+        API_CODE = #{record.apiCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.apiName != null">
+        API_NAME = #{record.apiName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.apiDesc != null">
+        API_DESC = #{record.apiDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.apiType != null">
+        API_TYPE = #{record.apiType,jdbcType=CHAR},
+      </if>
+      <if test="record.apiNature != null">
+        API_NATURE = #{record.apiNature,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileUrl != null">
+        FILE_URL = #{record.fileUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.schemaFinishDate != null">
+        SCHEMA_FINISH_DATE = #{record.schemaFinishDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.actualFinishDate != null">
+        ACTUAL_FINISH_DATE = #{record.actualFinishDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reqSchema != null">
+        REQ_SCHEMA = #{record.reqSchema,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.rspSchema != null">
+        RSP_SCHEMA = #{record.rspSchema,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update ITAS_INTERFACE_TASK
+    set TASK_ID = #{record.taskId,jdbcType=INTEGER},
+      API_ID = #{record.apiId,jdbcType=INTEGER},
+      CQ_ID = #{record.cqId,jdbcType=VARCHAR},
+      CQ_NO = #{record.cqNo,jdbcType=INTEGER},
+      PRD_DATE = #{record.prdDate,jdbcType=VARCHAR},
+      APPLY_USER = #{record.applyUser,jdbcType=VARCHAR},
+      APPLY_DATE = #{record.applyDate,jdbcType=VARCHAR},
+      SYSTEM_CODE = #{record.systemCode,jdbcType=VARCHAR},
+      SYSTEM_NAME = #{record.systemName,jdbcType=VARCHAR},
+      SYSTEM_TYPE = #{record.systemType,jdbcType=CHAR},
+      SERVICE_CODE = #{record.serviceCode,jdbcType=VARCHAR},
+      SERVICE_NAME = #{record.serviceName,jdbcType=VARCHAR},
+      ASSET_TYPE = #{record.assetType,jdbcType=CHAR},
+      CHANGE_TYPE = #{record.changeType,jdbcType=CHAR},
+      CHANGE_DESC = #{record.changeDesc,jdbcType=VARCHAR},
+      API_MASTER = #{record.apiMaster,jdbcType=INTEGER},
+      STATUS = #{record.status,jdbcType=CHAR},
+      REQ_SYSTEM_CODE = #{record.reqSystemCode,jdbcType=VARCHAR},
+      REQ_SYSTEM_NAME = #{record.reqSystemName,jdbcType=VARCHAR},
+      REQ_SYSTEM_TYPE = #{record.reqSystemType,jdbcType=CHAR},
+      REQ_SERVICE_CODE = #{record.reqServiceCode,jdbcType=VARCHAR},
+      REQ_SERVICE_NAME = #{record.reqServiceName,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      API_CODE = #{record.apiCode,jdbcType=VARCHAR},
+      API_NAME = #{record.apiName,jdbcType=VARCHAR},
+      API_DESC = #{record.apiDesc,jdbcType=VARCHAR},
+      API_TYPE = #{record.apiType,jdbcType=CHAR},
+      API_NATURE = #{record.apiNature,jdbcType=VARCHAR},
+      FILE_URL = #{record.fileUrl,jdbcType=VARCHAR},
+      SCHEMA_FINISH_DATE = #{record.schemaFinishDate,jdbcType=VARCHAR},
+      ACTUAL_FINISH_DATE = #{record.actualFinishDate,jdbcType=VARCHAR},
+      REQ_SCHEMA = #{record.reqSchema,jdbcType=LONGVARCHAR},
+      RSP_SCHEMA = #{record.rspSchema,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ITAS_INTERFACE_TASK
+    set TASK_ID = #{record.taskId,jdbcType=INTEGER},
+      API_ID = #{record.apiId,jdbcType=INTEGER},
+      CQ_ID = #{record.cqId,jdbcType=VARCHAR},
+      CQ_NO = #{record.cqNo,jdbcType=INTEGER},
+      PRD_DATE = #{record.prdDate,jdbcType=VARCHAR},
+      APPLY_USER = #{record.applyUser,jdbcType=VARCHAR},
+      APPLY_DATE = #{record.applyDate,jdbcType=VARCHAR},
+      SYSTEM_CODE = #{record.systemCode,jdbcType=VARCHAR},
+      SYSTEM_NAME = #{record.systemName,jdbcType=VARCHAR},
+      SYSTEM_TYPE = #{record.systemType,jdbcType=CHAR},
+      SERVICE_CODE = #{record.serviceCode,jdbcType=VARCHAR},
+      SERVICE_NAME = #{record.serviceName,jdbcType=VARCHAR},
+      ASSET_TYPE = #{record.assetType,jdbcType=CHAR},
+      CHANGE_TYPE = #{record.changeType,jdbcType=CHAR},
+      CHANGE_DESC = #{record.changeDesc,jdbcType=VARCHAR},
+      API_MASTER = #{record.apiMaster,jdbcType=INTEGER},
+      STATUS = #{record.status,jdbcType=CHAR},
+      REQ_SYSTEM_CODE = #{record.reqSystemCode,jdbcType=VARCHAR},
+      REQ_SYSTEM_NAME = #{record.reqSystemName,jdbcType=VARCHAR},
+      REQ_SYSTEM_TYPE = #{record.reqSystemType,jdbcType=CHAR},
+      REQ_SERVICE_CODE = #{record.reqServiceCode,jdbcType=VARCHAR},
+      REQ_SERVICE_NAME = #{record.reqServiceName,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      API_CODE = #{record.apiCode,jdbcType=VARCHAR},
+      API_NAME = #{record.apiName,jdbcType=VARCHAR},
+      API_DESC = #{record.apiDesc,jdbcType=VARCHAR},
+      API_TYPE = #{record.apiType,jdbcType=CHAR},
+      API_NATURE = #{record.apiNature,jdbcType=VARCHAR},
+      FILE_URL = #{record.fileUrl,jdbcType=VARCHAR},
+      SCHEMA_FINISH_DATE = #{record.schemaFinishDate,jdbcType=VARCHAR},
+      ACTUAL_FINISH_DATE = #{record.actualFinishDate,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="autotest.com.bocom.entity.ItasInterfaceTaskWithBLOBs">
+    update ITAS_INTERFACE_TASK
+    <set>
+      <if test="apiId != null">
+        API_ID = #{apiId,jdbcType=INTEGER},
+      </if>
+      <if test="cqId != null">
+        CQ_ID = #{cqId,jdbcType=VARCHAR},
+      </if>
+      <if test="cqNo != null">
+        CQ_NO = #{cqNo,jdbcType=INTEGER},
+      </if>
+      <if test="prdDate != null">
+        PRD_DATE = #{prdDate,jdbcType=VARCHAR},
+      </if>
+      <if test="applyUser != null">
+        APPLY_USER = #{applyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="applyDate != null">
+        APPLY_DATE = #{applyDate,jdbcType=VARCHAR},
+      </if>
+      <if test="systemCode != null">
+        SYSTEM_CODE = #{systemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="systemName != null">
+        SYSTEM_NAME = #{systemName,jdbcType=VARCHAR},
+      </if>
+      <if test="systemType != null">
+        SYSTEM_TYPE = #{systemType,jdbcType=CHAR},
+      </if>
+      <if test="serviceCode != null">
+        SERVICE_CODE = #{serviceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceName != null">
+        SERVICE_NAME = #{serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="assetType != null">
+        ASSET_TYPE = #{assetType,jdbcType=CHAR},
+      </if>
+      <if test="changeType != null">
+        CHANGE_TYPE = #{changeType,jdbcType=CHAR},
+      </if>
+      <if test="changeDesc != null">
+        CHANGE_DESC = #{changeDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="apiMaster != null">
+        API_MASTER = #{apiMaster,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="reqSystemCode != null">
+        REQ_SYSTEM_CODE = #{reqSystemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="reqSystemName != null">
+        REQ_SYSTEM_NAME = #{reqSystemName,jdbcType=VARCHAR},
+      </if>
+      <if test="reqSystemType != null">
+        REQ_SYSTEM_TYPE = #{reqSystemType,jdbcType=CHAR},
+      </if>
+      <if test="reqServiceCode != null">
+        REQ_SERVICE_CODE = #{reqServiceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="reqServiceName != null">
+        REQ_SERVICE_NAME = #{reqServiceName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="apiCode != null">
+        API_CODE = #{apiCode,jdbcType=VARCHAR},
+      </if>
+      <if test="apiName != null">
+        API_NAME = #{apiName,jdbcType=VARCHAR},
+      </if>
+      <if test="apiDesc != null">
+        API_DESC = #{apiDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="apiType != null">
+        API_TYPE = #{apiType,jdbcType=CHAR},
+      </if>
+      <if test="apiNature != null">
+        API_NATURE = #{apiNature,jdbcType=VARCHAR},
+      </if>
+      <if test="fileUrl != null">
+        FILE_URL = #{fileUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="schemaFinishDate != null">
+        SCHEMA_FINISH_DATE = #{schemaFinishDate,jdbcType=VARCHAR},
+      </if>
+      <if test="actualFinishDate != null">
+        ACTUAL_FINISH_DATE = #{actualFinishDate,jdbcType=VARCHAR},
+      </if>
+      <if test="reqSchema != null">
+        REQ_SCHEMA = #{reqSchema,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="rspSchema != null">
+        RSP_SCHEMA = #{rspSchema,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where TASK_ID = #{taskId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="autotest.com.bocom.entity.ItasInterfaceTaskWithBLOBs">
+    update ITAS_INTERFACE_TASK
+    set API_ID = #{apiId,jdbcType=INTEGER},
+      CQ_ID = #{cqId,jdbcType=VARCHAR},
+      CQ_NO = #{cqNo,jdbcType=INTEGER},
+      PRD_DATE = #{prdDate,jdbcType=VARCHAR},
+      APPLY_USER = #{applyUser,jdbcType=VARCHAR},
+      APPLY_DATE = #{applyDate,jdbcType=VARCHAR},
+      SYSTEM_CODE = #{systemCode,jdbcType=VARCHAR},
+      SYSTEM_NAME = #{systemName,jdbcType=VARCHAR},
+      SYSTEM_TYPE = #{systemType,jdbcType=CHAR},
+      SERVICE_CODE = #{serviceCode,jdbcType=VARCHAR},
+      SERVICE_NAME = #{serviceName,jdbcType=VARCHAR},
+      ASSET_TYPE = #{assetType,jdbcType=CHAR},
+      CHANGE_TYPE = #{changeType,jdbcType=CHAR},
+      CHANGE_DESC = #{changeDesc,jdbcType=VARCHAR},
+      API_MASTER = #{apiMaster,jdbcType=INTEGER},
+      STATUS = #{status,jdbcType=CHAR},
+      REQ_SYSTEM_CODE = #{reqSystemCode,jdbcType=VARCHAR},
+      REQ_SYSTEM_NAME = #{reqSystemName,jdbcType=VARCHAR},
+      REQ_SYSTEM_TYPE = #{reqSystemType,jdbcType=CHAR},
+      REQ_SERVICE_CODE = #{reqServiceCode,jdbcType=VARCHAR},
+      REQ_SERVICE_NAME = #{reqServiceName,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      API_CODE = #{apiCode,jdbcType=VARCHAR},
+      API_NAME = #{apiName,jdbcType=VARCHAR},
+      API_DESC = #{apiDesc,jdbcType=VARCHAR},
+      API_TYPE = #{apiType,jdbcType=CHAR},
+      API_NATURE = #{apiNature,jdbcType=VARCHAR},
+      FILE_URL = #{fileUrl,jdbcType=VARCHAR},
+      SCHEMA_FINISH_DATE = #{schemaFinishDate,jdbcType=VARCHAR},
+      ACTUAL_FINISH_DATE = #{actualFinishDate,jdbcType=VARCHAR},
+      REQ_SCHEMA = #{reqSchema,jdbcType=LONGVARCHAR},
+      RSP_SCHEMA = #{rspSchema,jdbcType=LONGVARCHAR}
+    where TASK_ID = #{taskId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="autotest.com.bocom.entity.ItasInterfaceTask">
+    update ITAS_INTERFACE_TASK
+    set API_ID = #{apiId,jdbcType=INTEGER},
+      CQ_ID = #{cqId,jdbcType=VARCHAR},
+      CQ_NO = #{cqNo,jdbcType=INTEGER},
+      PRD_DATE = #{prdDate,jdbcType=VARCHAR},
+      APPLY_USER = #{applyUser,jdbcType=VARCHAR},
+      APPLY_DATE = #{applyDate,jdbcType=VARCHAR},
+      SYSTEM_CODE = #{systemCode,jdbcType=VARCHAR},
+      SYSTEM_NAME = #{systemName,jdbcType=VARCHAR},
+      SYSTEM_TYPE = #{systemType,jdbcType=CHAR},
+      SERVICE_CODE = #{serviceCode,jdbcType=VARCHAR},
+      SERVICE_NAME = #{serviceName,jdbcType=VARCHAR},
+      ASSET_TYPE = #{assetType,jdbcType=CHAR},
+      CHANGE_TYPE = #{changeType,jdbcType=CHAR},
+      CHANGE_DESC = #{changeDesc,jdbcType=VARCHAR},
+      API_MASTER = #{apiMaster,jdbcType=INTEGER},
+      STATUS = #{status,jdbcType=CHAR},
+      REQ_SYSTEM_CODE = #{reqSystemCode,jdbcType=VARCHAR},
+      REQ_SYSTEM_NAME = #{reqSystemName,jdbcType=VARCHAR},
+      REQ_SYSTEM_TYPE = #{reqSystemType,jdbcType=CHAR},
+      REQ_SERVICE_CODE = #{reqServiceCode,jdbcType=VARCHAR},
+      REQ_SERVICE_NAME = #{reqServiceName,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      API_CODE = #{apiCode,jdbcType=VARCHAR},
+      API_NAME = #{apiName,jdbcType=VARCHAR},
+      API_DESC = #{apiDesc,jdbcType=VARCHAR},
+      API_TYPE = #{apiType,jdbcType=CHAR},
+      API_NATURE = #{apiNature,jdbcType=VARCHAR},
+      FILE_URL = #{fileUrl,jdbcType=VARCHAR},
+      SCHEMA_FINISH_DATE = #{schemaFinishDate,jdbcType=VARCHAR},
+      ACTUAL_FINISH_DATE = #{actualFinishDate,jdbcType=VARCHAR}
+    where TASK_ID = #{taskId,jdbcType=INTEGER}
+  </update>
+</mapper>

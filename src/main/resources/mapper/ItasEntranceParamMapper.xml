@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="autotest.com.bocom.dao.ItasEntranceParamMapper">
+  <resultMap id="BaseResultMap" type="autotest.com.bocom.entity.ItasEntranceParam">
+    <id column="ENTRANCE_PARAM_ID" jdbcType="INTEGER" property="entranceParamId" />
+    <result column="ENTRANCE_ID" jdbcType="INTEGER" property="entranceId" />
+    <result column="ENGINE_ID" jdbcType="INTEGER" property="engineId" />
+    <result column="ITAS_ENGINE_PARAM_ID" jdbcType="INTEGER" property="itasEngineParamId" />
+    <result column="PARAM_VALUE" jdbcType="VARCHAR" property="paramValue" />
+    <result column="PARAM_DESC" jdbcType="VARCHAR" property="paramDesc" />
+    <result column="PARAMETRIC" jdbcType="CHAR" property="parametric" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ENTRANCE_PARAM_ID, ENTRANCE_ID, ENGINE_ID, ITAS_ENGINE_PARAM_ID, PARAM_VALUE, PARAM_DESC, 
+    PARAMETRIC
+  </sql>
+  <select id="selectByExample" parameterType="autotest.com.bocom.entity.ItasEntranceParamExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from ITAS_ENTRANCE_PARAM
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ITAS_ENTRANCE_PARAM
+    where ENTRANCE_PARAM_ID = #{entranceParamId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ITAS_ENTRANCE_PARAM
+    where ENTRANCE_PARAM_ID = #{entranceParamId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="autotest.com.bocom.entity.ItasEntranceParamExample">
+    delete from ITAS_ENTRANCE_PARAM
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="autotest.com.bocom.entity.ItasEntranceParam">
+    insert into ITAS_ENTRANCE_PARAM (ENTRANCE_PARAM_ID, ENTRANCE_ID, ENGINE_ID, 
+      ITAS_ENGINE_PARAM_ID, PARAM_VALUE, PARAM_DESC, 
+      PARAMETRIC)
+    values (#{entranceParamId,jdbcType=INTEGER}, #{entranceId,jdbcType=INTEGER}, #{engineId,jdbcType=INTEGER}, 
+      #{itasEngineParamId,jdbcType=INTEGER}, #{paramValue,jdbcType=VARCHAR}, #{paramDesc,jdbcType=VARCHAR}, 
+      #{parametric,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="autotest.com.bocom.entity.ItasEntranceParam">
+    insert into ITAS_ENTRANCE_PARAM
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="entranceParamId != null">
+        ENTRANCE_PARAM_ID,
+      </if>
+      <if test="entranceId != null">
+        ENTRANCE_ID,
+      </if>
+      <if test="engineId != null">
+        ENGINE_ID,
+      </if>
+      <if test="itasEngineParamId != null">
+        ITAS_ENGINE_PARAM_ID,
+      </if>
+      <if test="paramValue != null">
+        PARAM_VALUE,
+      </if>
+      <if test="paramDesc != null">
+        PARAM_DESC,
+      </if>
+      <if test="parametric != null">
+        PARAMETRIC,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="entranceParamId != null">
+        #{entranceParamId,jdbcType=INTEGER},
+      </if>
+      <if test="entranceId != null">
+        #{entranceId,jdbcType=INTEGER},
+      </if>
+      <if test="engineId != null">
+        #{engineId,jdbcType=INTEGER},
+      </if>
+      <if test="itasEngineParamId != null">
+        #{itasEngineParamId,jdbcType=INTEGER},
+      </if>
+      <if test="paramValue != null">
+        #{paramValue,jdbcType=VARCHAR},
+      </if>
+      <if test="paramDesc != null">
+        #{paramDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="parametric != null">
+        #{parametric,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="autotest.com.bocom.entity.ItasEntranceParamExample" resultType="java.lang.Long">
+    select count(*) from ITAS_ENTRANCE_PARAM
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ITAS_ENTRANCE_PARAM
+    <set>
+      <if test="record.entranceParamId != null">
+        ENTRANCE_PARAM_ID = #{record.entranceParamId,jdbcType=INTEGER},
+      </if>
+      <if test="record.entranceId != null">
+        ENTRANCE_ID = #{record.entranceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.engineId != null">
+        ENGINE_ID = #{record.engineId,jdbcType=INTEGER},
+      </if>
+      <if test="record.itasEngineParamId != null">
+        ITAS_ENGINE_PARAM_ID = #{record.itasEngineParamId,jdbcType=INTEGER},
+      </if>
+      <if test="record.paramValue != null">
+        PARAM_VALUE = #{record.paramValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paramDesc != null">
+        PARAM_DESC = #{record.paramDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parametric != null">
+        PARAMETRIC = #{record.parametric,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ITAS_ENTRANCE_PARAM
+    set ENTRANCE_PARAM_ID = #{record.entranceParamId,jdbcType=INTEGER},
+      ENTRANCE_ID = #{record.entranceId,jdbcType=INTEGER},
+      ENGINE_ID = #{record.engineId,jdbcType=INTEGER},
+      ITAS_ENGINE_PARAM_ID = #{record.itasEngineParamId,jdbcType=INTEGER},
+      PARAM_VALUE = #{record.paramValue,jdbcType=VARCHAR},
+      PARAM_DESC = #{record.paramDesc,jdbcType=VARCHAR},
+      PARAMETRIC = #{record.parametric,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="autotest.com.bocom.entity.ItasEntranceParam">
+    update ITAS_ENTRANCE_PARAM
+    <set>
+      <if test="entranceId != null">
+        ENTRANCE_ID = #{entranceId,jdbcType=INTEGER},
+      </if>
+      <if test="engineId != null">
+        ENGINE_ID = #{engineId,jdbcType=INTEGER},
+      </if>
+      <if test="itasEngineParamId != null">
+        ITAS_ENGINE_PARAM_ID = #{itasEngineParamId,jdbcType=INTEGER},
+      </if>
+      <if test="paramValue != null">
+        PARAM_VALUE = #{paramValue,jdbcType=VARCHAR},
+      </if>
+      <if test="paramDesc != null">
+        PARAM_DESC = #{paramDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="parametric != null">
+        PARAMETRIC = #{parametric,jdbcType=CHAR},
+      </if>
+    </set>
+    where ENTRANCE_PARAM_ID = #{entranceParamId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="autotest.com.bocom.entity.ItasEntranceParam">
+    update ITAS_ENTRANCE_PARAM
+    set ENTRANCE_ID = #{entranceId,jdbcType=INTEGER},
+      ENGINE_ID = #{engineId,jdbcType=INTEGER},
+      ITAS_ENGINE_PARAM_ID = #{itasEngineParamId,jdbcType=INTEGER},
+      PARAM_VALUE = #{paramValue,jdbcType=VARCHAR},
+      PARAM_DESC = #{paramDesc,jdbcType=VARCHAR},
+      PARAMETRIC = #{parametric,jdbcType=CHAR}
+    where ENTRANCE_PARAM_ID = #{entranceParamId,jdbcType=INTEGER}
+  </update>
+</mapper>

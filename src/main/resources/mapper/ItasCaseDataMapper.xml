@@ -1,0 +1,639 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="autotest.com.bocom.dao.ItasCaseDataMapper">
+  <resultMap id="BaseResultMap" type="autotest.com.bocom.entity.ItasCaseData">
+    <id column="DATA_ID" jdbcType="INTEGER" property="dataId" />
+    <result column="CASE_ID" jdbcType="INTEGER" property="caseId" />
+    <result column="CASE_KEY" jdbcType="INTEGER" property="caseKey" />
+    <result column="ENTITY_ID" jdbcType="INTEGER" property="entityId" />
+    <result column="ENTITY_TYPE" jdbcType="CHAR" property="entityType" />
+    <result column="DATA_NATURE" jdbcType="CHAR" property="dataNature" />
+    <result column="LIST_ID" jdbcType="VARCHAR" property="listId" />
+    <result column="LIST_ROW" jdbcType="VARCHAR" property="listRow" />
+    <result column="FIELD_KEY" jdbcType="VARCHAR" property="fieldKey" />
+    <result column="FIELD_ID" jdbcType="VARCHAR" property="fieldId" />
+    <result column="FIELD_FROM" jdbcType="CHAR" property="fieldFrom" />
+    <result column="ACT_NAME" jdbcType="VARCHAR" property="actName" />
+    <result column="ACT_SEQ" jdbcType="INTEGER" property="actSeq" />
+    <result column="ACT_TYP" jdbcType="CHAR" property="actTyp" />
+    <result column="ACT_STR" jdbcType="VARCHAR" property="actStr" />
+    <result column="DATA_TYP" jdbcType="CHAR" property="dataTyp" />
+    <result column="DATA_REM" jdbcType="VARCHAR" property="dataRem" />
+    <result column="DATA_USAGE" jdbcType="CHAR" property="dataUsage" />
+    <result column="CREATE" jdbcType="INTEGER" property="create" />
+    <result column="REVISER" jdbcType="INTEGER" property="reviser" />
+    <result column="TIME_CREATED" jdbcType="TIMESTAMP" property="timeCreated" />
+    <result column="TIME_REVISED" jdbcType="TIMESTAMP" property="timeRevised" />
+    <result column="DATA_DICT" jdbcType="INTEGER" property="dataDict" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="autotest.com.bocom.entity.ItasCaseDataWithBLOBs">
+    <result column="ACT_CPX" jdbcType="LONGVARCHAR" property="actCpx" />
+    <result column="DATA_STR" jdbcType="LONGVARCHAR" property="dataStr" />
+    <result column="DATA_CPX" jdbcType="LONGVARCHAR" property="dataCpx" />
+    <result column="DATA_SUPPLIED" jdbcType="LONGVARCHAR" property="dataSupplied" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    DATA_ID, CASE_ID, CASE_KEY, ENTITY_ID, ENTITY_TYPE, DATA_NATURE, LIST_ID, LIST_ROW, 
+    FIELD_KEY, FIELD_ID, FIELD_FROM, ACT_NAME, ACT_SEQ, ACT_TYP, ACT_STR, DATA_TYP, DATA_REM, 
+    DATA_USAGE, CREATE, REVISER, TIME_CREATED, TIME_REVISED, DATA_DICT
+  </sql>
+  <sql id="Blob_Column_List">
+    ACT_CPX, DATA_STR, DATA_CPX, DATA_SUPPLIED
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="autotest.com.bocom.entity.ItasCaseDataExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ITAS_CASE_DATA
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="autotest.com.bocom.entity.ItasCaseDataExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from ITAS_CASE_DATA
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ITAS_CASE_DATA
+    where DATA_ID = #{dataId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ITAS_CASE_DATA
+    where DATA_ID = #{dataId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="autotest.com.bocom.entity.ItasCaseDataExample">
+    delete from ITAS_CASE_DATA
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="autotest.com.bocom.entity.ItasCaseDataWithBLOBs">
+    insert into ITAS_CASE_DATA (DATA_ID, CASE_ID, CASE_KEY, 
+      ENTITY_ID, ENTITY_TYPE, DATA_NATURE, 
+      LIST_ID, LIST_ROW, FIELD_KEY, 
+      FIELD_ID, FIELD_FROM, ACT_NAME, 
+      ACT_SEQ, ACT_TYP, ACT_STR, 
+      DATA_TYP, DATA_REM, DATA_USAGE, 
+      CREATE, REVISER, TIME_CREATED, 
+      TIME_REVISED, DATA_DICT, ACT_CPX, 
+      DATA_STR, DATA_CPX, DATA_SUPPLIED
+      )
+    values (#{dataId,jdbcType=INTEGER}, #{caseId,jdbcType=INTEGER}, #{caseKey,jdbcType=INTEGER}, 
+      #{entityId,jdbcType=INTEGER}, #{entityType,jdbcType=CHAR}, #{dataNature,jdbcType=CHAR}, 
+      #{listId,jdbcType=VARCHAR}, #{listRow,jdbcType=VARCHAR}, #{fieldKey,jdbcType=VARCHAR}, 
+      #{fieldId,jdbcType=VARCHAR}, #{fieldFrom,jdbcType=CHAR}, #{actName,jdbcType=VARCHAR}, 
+      #{actSeq,jdbcType=INTEGER}, #{actTyp,jdbcType=CHAR}, #{actStr,jdbcType=VARCHAR}, 
+      #{dataTyp,jdbcType=CHAR}, #{dataRem,jdbcType=VARCHAR}, #{dataUsage,jdbcType=CHAR}, 
+      #{create,jdbcType=INTEGER}, #{reviser,jdbcType=INTEGER}, #{timeCreated,jdbcType=TIMESTAMP}, 
+      #{timeRevised,jdbcType=TIMESTAMP}, #{dataDict,jdbcType=INTEGER}, #{actCpx,jdbcType=LONGVARCHAR}, 
+      #{dataStr,jdbcType=LONGVARCHAR}, #{dataCpx,jdbcType=LONGVARCHAR}, #{dataSupplied,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="autotest.com.bocom.entity.ItasCaseDataWithBLOBs">
+    insert into ITAS_CASE_DATA
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dataId != null">
+        DATA_ID,
+      </if>
+      <if test="caseId != null">
+        CASE_ID,
+      </if>
+      <if test="caseKey != null">
+        CASE_KEY,
+      </if>
+      <if test="entityId != null">
+        ENTITY_ID,
+      </if>
+      <if test="entityType != null">
+        ENTITY_TYPE,
+      </if>
+      <if test="dataNature != null">
+        DATA_NATURE,
+      </if>
+      <if test="listId != null">
+        LIST_ID,
+      </if>
+      <if test="listRow != null">
+        LIST_ROW,
+      </if>
+      <if test="fieldKey != null">
+        FIELD_KEY,
+      </if>
+      <if test="fieldId != null">
+        FIELD_ID,
+      </if>
+      <if test="fieldFrom != null">
+        FIELD_FROM,
+      </if>
+      <if test="actName != null">
+        ACT_NAME,
+      </if>
+      <if test="actSeq != null">
+        ACT_SEQ,
+      </if>
+      <if test="actTyp != null">
+        ACT_TYP,
+      </if>
+      <if test="actStr != null">
+        ACT_STR,
+      </if>
+      <if test="dataTyp != null">
+        DATA_TYP,
+      </if>
+      <if test="dataRem != null">
+        DATA_REM,
+      </if>
+      <if test="dataUsage != null">
+        DATA_USAGE,
+      </if>
+      <if test="create != null">
+        CREATE,
+      </if>
+      <if test="reviser != null">
+        REVISER,
+      </if>
+      <if test="timeCreated != null">
+        TIME_CREATED,
+      </if>
+      <if test="timeRevised != null">
+        TIME_REVISED,
+      </if>
+      <if test="dataDict != null">
+        DATA_DICT,
+      </if>
+      <if test="actCpx != null">
+        ACT_CPX,
+      </if>
+      <if test="dataStr != null">
+        DATA_STR,
+      </if>
+      <if test="dataCpx != null">
+        DATA_CPX,
+      </if>
+      <if test="dataSupplied != null">
+        DATA_SUPPLIED,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dataId != null">
+        #{dataId,jdbcType=INTEGER},
+      </if>
+      <if test="caseId != null">
+        #{caseId,jdbcType=INTEGER},
+      </if>
+      <if test="caseKey != null">
+        #{caseKey,jdbcType=INTEGER},
+      </if>
+      <if test="entityId != null">
+        #{entityId,jdbcType=INTEGER},
+      </if>
+      <if test="entityType != null">
+        #{entityType,jdbcType=CHAR},
+      </if>
+      <if test="dataNature != null">
+        #{dataNature,jdbcType=CHAR},
+      </if>
+      <if test="listId != null">
+        #{listId,jdbcType=VARCHAR},
+      </if>
+      <if test="listRow != null">
+        #{listRow,jdbcType=VARCHAR},
+      </if>
+      <if test="fieldKey != null">
+        #{fieldKey,jdbcType=VARCHAR},
+      </if>
+      <if test="fieldId != null">
+        #{fieldId,jdbcType=VARCHAR},
+      </if>
+      <if test="fieldFrom != null">
+        #{fieldFrom,jdbcType=CHAR},
+      </if>
+      <if test="actName != null">
+        #{actName,jdbcType=VARCHAR},
+      </if>
+      <if test="actSeq != null">
+        #{actSeq,jdbcType=INTEGER},
+      </if>
+      <if test="actTyp != null">
+        #{actTyp,jdbcType=CHAR},
+      </if>
+      <if test="actStr != null">
+        #{actStr,jdbcType=VARCHAR},
+      </if>
+      <if test="dataTyp != null">
+        #{dataTyp,jdbcType=CHAR},
+      </if>
+      <if test="dataRem != null">
+        #{dataRem,jdbcType=VARCHAR},
+      </if>
+      <if test="dataUsage != null">
+        #{dataUsage,jdbcType=CHAR},
+      </if>
+      <if test="create != null">
+        #{create,jdbcType=INTEGER},
+      </if>
+      <if test="reviser != null">
+        #{reviser,jdbcType=INTEGER},
+      </if>
+      <if test="timeCreated != null">
+        #{timeCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeRevised != null">
+        #{timeRevised,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dataDict != null">
+        #{dataDict,jdbcType=INTEGER},
+      </if>
+      <if test="actCpx != null">
+        #{actCpx,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="dataStr != null">
+        #{dataStr,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="dataCpx != null">
+        #{dataCpx,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="dataSupplied != null">
+        #{dataSupplied,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="autotest.com.bocom.entity.ItasCaseDataExample" resultType="java.lang.Long">
+    select count(*) from ITAS_CASE_DATA
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ITAS_CASE_DATA
+    <set>
+      <if test="record.dataId != null">
+        DATA_ID = #{record.dataId,jdbcType=INTEGER},
+      </if>
+      <if test="record.caseId != null">
+        CASE_ID = #{record.caseId,jdbcType=INTEGER},
+      </if>
+      <if test="record.caseKey != null">
+        CASE_KEY = #{record.caseKey,jdbcType=INTEGER},
+      </if>
+      <if test="record.entityId != null">
+        ENTITY_ID = #{record.entityId,jdbcType=INTEGER},
+      </if>
+      <if test="record.entityType != null">
+        ENTITY_TYPE = #{record.entityType,jdbcType=CHAR},
+      </if>
+      <if test="record.dataNature != null">
+        DATA_NATURE = #{record.dataNature,jdbcType=CHAR},
+      </if>
+      <if test="record.listId != null">
+        LIST_ID = #{record.listId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.listRow != null">
+        LIST_ROW = #{record.listRow,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fieldKey != null">
+        FIELD_KEY = #{record.fieldKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fieldId != null">
+        FIELD_ID = #{record.fieldId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fieldFrom != null">
+        FIELD_FROM = #{record.fieldFrom,jdbcType=CHAR},
+      </if>
+      <if test="record.actName != null">
+        ACT_NAME = #{record.actName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.actSeq != null">
+        ACT_SEQ = #{record.actSeq,jdbcType=INTEGER},
+      </if>
+      <if test="record.actTyp != null">
+        ACT_TYP = #{record.actTyp,jdbcType=CHAR},
+      </if>
+      <if test="record.actStr != null">
+        ACT_STR = #{record.actStr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dataTyp != null">
+        DATA_TYP = #{record.dataTyp,jdbcType=CHAR},
+      </if>
+      <if test="record.dataRem != null">
+        DATA_REM = #{record.dataRem,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dataUsage != null">
+        DATA_USAGE = #{record.dataUsage,jdbcType=CHAR},
+      </if>
+      <if test="record.create != null">
+        CREATE = #{record.create,jdbcType=INTEGER},
+      </if>
+      <if test="record.reviser != null">
+        REVISER = #{record.reviser,jdbcType=INTEGER},
+      </if>
+      <if test="record.timeCreated != null">
+        TIME_CREATED = #{record.timeCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.timeRevised != null">
+        TIME_REVISED = #{record.timeRevised,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.dataDict != null">
+        DATA_DICT = #{record.dataDict,jdbcType=INTEGER},
+      </if>
+      <if test="record.actCpx != null">
+        ACT_CPX = #{record.actCpx,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.dataStr != null">
+        DATA_STR = #{record.dataStr,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.dataCpx != null">
+        DATA_CPX = #{record.dataCpx,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.dataSupplied != null">
+        DATA_SUPPLIED = #{record.dataSupplied,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update ITAS_CASE_DATA
+    set DATA_ID = #{record.dataId,jdbcType=INTEGER},
+      CASE_ID = #{record.caseId,jdbcType=INTEGER},
+      CASE_KEY = #{record.caseKey,jdbcType=INTEGER},
+      ENTITY_ID = #{record.entityId,jdbcType=INTEGER},
+      ENTITY_TYPE = #{record.entityType,jdbcType=CHAR},
+      DATA_NATURE = #{record.dataNature,jdbcType=CHAR},
+      LIST_ID = #{record.listId,jdbcType=VARCHAR},
+      LIST_ROW = #{record.listRow,jdbcType=VARCHAR},
+      FIELD_KEY = #{record.fieldKey,jdbcType=VARCHAR},
+      FIELD_ID = #{record.fieldId,jdbcType=VARCHAR},
+      FIELD_FROM = #{record.fieldFrom,jdbcType=CHAR},
+      ACT_NAME = #{record.actName,jdbcType=VARCHAR},
+      ACT_SEQ = #{record.actSeq,jdbcType=INTEGER},
+      ACT_TYP = #{record.actTyp,jdbcType=CHAR},
+      ACT_STR = #{record.actStr,jdbcType=VARCHAR},
+      DATA_TYP = #{record.dataTyp,jdbcType=CHAR},
+      DATA_REM = #{record.dataRem,jdbcType=VARCHAR},
+      DATA_USAGE = #{record.dataUsage,jdbcType=CHAR},
+      CREATE = #{record.create,jdbcType=INTEGER},
+      REVISER = #{record.reviser,jdbcType=INTEGER},
+      TIME_CREATED = #{record.timeCreated,jdbcType=TIMESTAMP},
+      TIME_REVISED = #{record.timeRevised,jdbcType=TIMESTAMP},
+      DATA_DICT = #{record.dataDict,jdbcType=INTEGER},
+      ACT_CPX = #{record.actCpx,jdbcType=LONGVARCHAR},
+      DATA_STR = #{record.dataStr,jdbcType=LONGVARCHAR},
+      DATA_CPX = #{record.dataCpx,jdbcType=LONGVARCHAR},
+      DATA_SUPPLIED = #{record.dataSupplied,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ITAS_CASE_DATA
+    set DATA_ID = #{record.dataId,jdbcType=INTEGER},
+      CASE_ID = #{record.caseId,jdbcType=INTEGER},
+      CASE_KEY = #{record.caseKey,jdbcType=INTEGER},
+      ENTITY_ID = #{record.entityId,jdbcType=INTEGER},
+      ENTITY_TYPE = #{record.entityType,jdbcType=CHAR},
+      DATA_NATURE = #{record.dataNature,jdbcType=CHAR},
+      LIST_ID = #{record.listId,jdbcType=VARCHAR},
+      LIST_ROW = #{record.listRow,jdbcType=VARCHAR},
+      FIELD_KEY = #{record.fieldKey,jdbcType=VARCHAR},
+      FIELD_ID = #{record.fieldId,jdbcType=VARCHAR},
+      FIELD_FROM = #{record.fieldFrom,jdbcType=CHAR},
+      ACT_NAME = #{record.actName,jdbcType=VARCHAR},
+      ACT_SEQ = #{record.actSeq,jdbcType=INTEGER},
+      ACT_TYP = #{record.actTyp,jdbcType=CHAR},
+      ACT_STR = #{record.actStr,jdbcType=VARCHAR},
+      DATA_TYP = #{record.dataTyp,jdbcType=CHAR},
+      DATA_REM = #{record.dataRem,jdbcType=VARCHAR},
+      DATA_USAGE = #{record.dataUsage,jdbcType=CHAR},
+      CREATE = #{record.create,jdbcType=INTEGER},
+      REVISER = #{record.reviser,jdbcType=INTEGER},
+      TIME_CREATED = #{record.timeCreated,jdbcType=TIMESTAMP},
+      TIME_REVISED = #{record.timeRevised,jdbcType=TIMESTAMP},
+      DATA_DICT = #{record.dataDict,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="autotest.com.bocom.entity.ItasCaseDataWithBLOBs">
+    update ITAS_CASE_DATA
+    <set>
+      <if test="caseId != null">
+        CASE_ID = #{caseId,jdbcType=INTEGER},
+      </if>
+      <if test="caseKey != null">
+        CASE_KEY = #{caseKey,jdbcType=INTEGER},
+      </if>
+      <if test="entityId != null">
+        ENTITY_ID = #{entityId,jdbcType=INTEGER},
+      </if>
+      <if test="entityType != null">
+        ENTITY_TYPE = #{entityType,jdbcType=CHAR},
+      </if>
+      <if test="dataNature != null">
+        DATA_NATURE = #{dataNature,jdbcType=CHAR},
+      </if>
+      <if test="listId != null">
+        LIST_ID = #{listId,jdbcType=VARCHAR},
+      </if>
+      <if test="listRow != null">
+        LIST_ROW = #{listRow,jdbcType=VARCHAR},
+      </if>
+      <if test="fieldKey != null">
+        FIELD_KEY = #{fieldKey,jdbcType=VARCHAR},
+      </if>
+      <if test="fieldId != null">
+        FIELD_ID = #{fieldId,jdbcType=VARCHAR},
+      </if>
+      <if test="fieldFrom != null">
+        FIELD_FROM = #{fieldFrom,jdbcType=CHAR},
+      </if>
+      <if test="actName != null">
+        ACT_NAME = #{actName,jdbcType=VARCHAR},
+      </if>
+      <if test="actSeq != null">
+        ACT_SEQ = #{actSeq,jdbcType=INTEGER},
+      </if>
+      <if test="actTyp != null">
+        ACT_TYP = #{actTyp,jdbcType=CHAR},
+      </if>
+      <if test="actStr != null">
+        ACT_STR = #{actStr,jdbcType=VARCHAR},
+      </if>
+      <if test="dataTyp != null">
+        DATA_TYP = #{dataTyp,jdbcType=CHAR},
+      </if>
+      <if test="dataRem != null">
+        DATA_REM = #{dataRem,jdbcType=VARCHAR},
+      </if>
+      <if test="dataUsage != null">
+        DATA_USAGE = #{dataUsage,jdbcType=CHAR},
+      </if>
+      <if test="create != null">
+        CREATE = #{create,jdbcType=INTEGER},
+      </if>
+      <if test="reviser != null">
+        REVISER = #{reviser,jdbcType=INTEGER},
+      </if>
+      <if test="timeCreated != null">
+        TIME_CREATED = #{timeCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeRevised != null">
+        TIME_REVISED = #{timeRevised,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dataDict != null">
+        DATA_DICT = #{dataDict,jdbcType=INTEGER},
+      </if>
+      <if test="actCpx != null">
+        ACT_CPX = #{actCpx,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="dataStr != null">
+        DATA_STR = #{dataStr,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="dataCpx != null">
+        DATA_CPX = #{dataCpx,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="dataSupplied != null">
+        DATA_SUPPLIED = #{dataSupplied,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where DATA_ID = #{dataId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="autotest.com.bocom.entity.ItasCaseDataWithBLOBs">
+    update ITAS_CASE_DATA
+    set CASE_ID = #{caseId,jdbcType=INTEGER},
+      CASE_KEY = #{caseKey,jdbcType=INTEGER},
+      ENTITY_ID = #{entityId,jdbcType=INTEGER},
+      ENTITY_TYPE = #{entityType,jdbcType=CHAR},
+      DATA_NATURE = #{dataNature,jdbcType=CHAR},
+      LIST_ID = #{listId,jdbcType=VARCHAR},
+      LIST_ROW = #{listRow,jdbcType=VARCHAR},
+      FIELD_KEY = #{fieldKey,jdbcType=VARCHAR},
+      FIELD_ID = #{fieldId,jdbcType=VARCHAR},
+      FIELD_FROM = #{fieldFrom,jdbcType=CHAR},
+      ACT_NAME = #{actName,jdbcType=VARCHAR},
+      ACT_SEQ = #{actSeq,jdbcType=INTEGER},
+      ACT_TYP = #{actTyp,jdbcType=CHAR},
+      ACT_STR = #{actStr,jdbcType=VARCHAR},
+      DATA_TYP = #{dataTyp,jdbcType=CHAR},
+      DATA_REM = #{dataRem,jdbcType=VARCHAR},
+      DATA_USAGE = #{dataUsage,jdbcType=CHAR},
+      CREATE = #{create,jdbcType=INTEGER},
+      REVISER = #{reviser,jdbcType=INTEGER},
+      TIME_CREATED = #{timeCreated,jdbcType=TIMESTAMP},
+      TIME_REVISED = #{timeRevised,jdbcType=TIMESTAMP},
+      DATA_DICT = #{dataDict,jdbcType=INTEGER},
+      ACT_CPX = #{actCpx,jdbcType=LONGVARCHAR},
+      DATA_STR = #{dataStr,jdbcType=LONGVARCHAR},
+      DATA_CPX = #{dataCpx,jdbcType=LONGVARCHAR},
+      DATA_SUPPLIED = #{dataSupplied,jdbcType=LONGVARCHAR}
+    where DATA_ID = #{dataId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="autotest.com.bocom.entity.ItasCaseData">
+    update ITAS_CASE_DATA
+    set CASE_ID = #{caseId,jdbcType=INTEGER},
+      CASE_KEY = #{caseKey,jdbcType=INTEGER},
+      ENTITY_ID = #{entityId,jdbcType=INTEGER},
+      ENTITY_TYPE = #{entityType,jdbcType=CHAR},
+      DATA_NATURE = #{dataNature,jdbcType=CHAR},
+      LIST_ID = #{listId,jdbcType=VARCHAR},
+      LIST_ROW = #{listRow,jdbcType=VARCHAR},
+      FIELD_KEY = #{fieldKey,jdbcType=VARCHAR},
+      FIELD_ID = #{fieldId,jdbcType=VARCHAR},
+      FIELD_FROM = #{fieldFrom,jdbcType=CHAR},
+      ACT_NAME = #{actName,jdbcType=VARCHAR},
+      ACT_SEQ = #{actSeq,jdbcType=INTEGER},
+      ACT_TYP = #{actTyp,jdbcType=CHAR},
+      ACT_STR = #{actStr,jdbcType=VARCHAR},
+      DATA_TYP = #{dataTyp,jdbcType=CHAR},
+      DATA_REM = #{dataRem,jdbcType=VARCHAR},
+      DATA_USAGE = #{dataUsage,jdbcType=CHAR},
+      CREATE = #{create,jdbcType=INTEGER},
+      REVISER = #{reviser,jdbcType=INTEGER},
+      TIME_CREATED = #{timeCreated,jdbcType=TIMESTAMP},
+      TIME_REVISED = #{timeRevised,jdbcType=TIMESTAMP},
+      DATA_DICT = #{dataDict,jdbcType=INTEGER}
+    where DATA_ID = #{dataId,jdbcType=INTEGER}
+  </update>
+</mapper>

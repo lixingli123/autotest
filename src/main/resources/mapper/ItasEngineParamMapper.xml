@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="autotest.com.bocom.dao.ItasEngineParamMapper">
+  <resultMap id="BaseResultMap" type="autotest.com.bocom.entity.ItasEngineParam">
+    <result column="ITAS_ENGINE_PARAM_ID" jdbcType="INTEGER" property="itasEngineParamId" />
+    <result column="ENGINE_ID" jdbcType="INTEGER" property="engineId" />
+    <result column="ITAS_ENGINE_PARAM_NAME" jdbcType="VARCHAR" property="itasEngineParamName" />
+    <result column="ITAS_ENGINE_PARAM_VALUE" jdbcType="VARCHAR" property="itasEngineParamValue" />
+    <result column="ITAS_ENGINE_PARAM_DESC" jdbcType="VARCHAR" property="itasEngineParamDesc" />
+    <result column="CREATOR" jdbcType="INTEGER" property="creator" />
+    <result column="REVISER" jdbcType="INTEGER" property="reviser" />
+    <result column="TIME_CREATED" jdbcType="TIMESTAMP" property="timeCreated" />
+    <result column="TIME_REVISED" jdbcType="TIMESTAMP" property="timeRevised" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ITAS_ENGINE_PARAM_ID, ENGINE_ID, ITAS_ENGINE_PARAM_NAME, ITAS_ENGINE_PARAM_VALUE, 
+    ITAS_ENGINE_PARAM_DESC, CREATOR, REVISER, TIME_CREATED, TIME_REVISED
+  </sql>
+  <select id="selectByExample" parameterType="autotest.com.bocom.entity.ItasEngineParamExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from ITAS_ENGINE_PARAM
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="autotest.com.bocom.entity.ItasEngineParamExample">
+    delete from ITAS_ENGINE_PARAM
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="autotest.com.bocom.entity.ItasEngineParam">
+    insert into ITAS_ENGINE_PARAM (ITAS_ENGINE_PARAM_ID, ENGINE_ID, ITAS_ENGINE_PARAM_NAME, 
+      ITAS_ENGINE_PARAM_VALUE, ITAS_ENGINE_PARAM_DESC, 
+      CREATOR, REVISER, TIME_CREATED, 
+      TIME_REVISED)
+    values (#{itasEngineParamId,jdbcType=INTEGER}, #{engineId,jdbcType=INTEGER}, #{itasEngineParamName,jdbcType=VARCHAR}, 
+      #{itasEngineParamValue,jdbcType=VARCHAR}, #{itasEngineParamDesc,jdbcType=VARCHAR}, 
+      #{creator,jdbcType=INTEGER}, #{reviser,jdbcType=INTEGER}, #{timeCreated,jdbcType=TIMESTAMP}, 
+      #{timeRevised,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="autotest.com.bocom.entity.ItasEngineParam">
+    insert into ITAS_ENGINE_PARAM
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="itasEngineParamId != null">
+        ITAS_ENGINE_PARAM_ID,
+      </if>
+      <if test="engineId != null">
+        ENGINE_ID,
+      </if>
+      <if test="itasEngineParamName != null">
+        ITAS_ENGINE_PARAM_NAME,
+      </if>
+      <if test="itasEngineParamValue != null">
+        ITAS_ENGINE_PARAM_VALUE,
+      </if>
+      <if test="itasEngineParamDesc != null">
+        ITAS_ENGINE_PARAM_DESC,
+      </if>
+      <if test="creator != null">
+        CREATOR,
+      </if>
+      <if test="reviser != null">
+        REVISER,
+      </if>
+      <if test="timeCreated != null">
+        TIME_CREATED,
+      </if>
+      <if test="timeRevised != null">
+        TIME_REVISED,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="itasEngineParamId != null">
+        #{itasEngineParamId,jdbcType=INTEGER},
+      </if>
+      <if test="engineId != null">
+        #{engineId,jdbcType=INTEGER},
+      </if>
+      <if test="itasEngineParamName != null">
+        #{itasEngineParamName,jdbcType=VARCHAR},
+      </if>
+      <if test="itasEngineParamValue != null">
+        #{itasEngineParamValue,jdbcType=VARCHAR},
+      </if>
+      <if test="itasEngineParamDesc != null">
+        #{itasEngineParamDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="reviser != null">
+        #{reviser,jdbcType=INTEGER},
+      </if>
+      <if test="timeCreated != null">
+        #{timeCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeRevised != null">
+        #{timeRevised,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="autotest.com.bocom.entity.ItasEngineParamExample" resultType="java.lang.Long">
+    select count(*) from ITAS_ENGINE_PARAM
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ITAS_ENGINE_PARAM
+    <set>
+      <if test="record.itasEngineParamId != null">
+        ITAS_ENGINE_PARAM_ID = #{record.itasEngineParamId,jdbcType=INTEGER},
+      </if>
+      <if test="record.engineId != null">
+        ENGINE_ID = #{record.engineId,jdbcType=INTEGER},
+      </if>
+      <if test="record.itasEngineParamName != null">
+        ITAS_ENGINE_PARAM_NAME = #{record.itasEngineParamName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itasEngineParamValue != null">
+        ITAS_ENGINE_PARAM_VALUE = #{record.itasEngineParamValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itasEngineParamDesc != null">
+        ITAS_ENGINE_PARAM_DESC = #{record.itasEngineParamDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creator != null">
+        CREATOR = #{record.creator,jdbcType=INTEGER},
+      </if>
+      <if test="record.reviser != null">
+        REVISER = #{record.reviser,jdbcType=INTEGER},
+      </if>
+      <if test="record.timeCreated != null">
+        TIME_CREATED = #{record.timeCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.timeRevised != null">
+        TIME_REVISED = #{record.timeRevised,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ITAS_ENGINE_PARAM
+    set ITAS_ENGINE_PARAM_ID = #{record.itasEngineParamId,jdbcType=INTEGER},
+      ENGINE_ID = #{record.engineId,jdbcType=INTEGER},
+      ITAS_ENGINE_PARAM_NAME = #{record.itasEngineParamName,jdbcType=VARCHAR},
+      ITAS_ENGINE_PARAM_VALUE = #{record.itasEngineParamValue,jdbcType=VARCHAR},
+      ITAS_ENGINE_PARAM_DESC = #{record.itasEngineParamDesc,jdbcType=VARCHAR},
+      CREATOR = #{record.creator,jdbcType=INTEGER},
+      REVISER = #{record.reviser,jdbcType=INTEGER},
+      TIME_CREATED = #{record.timeCreated,jdbcType=TIMESTAMP},
+      TIME_REVISED = #{record.timeRevised,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

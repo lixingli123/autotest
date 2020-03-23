@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="autotest.com.bocom.dao.ItasServiceMapper">
+  <resultMap id="BaseResultMap" type="autotest.com.bocom.entity.ItasService">
+    <id column="SVC_ID" jdbcType="INTEGER" property="svcId" />
+    <result column="SVC_CODE" jdbcType="VARCHAR" property="svcCode" />
+    <result column="SVC_NAME" jdbcType="VARCHAR" property="svcName" />
+    <result column="SYS_ID" jdbcType="INTEGER" property="sysId" />
+    <result column="SVC_TYPE" jdbcType="CHAR" property="svcType" />
+    <result column="SVC_STATUS" jdbcType="CHAR" property="svcStatus" />
+    <result column="SVC_DESC" jdbcType="VARCHAR" property="svcDesc" />
+    <result column="SVC_MASTER" jdbcType="INTEGER" property="svcMaster" />
+    <result column="SVC_TESTER" jdbcType="INTEGER" property="svcTester" />
+    <result column="CREATOR" jdbcType="INTEGER" property="creator" />
+    <result column="REVISER" jdbcType="INTEGER" property="reviser" />
+    <result column="TIME_CREATED" jdbcType="TIMESTAMP" property="timeCreated" />
+    <result column="TIME_REVISED" jdbcType="TIMESTAMP" property="timeRevised" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    SVC_ID, SVC_CODE, SVC_NAME, SYS_ID, SVC_TYPE, SVC_STATUS, SVC_DESC, SVC_MASTER, SVC_TESTER, 
+    CREATOR, REVISER, TIME_CREATED, TIME_REVISED
+  </sql>
+  <select id="selectByExample" parameterType="autotest.com.bocom.entity.ItasServiceExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from ITAS_SERVICE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ITAS_SERVICE
+    where SVC_ID = #{svcId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ITAS_SERVICE
+    where SVC_ID = #{svcId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="autotest.com.bocom.entity.ItasServiceExample">
+    delete from ITAS_SERVICE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="autotest.com.bocom.entity.ItasService">
+    insert into ITAS_SERVICE (SVC_ID, SVC_CODE, SVC_NAME, 
+      SYS_ID, SVC_TYPE, SVC_STATUS, 
+      SVC_DESC, SVC_MASTER, SVC_TESTER, 
+      CREATOR, REVISER, TIME_CREATED, 
+      TIME_REVISED)
+    values (#{svcId,jdbcType=INTEGER}, #{svcCode,jdbcType=VARCHAR}, #{svcName,jdbcType=VARCHAR}, 
+      #{sysId,jdbcType=INTEGER}, #{svcType,jdbcType=CHAR}, #{svcStatus,jdbcType=CHAR}, 
+      #{svcDesc,jdbcType=VARCHAR}, #{svcMaster,jdbcType=INTEGER}, #{svcTester,jdbcType=INTEGER}, 
+      #{creator,jdbcType=INTEGER}, #{reviser,jdbcType=INTEGER}, #{timeCreated,jdbcType=TIMESTAMP}, 
+      #{timeRevised,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="autotest.com.bocom.entity.ItasService">
+    insert into ITAS_SERVICE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="svcId != null">
+        SVC_ID,
+      </if>
+      <if test="svcCode != null">
+        SVC_CODE,
+      </if>
+      <if test="svcName != null">
+        SVC_NAME,
+      </if>
+      <if test="sysId != null">
+        SYS_ID,
+      </if>
+      <if test="svcType != null">
+        SVC_TYPE,
+      </if>
+      <if test="svcStatus != null">
+        SVC_STATUS,
+      </if>
+      <if test="svcDesc != null">
+        SVC_DESC,
+      </if>
+      <if test="svcMaster != null">
+        SVC_MASTER,
+      </if>
+      <if test="svcTester != null">
+        SVC_TESTER,
+      </if>
+      <if test="creator != null">
+        CREATOR,
+      </if>
+      <if test="reviser != null">
+        REVISER,
+      </if>
+      <if test="timeCreated != null">
+        TIME_CREATED,
+      </if>
+      <if test="timeRevised != null">
+        TIME_REVISED,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="svcId != null">
+        #{svcId,jdbcType=INTEGER},
+      </if>
+      <if test="svcCode != null">
+        #{svcCode,jdbcType=VARCHAR},
+      </if>
+      <if test="svcName != null">
+        #{svcName,jdbcType=VARCHAR},
+      </if>
+      <if test="sysId != null">
+        #{sysId,jdbcType=INTEGER},
+      </if>
+      <if test="svcType != null">
+        #{svcType,jdbcType=CHAR},
+      </if>
+      <if test="svcStatus != null">
+        #{svcStatus,jdbcType=CHAR},
+      </if>
+      <if test="svcDesc != null">
+        #{svcDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="svcMaster != null">
+        #{svcMaster,jdbcType=INTEGER},
+      </if>
+      <if test="svcTester != null">
+        #{svcTester,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="reviser != null">
+        #{reviser,jdbcType=INTEGER},
+      </if>
+      <if test="timeCreated != null">
+        #{timeCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeRevised != null">
+        #{timeRevised,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="autotest.com.bocom.entity.ItasServiceExample" resultType="java.lang.Long">
+    select count(*) from ITAS_SERVICE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ITAS_SERVICE
+    <set>
+      <if test="record.svcId != null">
+        SVC_ID = #{record.svcId,jdbcType=INTEGER},
+      </if>
+      <if test="record.svcCode != null">
+        SVC_CODE = #{record.svcCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.svcName != null">
+        SVC_NAME = #{record.svcName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sysId != null">
+        SYS_ID = #{record.sysId,jdbcType=INTEGER},
+      </if>
+      <if test="record.svcType != null">
+        SVC_TYPE = #{record.svcType,jdbcType=CHAR},
+      </if>
+      <if test="record.svcStatus != null">
+        SVC_STATUS = #{record.svcStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.svcDesc != null">
+        SVC_DESC = #{record.svcDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.svcMaster != null">
+        SVC_MASTER = #{record.svcMaster,jdbcType=INTEGER},
+      </if>
+      <if test="record.svcTester != null">
+        SVC_TESTER = #{record.svcTester,jdbcType=INTEGER},
+      </if>
+      <if test="record.creator != null">
+        CREATOR = #{record.creator,jdbcType=INTEGER},
+      </if>
+      <if test="record.reviser != null">
+        REVISER = #{record.reviser,jdbcType=INTEGER},
+      </if>
+      <if test="record.timeCreated != null">
+        TIME_CREATED = #{record.timeCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.timeRevised != null">
+        TIME_REVISED = #{record.timeRevised,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ITAS_SERVICE
+    set SVC_ID = #{record.svcId,jdbcType=INTEGER},
+      SVC_CODE = #{record.svcCode,jdbcType=VARCHAR},
+      SVC_NAME = #{record.svcName,jdbcType=VARCHAR},
+      SYS_ID = #{record.sysId,jdbcType=INTEGER},
+      SVC_TYPE = #{record.svcType,jdbcType=CHAR},
+      SVC_STATUS = #{record.svcStatus,jdbcType=CHAR},
+      SVC_DESC = #{record.svcDesc,jdbcType=VARCHAR},
+      SVC_MASTER = #{record.svcMaster,jdbcType=INTEGER},
+      SVC_TESTER = #{record.svcTester,jdbcType=INTEGER},
+      CREATOR = #{record.creator,jdbcType=INTEGER},
+      REVISER = #{record.reviser,jdbcType=INTEGER},
+      TIME_CREATED = #{record.timeCreated,jdbcType=TIMESTAMP},
+      TIME_REVISED = #{record.timeRevised,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="autotest.com.bocom.entity.ItasService">
+    update ITAS_SERVICE
+    <set>
+      <if test="svcCode != null">
+        SVC_CODE = #{svcCode,jdbcType=VARCHAR},
+      </if>
+      <if test="svcName != null">
+        SVC_NAME = #{svcName,jdbcType=VARCHAR},
+      </if>
+      <if test="sysId != null">
+        SYS_ID = #{sysId,jdbcType=INTEGER},
+      </if>
+      <if test="svcType != null">
+        SVC_TYPE = #{svcType,jdbcType=CHAR},
+      </if>
+      <if test="svcStatus != null">
+        SVC_STATUS = #{svcStatus,jdbcType=CHAR},
+      </if>
+      <if test="svcDesc != null">
+        SVC_DESC = #{svcDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="svcMaster != null">
+        SVC_MASTER = #{svcMaster,jdbcType=INTEGER},
+      </if>
+      <if test="svcTester != null">
+        SVC_TESTER = #{svcTester,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null">
+        CREATOR = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="reviser != null">
+        REVISER = #{reviser,jdbcType=INTEGER},
+      </if>
+      <if test="timeCreated != null">
+        TIME_CREATED = #{timeCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeRevised != null">
+        TIME_REVISED = #{timeRevised,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where SVC_ID = #{svcId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="autotest.com.bocom.entity.ItasService">
+    update ITAS_SERVICE
+    set SVC_CODE = #{svcCode,jdbcType=VARCHAR},
+      SVC_NAME = #{svcName,jdbcType=VARCHAR},
+      SYS_ID = #{sysId,jdbcType=INTEGER},
+      SVC_TYPE = #{svcType,jdbcType=CHAR},
+      SVC_STATUS = #{svcStatus,jdbcType=CHAR},
+      SVC_DESC = #{svcDesc,jdbcType=VARCHAR},
+      SVC_MASTER = #{svcMaster,jdbcType=INTEGER},
+      SVC_TESTER = #{svcTester,jdbcType=INTEGER},
+      CREATOR = #{creator,jdbcType=INTEGER},
+      REVISER = #{reviser,jdbcType=INTEGER},
+      TIME_CREATED = #{timeCreated,jdbcType=TIMESTAMP},
+      TIME_REVISED = #{timeRevised,jdbcType=TIMESTAMP}
+    where SVC_ID = #{svcId,jdbcType=INTEGER}
+  </update>
+</mapper>

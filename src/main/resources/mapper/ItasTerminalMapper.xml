@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="autotest.com.bocom.dao.ItasTerminalMapper">
+  <resultMap id="BaseResultMap" type="autotest.com.bocom.entity.ItasTerminal">
+    <id column="TERMINAL_ID" jdbcType="INTEGER" property="terminalId" />
+    <result column="TERMINAL_NAME" jdbcType="VARCHAR" property="terminalName" />
+    <result column="TERMINAL_IP" jdbcType="VARCHAR" property="terminalIp" />
+    <result column="TERMINAL_PORT" jdbcType="VARCHAR" property="terminalPort" />
+    <result column="STATUS" jdbcType="CHAR" property="status" />
+    <result column="CREATOR" jdbcType="INTEGER" property="creator" />
+    <result column="REVISER" jdbcType="INTEGER" property="reviser" />
+    <result column="TIME_CREATED" jdbcType="TIMESTAMP" property="timeCreated" />
+    <result column="TIME_REVISED" jdbcType="TIMESTAMP" property="timeRevised" />
+    <result column="TERMINAL_TYPE" jdbcType="CHAR" property="terminalType" />
+    <result column="TERMINAL_USER" jdbcType="VARCHAR" property="terminalUser" />
+    <result column="TERMINAL_PASSWD" jdbcType="VARCHAR" property="terminalPasswd" />
+    <result column="PROCESS_STATUS" jdbcType="CHAR" property="processStatus" />
+    <result column="PROCESS_ID" jdbcType="INTEGER" property="processId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TERMINAL_ID, TERMINAL_NAME, TERMINAL_IP, TERMINAL_PORT, STATUS, CREATOR, REVISER, 
+    TIME_CREATED, TIME_REVISED, TERMINAL_TYPE, TERMINAL_USER, TERMINAL_PASSWD, PROCESS_STATUS, 
+    PROCESS_ID
+  </sql>
+  <select id="selectByExample" parameterType="autotest.com.bocom.entity.ItasTerminalExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from ITAS_TERMINAL
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ITAS_TERMINAL
+    where TERMINAL_ID = #{terminalId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ITAS_TERMINAL
+    where TERMINAL_ID = #{terminalId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="autotest.com.bocom.entity.ItasTerminalExample">
+    delete from ITAS_TERMINAL
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="autotest.com.bocom.entity.ItasTerminal">
+    insert into ITAS_TERMINAL (TERMINAL_ID, TERMINAL_NAME, TERMINAL_IP, 
+      TERMINAL_PORT, STATUS, CREATOR, 
+      REVISER, TIME_CREATED, TIME_REVISED, 
+      TERMINAL_TYPE, TERMINAL_USER, TERMINAL_PASSWD, 
+      PROCESS_STATUS, PROCESS_ID)
+    values (#{terminalId,jdbcType=INTEGER}, #{terminalName,jdbcType=VARCHAR}, #{terminalIp,jdbcType=VARCHAR}, 
+      #{terminalPort,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, #{creator,jdbcType=INTEGER}, 
+      #{reviser,jdbcType=INTEGER}, #{timeCreated,jdbcType=TIMESTAMP}, #{timeRevised,jdbcType=TIMESTAMP}, 
+      #{terminalType,jdbcType=CHAR}, #{terminalUser,jdbcType=VARCHAR}, #{terminalPasswd,jdbcType=VARCHAR}, 
+      #{processStatus,jdbcType=CHAR}, #{processId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="autotest.com.bocom.entity.ItasTerminal">
+    insert into ITAS_TERMINAL
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="terminalId != null">
+        TERMINAL_ID,
+      </if>
+      <if test="terminalName != null">
+        TERMINAL_NAME,
+      </if>
+      <if test="terminalIp != null">
+        TERMINAL_IP,
+      </if>
+      <if test="terminalPort != null">
+        TERMINAL_PORT,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="creator != null">
+        CREATOR,
+      </if>
+      <if test="reviser != null">
+        REVISER,
+      </if>
+      <if test="timeCreated != null">
+        TIME_CREATED,
+      </if>
+      <if test="timeRevised != null">
+        TIME_REVISED,
+      </if>
+      <if test="terminalType != null">
+        TERMINAL_TYPE,
+      </if>
+      <if test="terminalUser != null">
+        TERMINAL_USER,
+      </if>
+      <if test="terminalPasswd != null">
+        TERMINAL_PASSWD,
+      </if>
+      <if test="processStatus != null">
+        PROCESS_STATUS,
+      </if>
+      <if test="processId != null">
+        PROCESS_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="terminalId != null">
+        #{terminalId,jdbcType=INTEGER},
+      </if>
+      <if test="terminalName != null">
+        #{terminalName,jdbcType=VARCHAR},
+      </if>
+      <if test="terminalIp != null">
+        #{terminalIp,jdbcType=VARCHAR},
+      </if>
+      <if test="terminalPort != null">
+        #{terminalPort,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="reviser != null">
+        #{reviser,jdbcType=INTEGER},
+      </if>
+      <if test="timeCreated != null">
+        #{timeCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeRevised != null">
+        #{timeRevised,jdbcType=TIMESTAMP},
+      </if>
+      <if test="terminalType != null">
+        #{terminalType,jdbcType=CHAR},
+      </if>
+      <if test="terminalUser != null">
+        #{terminalUser,jdbcType=VARCHAR},
+      </if>
+      <if test="terminalPasswd != null">
+        #{terminalPasswd,jdbcType=VARCHAR},
+      </if>
+      <if test="processStatus != null">
+        #{processStatus,jdbcType=CHAR},
+      </if>
+      <if test="processId != null">
+        #{processId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="autotest.com.bocom.entity.ItasTerminalExample" resultType="java.lang.Long">
+    select count(*) from ITAS_TERMINAL
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ITAS_TERMINAL
+    <set>
+      <if test="record.terminalId != null">
+        TERMINAL_ID = #{record.terminalId,jdbcType=INTEGER},
+      </if>
+      <if test="record.terminalName != null">
+        TERMINAL_NAME = #{record.terminalName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.terminalIp != null">
+        TERMINAL_IP = #{record.terminalIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.terminalPort != null">
+        TERMINAL_PORT = #{record.terminalPort,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        STATUS = #{record.status,jdbcType=CHAR},
+      </if>
+      <if test="record.creator != null">
+        CREATOR = #{record.creator,jdbcType=INTEGER},
+      </if>
+      <if test="record.reviser != null">
+        REVISER = #{record.reviser,jdbcType=INTEGER},
+      </if>
+      <if test="record.timeCreated != null">
+        TIME_CREATED = #{record.timeCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.timeRevised != null">
+        TIME_REVISED = #{record.timeRevised,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.terminalType != null">
+        TERMINAL_TYPE = #{record.terminalType,jdbcType=CHAR},
+      </if>
+      <if test="record.terminalUser != null">
+        TERMINAL_USER = #{record.terminalUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.terminalPasswd != null">
+        TERMINAL_PASSWD = #{record.terminalPasswd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.processStatus != null">
+        PROCESS_STATUS = #{record.processStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.processId != null">
+        PROCESS_ID = #{record.processId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ITAS_TERMINAL
+    set TERMINAL_ID = #{record.terminalId,jdbcType=INTEGER},
+      TERMINAL_NAME = #{record.terminalName,jdbcType=VARCHAR},
+      TERMINAL_IP = #{record.terminalIp,jdbcType=VARCHAR},
+      TERMINAL_PORT = #{record.terminalPort,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=CHAR},
+      CREATOR = #{record.creator,jdbcType=INTEGER},
+      REVISER = #{record.reviser,jdbcType=INTEGER},
+      TIME_CREATED = #{record.timeCreated,jdbcType=TIMESTAMP},
+      TIME_REVISED = #{record.timeRevised,jdbcType=TIMESTAMP},
+      TERMINAL_TYPE = #{record.terminalType,jdbcType=CHAR},
+      TERMINAL_USER = #{record.terminalUser,jdbcType=VARCHAR},
+      TERMINAL_PASSWD = #{record.terminalPasswd,jdbcType=VARCHAR},
+      PROCESS_STATUS = #{record.processStatus,jdbcType=CHAR},
+      PROCESS_ID = #{record.processId,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="autotest.com.bocom.entity.ItasTerminal">
+    update ITAS_TERMINAL
+    <set>
+      <if test="terminalName != null">
+        TERMINAL_NAME = #{terminalName,jdbcType=VARCHAR},
+      </if>
+      <if test="terminalIp != null">
+        TERMINAL_IP = #{terminalIp,jdbcType=VARCHAR},
+      </if>
+      <if test="terminalPort != null">
+        TERMINAL_PORT = #{terminalPort,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="creator != null">
+        CREATOR = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="reviser != null">
+        REVISER = #{reviser,jdbcType=INTEGER},
+      </if>
+      <if test="timeCreated != null">
+        TIME_CREATED = #{timeCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeRevised != null">
+        TIME_REVISED = #{timeRevised,jdbcType=TIMESTAMP},
+      </if>
+      <if test="terminalType != null">
+        TERMINAL_TYPE = #{terminalType,jdbcType=CHAR},
+      </if>
+      <if test="terminalUser != null">
+        TERMINAL_USER = #{terminalUser,jdbcType=VARCHAR},
+      </if>
+      <if test="terminalPasswd != null">
+        TERMINAL_PASSWD = #{terminalPasswd,jdbcType=VARCHAR},
+      </if>
+      <if test="processStatus != null">
+        PROCESS_STATUS = #{processStatus,jdbcType=CHAR},
+      </if>
+      <if test="processId != null">
+        PROCESS_ID = #{processId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where TERMINAL_ID = #{terminalId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="autotest.com.bocom.entity.ItasTerminal">
+    update ITAS_TERMINAL
+    set TERMINAL_NAME = #{terminalName,jdbcType=VARCHAR},
+      TERMINAL_IP = #{terminalIp,jdbcType=VARCHAR},
+      TERMINAL_PORT = #{terminalPort,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=CHAR},
+      CREATOR = #{creator,jdbcType=INTEGER},
+      REVISER = #{reviser,jdbcType=INTEGER},
+      TIME_CREATED = #{timeCreated,jdbcType=TIMESTAMP},
+      TIME_REVISED = #{timeRevised,jdbcType=TIMESTAMP},
+      TERMINAL_TYPE = #{terminalType,jdbcType=CHAR},
+      TERMINAL_USER = #{terminalUser,jdbcType=VARCHAR},
+      TERMINAL_PASSWD = #{terminalPasswd,jdbcType=VARCHAR},
+      PROCESS_STATUS = #{processStatus,jdbcType=CHAR},
+      PROCESS_ID = #{processId,jdbcType=INTEGER}
+    where TERMINAL_ID = #{terminalId,jdbcType=INTEGER}
+  </update>
+</mapper>

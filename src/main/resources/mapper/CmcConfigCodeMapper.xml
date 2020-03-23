@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="autotest.com.bocom.dao.CmcConfigCodeMapper">
+  <resultMap id="BaseResultMap" type="autotest.com.bocom.entity.CmcConfigCode">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="CONFIG_CODE" jdbcType="VARCHAR" property="configCode" />
+    <result column="CONFIG_NAME" jdbcType="VARCHAR" property="configName" />
+    <result column="CONFIG_VALUE" jdbcType="VARCHAR" property="configValue" />
+    <result column="CONFIG_SWITCH" jdbcType="CHAR" property="configSwitch" />
+    <result column="CONFIG_UTIL" jdbcType="CHAR" property="configUtil" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, CONFIG_CODE, CONFIG_NAME, CONFIG_VALUE, CONFIG_SWITCH, CONFIG_UTIL, CREATE_TIME
+  </sql>
+  <select id="selectByExample" parameterType="autotest.com.bocom.entity.CmcConfigCodeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from CMC_CONFIG_CODE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from CMC_CONFIG_CODE
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from CMC_CONFIG_CODE
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="autotest.com.bocom.entity.CmcConfigCodeExample">
+    delete from CMC_CONFIG_CODE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="autotest.com.bocom.entity.CmcConfigCode">
+    insert into CMC_CONFIG_CODE (ID, CONFIG_CODE, CONFIG_NAME, 
+      CONFIG_VALUE, CONFIG_SWITCH, CONFIG_UTIL, 
+      CREATE_TIME)
+    values (#{id,jdbcType=INTEGER}, #{configCode,jdbcType=VARCHAR}, #{configName,jdbcType=VARCHAR}, 
+      #{configValue,jdbcType=VARCHAR}, #{configSwitch,jdbcType=CHAR}, #{configUtil,jdbcType=CHAR}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="autotest.com.bocom.entity.CmcConfigCode">
+    insert into CMC_CONFIG_CODE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="configCode != null">
+        CONFIG_CODE,
+      </if>
+      <if test="configName != null">
+        CONFIG_NAME,
+      </if>
+      <if test="configValue != null">
+        CONFIG_VALUE,
+      </if>
+      <if test="configSwitch != null">
+        CONFIG_SWITCH,
+      </if>
+      <if test="configUtil != null">
+        CONFIG_UTIL,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="configCode != null">
+        #{configCode,jdbcType=VARCHAR},
+      </if>
+      <if test="configName != null">
+        #{configName,jdbcType=VARCHAR},
+      </if>
+      <if test="configValue != null">
+        #{configValue,jdbcType=VARCHAR},
+      </if>
+      <if test="configSwitch != null">
+        #{configSwitch,jdbcType=CHAR},
+      </if>
+      <if test="configUtil != null">
+        #{configUtil,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="autotest.com.bocom.entity.CmcConfigCodeExample" resultType="java.lang.Long">
+    select count(*) from CMC_CONFIG_CODE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update CMC_CONFIG_CODE
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.configCode != null">
+        CONFIG_CODE = #{record.configCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.configName != null">
+        CONFIG_NAME = #{record.configName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.configValue != null">
+        CONFIG_VALUE = #{record.configValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.configSwitch != null">
+        CONFIG_SWITCH = #{record.configSwitch,jdbcType=CHAR},
+      </if>
+      <if test="record.configUtil != null">
+        CONFIG_UTIL = #{record.configUtil,jdbcType=CHAR},
+      </if>
+      <if test="record.createTime != null">
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update CMC_CONFIG_CODE
+    set ID = #{record.id,jdbcType=INTEGER},
+      CONFIG_CODE = #{record.configCode,jdbcType=VARCHAR},
+      CONFIG_NAME = #{record.configName,jdbcType=VARCHAR},
+      CONFIG_VALUE = #{record.configValue,jdbcType=VARCHAR},
+      CONFIG_SWITCH = #{record.configSwitch,jdbcType=CHAR},
+      CONFIG_UTIL = #{record.configUtil,jdbcType=CHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="autotest.com.bocom.entity.CmcConfigCode">
+    update CMC_CONFIG_CODE
+    <set>
+      <if test="configCode != null">
+        CONFIG_CODE = #{configCode,jdbcType=VARCHAR},
+      </if>
+      <if test="configName != null">
+        CONFIG_NAME = #{configName,jdbcType=VARCHAR},
+      </if>
+      <if test="configValue != null">
+        CONFIG_VALUE = #{configValue,jdbcType=VARCHAR},
+      </if>
+      <if test="configSwitch != null">
+        CONFIG_SWITCH = #{configSwitch,jdbcType=CHAR},
+      </if>
+      <if test="configUtil != null">
+        CONFIG_UTIL = #{configUtil,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="autotest.com.bocom.entity.CmcConfigCode">
+    update CMC_CONFIG_CODE
+    set CONFIG_CODE = #{configCode,jdbcType=VARCHAR},
+      CONFIG_NAME = #{configName,jdbcType=VARCHAR},
+      CONFIG_VALUE = #{configValue,jdbcType=VARCHAR},
+      CONFIG_SWITCH = #{configSwitch,jdbcType=CHAR},
+      CONFIG_UTIL = #{configUtil,jdbcType=CHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

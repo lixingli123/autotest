@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="autotest.com.bocom.dao.ItasDataPreApplyValueMapper">
+  <resultMap id="BaseResultMap" type="autotest.com.bocom.entity.ItasDataPreApplyValue">
+    <id column="ELEMENT_ID" jdbcType="INTEGER" property="elementId" />
+    <result column="ELEMENT_NAME" jdbcType="VARCHAR" property="elementName" />
+    <result column="APPLY_ID" jdbcType="INTEGER" property="applyId" />
+    <result column="ELEMENT_VALUE_TYPE" jdbcType="CHAR" property="elementValueType" />
+    <result column="ELEMENT_VALUE_STRING" jdbcType="VARCHAR" property="elementValueString" />
+    <result column="ELEMENT_VALUE_COMPLEX" jdbcType="VARCHAR" property="elementValueComplex" />
+    <result column="ELEMENT_VALUE_REMARK" jdbcType="VARCHAR" property="elementValueRemark" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ELEMENT_ID, ELEMENT_NAME, APPLY_ID, ELEMENT_VALUE_TYPE, ELEMENT_VALUE_STRING, ELEMENT_VALUE_COMPLEX, 
+    ELEMENT_VALUE_REMARK
+  </sql>
+  <select id="selectByExample" parameterType="autotest.com.bocom.entity.ItasDataPreApplyValueExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from ITAS_DATA_PRE_APPLY_VALUE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ITAS_DATA_PRE_APPLY_VALUE
+    where ELEMENT_ID = #{elementId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ITAS_DATA_PRE_APPLY_VALUE
+    where ELEMENT_ID = #{elementId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="autotest.com.bocom.entity.ItasDataPreApplyValueExample">
+    delete from ITAS_DATA_PRE_APPLY_VALUE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="autotest.com.bocom.entity.ItasDataPreApplyValue">
+    insert into ITAS_DATA_PRE_APPLY_VALUE (ELEMENT_ID, ELEMENT_NAME, APPLY_ID, 
+      ELEMENT_VALUE_TYPE, ELEMENT_VALUE_STRING, ELEMENT_VALUE_COMPLEX, 
+      ELEMENT_VALUE_REMARK)
+    values (#{elementId,jdbcType=INTEGER}, #{elementName,jdbcType=VARCHAR}, #{applyId,jdbcType=INTEGER}, 
+      #{elementValueType,jdbcType=CHAR}, #{elementValueString,jdbcType=VARCHAR}, #{elementValueComplex,jdbcType=VARCHAR}, 
+      #{elementValueRemark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="autotest.com.bocom.entity.ItasDataPreApplyValue">
+    insert into ITAS_DATA_PRE_APPLY_VALUE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="elementId != null">
+        ELEMENT_ID,
+      </if>
+      <if test="elementName != null">
+        ELEMENT_NAME,
+      </if>
+      <if test="applyId != null">
+        APPLY_ID,
+      </if>
+      <if test="elementValueType != null">
+        ELEMENT_VALUE_TYPE,
+      </if>
+      <if test="elementValueString != null">
+        ELEMENT_VALUE_STRING,
+      </if>
+      <if test="elementValueComplex != null">
+        ELEMENT_VALUE_COMPLEX,
+      </if>
+      <if test="elementValueRemark != null">
+        ELEMENT_VALUE_REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="elementId != null">
+        #{elementId,jdbcType=INTEGER},
+      </if>
+      <if test="elementName != null">
+        #{elementName,jdbcType=VARCHAR},
+      </if>
+      <if test="applyId != null">
+        #{applyId,jdbcType=INTEGER},
+      </if>
+      <if test="elementValueType != null">
+        #{elementValueType,jdbcType=CHAR},
+      </if>
+      <if test="elementValueString != null">
+        #{elementValueString,jdbcType=VARCHAR},
+      </if>
+      <if test="elementValueComplex != null">
+        #{elementValueComplex,jdbcType=VARCHAR},
+      </if>
+      <if test="elementValueRemark != null">
+        #{elementValueRemark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="autotest.com.bocom.entity.ItasDataPreApplyValueExample" resultType="java.lang.Long">
+    select count(*) from ITAS_DATA_PRE_APPLY_VALUE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ITAS_DATA_PRE_APPLY_VALUE
+    <set>
+      <if test="record.elementId != null">
+        ELEMENT_ID = #{record.elementId,jdbcType=INTEGER},
+      </if>
+      <if test="record.elementName != null">
+        ELEMENT_NAME = #{record.elementName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyId != null">
+        APPLY_ID = #{record.applyId,jdbcType=INTEGER},
+      </if>
+      <if test="record.elementValueType != null">
+        ELEMENT_VALUE_TYPE = #{record.elementValueType,jdbcType=CHAR},
+      </if>
+      <if test="record.elementValueString != null">
+        ELEMENT_VALUE_STRING = #{record.elementValueString,jdbcType=VARCHAR},
+      </if>
+      <if test="record.elementValueComplex != null">
+        ELEMENT_VALUE_COMPLEX = #{record.elementValueComplex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.elementValueRemark != null">
+        ELEMENT_VALUE_REMARK = #{record.elementValueRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ITAS_DATA_PRE_APPLY_VALUE
+    set ELEMENT_ID = #{record.elementId,jdbcType=INTEGER},
+      ELEMENT_NAME = #{record.elementName,jdbcType=VARCHAR},
+      APPLY_ID = #{record.applyId,jdbcType=INTEGER},
+      ELEMENT_VALUE_TYPE = #{record.elementValueType,jdbcType=CHAR},
+      ELEMENT_VALUE_STRING = #{record.elementValueString,jdbcType=VARCHAR},
+      ELEMENT_VALUE_COMPLEX = #{record.elementValueComplex,jdbcType=VARCHAR},
+      ELEMENT_VALUE_REMARK = #{record.elementValueRemark,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="autotest.com.bocom.entity.ItasDataPreApplyValue">
+    update ITAS_DATA_PRE_APPLY_VALUE
+    <set>
+      <if test="elementName != null">
+        ELEMENT_NAME = #{elementName,jdbcType=VARCHAR},
+      </if>
+      <if test="applyId != null">
+        APPLY_ID = #{applyId,jdbcType=INTEGER},
+      </if>
+      <if test="elementValueType != null">
+        ELEMENT_VALUE_TYPE = #{elementValueType,jdbcType=CHAR},
+      </if>
+      <if test="elementValueString != null">
+        ELEMENT_VALUE_STRING = #{elementValueString,jdbcType=VARCHAR},
+      </if>
+      <if test="elementValueComplex != null">
+        ELEMENT_VALUE_COMPLEX = #{elementValueComplex,jdbcType=VARCHAR},
+      </if>
+      <if test="elementValueRemark != null">
+        ELEMENT_VALUE_REMARK = #{elementValueRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ELEMENT_ID = #{elementId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="autotest.com.bocom.entity.ItasDataPreApplyValue">
+    update ITAS_DATA_PRE_APPLY_VALUE
+    set ELEMENT_NAME = #{elementName,jdbcType=VARCHAR},
+      APPLY_ID = #{applyId,jdbcType=INTEGER},
+      ELEMENT_VALUE_TYPE = #{elementValueType,jdbcType=CHAR},
+      ELEMENT_VALUE_STRING = #{elementValueString,jdbcType=VARCHAR},
+      ELEMENT_VALUE_COMPLEX = #{elementValueComplex,jdbcType=VARCHAR},
+      ELEMENT_VALUE_REMARK = #{elementValueRemark,jdbcType=VARCHAR}
+    where ELEMENT_ID = #{elementId,jdbcType=INTEGER}
+  </update>
+</mapper>

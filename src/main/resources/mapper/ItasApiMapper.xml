@@ -1,0 +1,603 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="autotest.com.bocom.dao.ItasApiMapper">
+  <resultMap id="BaseResultMap" type="autotest.com.bocom.entity.ItasApi">
+    <id column="API_ID" jdbcType="INTEGER" property="apiId" />
+    <result column="API_KEY" jdbcType="INTEGER" property="apiKey" />
+    <result column="API_CODE" jdbcType="VARCHAR" property="apiCode" />
+    <result column="API_NAME" jdbcType="VARCHAR" property="apiName" />
+    <result column="SYSTEM_ID" jdbcType="INTEGER" property="systemId" />
+    <result column="SERVICE_ID" jdbcType="INTEGER" property="serviceId" />
+    <result column="API_TYPE" jdbcType="CHAR" property="apiType" />
+    <result column="API_NATURE" jdbcType="CHAR" property="apiNature" />
+    <result column="API_MASTER" jdbcType="INTEGER" property="apiMaster" />
+    <result column="API_TESTER" jdbcType="INTEGER" property="apiTester" />
+    <result column="CREATOR" jdbcType="INTEGER" property="creator" />
+    <result column="REVISER" jdbcType="INTEGER" property="reviser" />
+    <result column="TIME_CREATED" jdbcType="TIMESTAMP" property="timeCreated" />
+    <result column="TIME_REVISED" jdbcType="TIMESTAMP" property="timeRevised" />
+    <result column="API_VERSION" jdbcType="DECIMAL" property="apiVersion" />
+    <result column="API_ACTIVED" jdbcType="CHAR" property="apiActived" />
+    <result column="API_FLAG" jdbcType="CHAR" property="apiFlag" />
+    <result column="PRD_DATE" jdbcType="VARCHAR" property="prdDate" />
+    <result column="API_BASED" jdbcType="INTEGER" property="apiBased" />
+    <result column="CHANGE_VERSION" jdbcType="VARCHAR" property="changeVersion" />
+    <result column="API_STATUS" jdbcType="CHAR" property="apiStatus" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="autotest.com.bocom.entity.ItasApiWithBLOBs">
+    <result column="API_DESC" jdbcType="LONGVARCHAR" property="apiDesc" />
+    <result column="API_REQ" jdbcType="LONGVARCHAR" property="apiReq" />
+    <result column="API_EXT" jdbcType="LONGVARCHAR" property="apiExt" />
+    <result column="API_RSP" jdbcType="LONGVARCHAR" property="apiRsp" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    API_ID, API_KEY, API_CODE, API_NAME, SYSTEM_ID, SERVICE_ID, API_TYPE, API_NATURE, 
+    API_MASTER, API_TESTER, CREATOR, REVISER, TIME_CREATED, TIME_REVISED, API_VERSION, 
+    API_ACTIVED, API_FLAG, PRD_DATE, API_BASED, CHANGE_VERSION, API_STATUS
+  </sql>
+  <sql id="Blob_Column_List">
+    API_DESC, API_REQ, API_EXT, API_RSP
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="autotest.com.bocom.entity.ItasApiExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ITAS_API
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="autotest.com.bocom.entity.ItasApiExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from ITAS_API
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ITAS_API
+    where API_ID = #{apiId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ITAS_API
+    where API_ID = #{apiId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="autotest.com.bocom.entity.ItasApiExample">
+    delete from ITAS_API
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="autotest.com.bocom.entity.ItasApiWithBLOBs">
+    insert into ITAS_API (API_ID, API_KEY, API_CODE, 
+      API_NAME, SYSTEM_ID, SERVICE_ID, 
+      API_TYPE, API_NATURE, API_MASTER, 
+      API_TESTER, CREATOR, REVISER, 
+      TIME_CREATED, TIME_REVISED, API_VERSION, 
+      API_ACTIVED, API_FLAG, PRD_DATE, 
+      API_BASED, CHANGE_VERSION, API_STATUS, 
+      API_DESC, API_REQ, API_EXT, 
+      API_RSP)
+    values (#{apiId,jdbcType=INTEGER}, #{apiKey,jdbcType=INTEGER}, #{apiCode,jdbcType=VARCHAR}, 
+      #{apiName,jdbcType=VARCHAR}, #{systemId,jdbcType=INTEGER}, #{serviceId,jdbcType=INTEGER}, 
+      #{apiType,jdbcType=CHAR}, #{apiNature,jdbcType=CHAR}, #{apiMaster,jdbcType=INTEGER}, 
+      #{apiTester,jdbcType=INTEGER}, #{creator,jdbcType=INTEGER}, #{reviser,jdbcType=INTEGER}, 
+      #{timeCreated,jdbcType=TIMESTAMP}, #{timeRevised,jdbcType=TIMESTAMP}, #{apiVersion,jdbcType=DECIMAL}, 
+      #{apiActived,jdbcType=CHAR}, #{apiFlag,jdbcType=CHAR}, #{prdDate,jdbcType=VARCHAR}, 
+      #{apiBased,jdbcType=INTEGER}, #{changeVersion,jdbcType=VARCHAR}, #{apiStatus,jdbcType=CHAR}, 
+      #{apiDesc,jdbcType=LONGVARCHAR}, #{apiReq,jdbcType=LONGVARCHAR}, #{apiExt,jdbcType=LONGVARCHAR}, 
+      #{apiRsp,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="autotest.com.bocom.entity.ItasApiWithBLOBs">
+    insert into ITAS_API
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="apiId != null">
+        API_ID,
+      </if>
+      <if test="apiKey != null">
+        API_KEY,
+      </if>
+      <if test="apiCode != null">
+        API_CODE,
+      </if>
+      <if test="apiName != null">
+        API_NAME,
+      </if>
+      <if test="systemId != null">
+        SYSTEM_ID,
+      </if>
+      <if test="serviceId != null">
+        SERVICE_ID,
+      </if>
+      <if test="apiType != null">
+        API_TYPE,
+      </if>
+      <if test="apiNature != null">
+        API_NATURE,
+      </if>
+      <if test="apiMaster != null">
+        API_MASTER,
+      </if>
+      <if test="apiTester != null">
+        API_TESTER,
+      </if>
+      <if test="creator != null">
+        CREATOR,
+      </if>
+      <if test="reviser != null">
+        REVISER,
+      </if>
+      <if test="timeCreated != null">
+        TIME_CREATED,
+      </if>
+      <if test="timeRevised != null">
+        TIME_REVISED,
+      </if>
+      <if test="apiVersion != null">
+        API_VERSION,
+      </if>
+      <if test="apiActived != null">
+        API_ACTIVED,
+      </if>
+      <if test="apiFlag != null">
+        API_FLAG,
+      </if>
+      <if test="prdDate != null">
+        PRD_DATE,
+      </if>
+      <if test="apiBased != null">
+        API_BASED,
+      </if>
+      <if test="changeVersion != null">
+        CHANGE_VERSION,
+      </if>
+      <if test="apiStatus != null">
+        API_STATUS,
+      </if>
+      <if test="apiDesc != null">
+        API_DESC,
+      </if>
+      <if test="apiReq != null">
+        API_REQ,
+      </if>
+      <if test="apiExt != null">
+        API_EXT,
+      </if>
+      <if test="apiRsp != null">
+        API_RSP,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="apiId != null">
+        #{apiId,jdbcType=INTEGER},
+      </if>
+      <if test="apiKey != null">
+        #{apiKey,jdbcType=INTEGER},
+      </if>
+      <if test="apiCode != null">
+        #{apiCode,jdbcType=VARCHAR},
+      </if>
+      <if test="apiName != null">
+        #{apiName,jdbcType=VARCHAR},
+      </if>
+      <if test="systemId != null">
+        #{systemId,jdbcType=INTEGER},
+      </if>
+      <if test="serviceId != null">
+        #{serviceId,jdbcType=INTEGER},
+      </if>
+      <if test="apiType != null">
+        #{apiType,jdbcType=CHAR},
+      </if>
+      <if test="apiNature != null">
+        #{apiNature,jdbcType=CHAR},
+      </if>
+      <if test="apiMaster != null">
+        #{apiMaster,jdbcType=INTEGER},
+      </if>
+      <if test="apiTester != null">
+        #{apiTester,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="reviser != null">
+        #{reviser,jdbcType=INTEGER},
+      </if>
+      <if test="timeCreated != null">
+        #{timeCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeRevised != null">
+        #{timeRevised,jdbcType=TIMESTAMP},
+      </if>
+      <if test="apiVersion != null">
+        #{apiVersion,jdbcType=DECIMAL},
+      </if>
+      <if test="apiActived != null">
+        #{apiActived,jdbcType=CHAR},
+      </if>
+      <if test="apiFlag != null">
+        #{apiFlag,jdbcType=CHAR},
+      </if>
+      <if test="prdDate != null">
+        #{prdDate,jdbcType=VARCHAR},
+      </if>
+      <if test="apiBased != null">
+        #{apiBased,jdbcType=INTEGER},
+      </if>
+      <if test="changeVersion != null">
+        #{changeVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="apiStatus != null">
+        #{apiStatus,jdbcType=CHAR},
+      </if>
+      <if test="apiDesc != null">
+        #{apiDesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="apiReq != null">
+        #{apiReq,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="apiExt != null">
+        #{apiExt,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="apiRsp != null">
+        #{apiRsp,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="autotest.com.bocom.entity.ItasApiExample" resultType="java.lang.Long">
+    select count(*) from ITAS_API
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ITAS_API
+    <set>
+      <if test="record.apiId != null">
+        API_ID = #{record.apiId,jdbcType=INTEGER},
+      </if>
+      <if test="record.apiKey != null">
+        API_KEY = #{record.apiKey,jdbcType=INTEGER},
+      </if>
+      <if test="record.apiCode != null">
+        API_CODE = #{record.apiCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.apiName != null">
+        API_NAME = #{record.apiName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.systemId != null">
+        SYSTEM_ID = #{record.systemId,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceId != null">
+        SERVICE_ID = #{record.serviceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.apiType != null">
+        API_TYPE = #{record.apiType,jdbcType=CHAR},
+      </if>
+      <if test="record.apiNature != null">
+        API_NATURE = #{record.apiNature,jdbcType=CHAR},
+      </if>
+      <if test="record.apiMaster != null">
+        API_MASTER = #{record.apiMaster,jdbcType=INTEGER},
+      </if>
+      <if test="record.apiTester != null">
+        API_TESTER = #{record.apiTester,jdbcType=INTEGER},
+      </if>
+      <if test="record.creator != null">
+        CREATOR = #{record.creator,jdbcType=INTEGER},
+      </if>
+      <if test="record.reviser != null">
+        REVISER = #{record.reviser,jdbcType=INTEGER},
+      </if>
+      <if test="record.timeCreated != null">
+        TIME_CREATED = #{record.timeCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.timeRevised != null">
+        TIME_REVISED = #{record.timeRevised,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.apiVersion != null">
+        API_VERSION = #{record.apiVersion,jdbcType=DECIMAL},
+      </if>
+      <if test="record.apiActived != null">
+        API_ACTIVED = #{record.apiActived,jdbcType=CHAR},
+      </if>
+      <if test="record.apiFlag != null">
+        API_FLAG = #{record.apiFlag,jdbcType=CHAR},
+      </if>
+      <if test="record.prdDate != null">
+        PRD_DATE = #{record.prdDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.apiBased != null">
+        API_BASED = #{record.apiBased,jdbcType=INTEGER},
+      </if>
+      <if test="record.changeVersion != null">
+        CHANGE_VERSION = #{record.changeVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.apiStatus != null">
+        API_STATUS = #{record.apiStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.apiDesc != null">
+        API_DESC = #{record.apiDesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.apiReq != null">
+        API_REQ = #{record.apiReq,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.apiExt != null">
+        API_EXT = #{record.apiExt,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.apiRsp != null">
+        API_RSP = #{record.apiRsp,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update ITAS_API
+    set API_ID = #{record.apiId,jdbcType=INTEGER},
+      API_KEY = #{record.apiKey,jdbcType=INTEGER},
+      API_CODE = #{record.apiCode,jdbcType=VARCHAR},
+      API_NAME = #{record.apiName,jdbcType=VARCHAR},
+      SYSTEM_ID = #{record.systemId,jdbcType=INTEGER},
+      SERVICE_ID = #{record.serviceId,jdbcType=INTEGER},
+      API_TYPE = #{record.apiType,jdbcType=CHAR},
+      API_NATURE = #{record.apiNature,jdbcType=CHAR},
+      API_MASTER = #{record.apiMaster,jdbcType=INTEGER},
+      API_TESTER = #{record.apiTester,jdbcType=INTEGER},
+      CREATOR = #{record.creator,jdbcType=INTEGER},
+      REVISER = #{record.reviser,jdbcType=INTEGER},
+      TIME_CREATED = #{record.timeCreated,jdbcType=TIMESTAMP},
+      TIME_REVISED = #{record.timeRevised,jdbcType=TIMESTAMP},
+      API_VERSION = #{record.apiVersion,jdbcType=DECIMAL},
+      API_ACTIVED = #{record.apiActived,jdbcType=CHAR},
+      API_FLAG = #{record.apiFlag,jdbcType=CHAR},
+      PRD_DATE = #{record.prdDate,jdbcType=VARCHAR},
+      API_BASED = #{record.apiBased,jdbcType=INTEGER},
+      CHANGE_VERSION = #{record.changeVersion,jdbcType=VARCHAR},
+      API_STATUS = #{record.apiStatus,jdbcType=CHAR},
+      API_DESC = #{record.apiDesc,jdbcType=LONGVARCHAR},
+      API_REQ = #{record.apiReq,jdbcType=LONGVARCHAR},
+      API_EXT = #{record.apiExt,jdbcType=LONGVARCHAR},
+      API_RSP = #{record.apiRsp,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ITAS_API
+    set API_ID = #{record.apiId,jdbcType=INTEGER},
+      API_KEY = #{record.apiKey,jdbcType=INTEGER},
+      API_CODE = #{record.apiCode,jdbcType=VARCHAR},
+      API_NAME = #{record.apiName,jdbcType=VARCHAR},
+      SYSTEM_ID = #{record.systemId,jdbcType=INTEGER},
+      SERVICE_ID = #{record.serviceId,jdbcType=INTEGER},
+      API_TYPE = #{record.apiType,jdbcType=CHAR},
+      API_NATURE = #{record.apiNature,jdbcType=CHAR},
+      API_MASTER = #{record.apiMaster,jdbcType=INTEGER},
+      API_TESTER = #{record.apiTester,jdbcType=INTEGER},
+      CREATOR = #{record.creator,jdbcType=INTEGER},
+      REVISER = #{record.reviser,jdbcType=INTEGER},
+      TIME_CREATED = #{record.timeCreated,jdbcType=TIMESTAMP},
+      TIME_REVISED = #{record.timeRevised,jdbcType=TIMESTAMP},
+      API_VERSION = #{record.apiVersion,jdbcType=DECIMAL},
+      API_ACTIVED = #{record.apiActived,jdbcType=CHAR},
+      API_FLAG = #{record.apiFlag,jdbcType=CHAR},
+      PRD_DATE = #{record.prdDate,jdbcType=VARCHAR},
+      API_BASED = #{record.apiBased,jdbcType=INTEGER},
+      CHANGE_VERSION = #{record.changeVersion,jdbcType=VARCHAR},
+      API_STATUS = #{record.apiStatus,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="autotest.com.bocom.entity.ItasApiWithBLOBs">
+    update ITAS_API
+    <set>
+      <if test="apiKey != null">
+        API_KEY = #{apiKey,jdbcType=INTEGER},
+      </if>
+      <if test="apiCode != null">
+        API_CODE = #{apiCode,jdbcType=VARCHAR},
+      </if>
+      <if test="apiName != null">
+        API_NAME = #{apiName,jdbcType=VARCHAR},
+      </if>
+      <if test="systemId != null">
+        SYSTEM_ID = #{systemId,jdbcType=INTEGER},
+      </if>
+      <if test="serviceId != null">
+        SERVICE_ID = #{serviceId,jdbcType=INTEGER},
+      </if>
+      <if test="apiType != null">
+        API_TYPE = #{apiType,jdbcType=CHAR},
+      </if>
+      <if test="apiNature != null">
+        API_NATURE = #{apiNature,jdbcType=CHAR},
+      </if>
+      <if test="apiMaster != null">
+        API_MASTER = #{apiMaster,jdbcType=INTEGER},
+      </if>
+      <if test="apiTester != null">
+        API_TESTER = #{apiTester,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null">
+        CREATOR = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="reviser != null">
+        REVISER = #{reviser,jdbcType=INTEGER},
+      </if>
+      <if test="timeCreated != null">
+        TIME_CREATED = #{timeCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeRevised != null">
+        TIME_REVISED = #{timeRevised,jdbcType=TIMESTAMP},
+      </if>
+      <if test="apiVersion != null">
+        API_VERSION = #{apiVersion,jdbcType=DECIMAL},
+      </if>
+      <if test="apiActived != null">
+        API_ACTIVED = #{apiActived,jdbcType=CHAR},
+      </if>
+      <if test="apiFlag != null">
+        API_FLAG = #{apiFlag,jdbcType=CHAR},
+      </if>
+      <if test="prdDate != null">
+        PRD_DATE = #{prdDate,jdbcType=VARCHAR},
+      </if>
+      <if test="apiBased != null">
+        API_BASED = #{apiBased,jdbcType=INTEGER},
+      </if>
+      <if test="changeVersion != null">
+        CHANGE_VERSION = #{changeVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="apiStatus != null">
+        API_STATUS = #{apiStatus,jdbcType=CHAR},
+      </if>
+      <if test="apiDesc != null">
+        API_DESC = #{apiDesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="apiReq != null">
+        API_REQ = #{apiReq,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="apiExt != null">
+        API_EXT = #{apiExt,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="apiRsp != null">
+        API_RSP = #{apiRsp,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where API_ID = #{apiId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="autotest.com.bocom.entity.ItasApiWithBLOBs">
+    update ITAS_API
+    set API_KEY = #{apiKey,jdbcType=INTEGER},
+      API_CODE = #{apiCode,jdbcType=VARCHAR},
+      API_NAME = #{apiName,jdbcType=VARCHAR},
+      SYSTEM_ID = #{systemId,jdbcType=INTEGER},
+      SERVICE_ID = #{serviceId,jdbcType=INTEGER},
+      API_TYPE = #{apiType,jdbcType=CHAR},
+      API_NATURE = #{apiNature,jdbcType=CHAR},
+      API_MASTER = #{apiMaster,jdbcType=INTEGER},
+      API_TESTER = #{apiTester,jdbcType=INTEGER},
+      CREATOR = #{creator,jdbcType=INTEGER},
+      REVISER = #{reviser,jdbcType=INTEGER},
+      TIME_CREATED = #{timeCreated,jdbcType=TIMESTAMP},
+      TIME_REVISED = #{timeRevised,jdbcType=TIMESTAMP},
+      API_VERSION = #{apiVersion,jdbcType=DECIMAL},
+      API_ACTIVED = #{apiActived,jdbcType=CHAR},
+      API_FLAG = #{apiFlag,jdbcType=CHAR},
+      PRD_DATE = #{prdDate,jdbcType=VARCHAR},
+      API_BASED = #{apiBased,jdbcType=INTEGER},
+      CHANGE_VERSION = #{changeVersion,jdbcType=VARCHAR},
+      API_STATUS = #{apiStatus,jdbcType=CHAR},
+      API_DESC = #{apiDesc,jdbcType=LONGVARCHAR},
+      API_REQ = #{apiReq,jdbcType=LONGVARCHAR},
+      API_EXT = #{apiExt,jdbcType=LONGVARCHAR},
+      API_RSP = #{apiRsp,jdbcType=LONGVARCHAR}
+    where API_ID = #{apiId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="autotest.com.bocom.entity.ItasApi">
+    update ITAS_API
+    set API_KEY = #{apiKey,jdbcType=INTEGER},
+      API_CODE = #{apiCode,jdbcType=VARCHAR},
+      API_NAME = #{apiName,jdbcType=VARCHAR},
+      SYSTEM_ID = #{systemId,jdbcType=INTEGER},
+      SERVICE_ID = #{serviceId,jdbcType=INTEGER},
+      API_TYPE = #{apiType,jdbcType=CHAR},
+      API_NATURE = #{apiNature,jdbcType=CHAR},
+      API_MASTER = #{apiMaster,jdbcType=INTEGER},
+      API_TESTER = #{apiTester,jdbcType=INTEGER},
+      CREATOR = #{creator,jdbcType=INTEGER},
+      REVISER = #{reviser,jdbcType=INTEGER},
+      TIME_CREATED = #{timeCreated,jdbcType=TIMESTAMP},
+      TIME_REVISED = #{timeRevised,jdbcType=TIMESTAMP},
+      API_VERSION = #{apiVersion,jdbcType=DECIMAL},
+      API_ACTIVED = #{apiActived,jdbcType=CHAR},
+      API_FLAG = #{apiFlag,jdbcType=CHAR},
+      PRD_DATE = #{prdDate,jdbcType=VARCHAR},
+      API_BASED = #{apiBased,jdbcType=INTEGER},
+      CHANGE_VERSION = #{changeVersion,jdbcType=VARCHAR},
+      API_STATUS = #{apiStatus,jdbcType=CHAR}
+    where API_ID = #{apiId,jdbcType=INTEGER}
+  </update>
+</mapper>

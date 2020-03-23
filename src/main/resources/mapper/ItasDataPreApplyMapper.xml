@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="autotest.com.bocom.dao.ItasDataPreApplyMapper">
+  <resultMap id="BaseResultMap" type="autotest.com.bocom.entity.ItasDataPreApply">
+    <id column="APPLY_ID" jdbcType="INTEGER" property="applyId" />
+    <result column="APPLY_NAME" jdbcType="VARCHAR" property="applyName" />
+    <result column="ENTITY_ID" jdbcType="INTEGER" property="entityId" />
+    <result column="APPLY_STATUS" jdbcType="CHAR" property="applyStatus" />
+    <result column="ENTITY_TYPE" jdbcType="CHAR" property="entityType" />
+    <result column="BUSINESS_ID" jdbcType="INTEGER" property="businessId" />
+    <result column="PRODUCT_ID" jdbcType="INTEGER" property="productId" />
+    <result column="DATA_USAGE" jdbcType="CHAR" property="dataUsage" />
+    <result column="APPLICANT" jdbcType="INTEGER" property="applicant" />
+    <result column="APPLY_TIME" jdbcType="TIMESTAMP" property="applyTime" />
+    <result column="ATTRIBUTE1" jdbcType="VARCHAR" property="attribute1" />
+    <result column="ATTRIBUTE2" jdbcType="VARCHAR" property="attribute2" />
+    <result column="ATTRIBUTE3" jdbcType="INTEGER" property="attribute3" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    APPLY_ID, APPLY_NAME, ENTITY_ID, APPLY_STATUS, ENTITY_TYPE, BUSINESS_ID, PRODUCT_ID, 
+    DATA_USAGE, APPLICANT, APPLY_TIME, ATTRIBUTE1, ATTRIBUTE2, ATTRIBUTE3
+  </sql>
+  <select id="selectByExample" parameterType="autotest.com.bocom.entity.ItasDataPreApplyExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from ITAS_DATA_PRE_APPLY
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ITAS_DATA_PRE_APPLY
+    where APPLY_ID = #{applyId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ITAS_DATA_PRE_APPLY
+    where APPLY_ID = #{applyId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="autotest.com.bocom.entity.ItasDataPreApplyExample">
+    delete from ITAS_DATA_PRE_APPLY
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="autotest.com.bocom.entity.ItasDataPreApply">
+    insert into ITAS_DATA_PRE_APPLY (APPLY_ID, APPLY_NAME, ENTITY_ID, 
+      APPLY_STATUS, ENTITY_TYPE, BUSINESS_ID, 
+      PRODUCT_ID, DATA_USAGE, APPLICANT, 
+      APPLY_TIME, ATTRIBUTE1, ATTRIBUTE2, 
+      ATTRIBUTE3)
+    values (#{applyId,jdbcType=INTEGER}, #{applyName,jdbcType=VARCHAR}, #{entityId,jdbcType=INTEGER}, 
+      #{applyStatus,jdbcType=CHAR}, #{entityType,jdbcType=CHAR}, #{businessId,jdbcType=INTEGER}, 
+      #{productId,jdbcType=INTEGER}, #{dataUsage,jdbcType=CHAR}, #{applicant,jdbcType=INTEGER}, 
+      #{applyTime,jdbcType=TIMESTAMP}, #{attribute1,jdbcType=VARCHAR}, #{attribute2,jdbcType=VARCHAR}, 
+      #{attribute3,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="autotest.com.bocom.entity.ItasDataPreApply">
+    insert into ITAS_DATA_PRE_APPLY
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="applyId != null">
+        APPLY_ID,
+      </if>
+      <if test="applyName != null">
+        APPLY_NAME,
+      </if>
+      <if test="entityId != null">
+        ENTITY_ID,
+      </if>
+      <if test="applyStatus != null">
+        APPLY_STATUS,
+      </if>
+      <if test="entityType != null">
+        ENTITY_TYPE,
+      </if>
+      <if test="businessId != null">
+        BUSINESS_ID,
+      </if>
+      <if test="productId != null">
+        PRODUCT_ID,
+      </if>
+      <if test="dataUsage != null">
+        DATA_USAGE,
+      </if>
+      <if test="applicant != null">
+        APPLICANT,
+      </if>
+      <if test="applyTime != null">
+        APPLY_TIME,
+      </if>
+      <if test="attribute1 != null">
+        ATTRIBUTE1,
+      </if>
+      <if test="attribute2 != null">
+        ATTRIBUTE2,
+      </if>
+      <if test="attribute3 != null">
+        ATTRIBUTE3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="applyId != null">
+        #{applyId,jdbcType=INTEGER},
+      </if>
+      <if test="applyName != null">
+        #{applyName,jdbcType=VARCHAR},
+      </if>
+      <if test="entityId != null">
+        #{entityId,jdbcType=INTEGER},
+      </if>
+      <if test="applyStatus != null">
+        #{applyStatus,jdbcType=CHAR},
+      </if>
+      <if test="entityType != null">
+        #{entityType,jdbcType=CHAR},
+      </if>
+      <if test="businessId != null">
+        #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="dataUsage != null">
+        #{dataUsage,jdbcType=CHAR},
+      </if>
+      <if test="applicant != null">
+        #{applicant,jdbcType=INTEGER},
+      </if>
+      <if test="applyTime != null">
+        #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="attribute1 != null">
+        #{attribute1,jdbcType=VARCHAR},
+      </if>
+      <if test="attribute2 != null">
+        #{attribute2,jdbcType=VARCHAR},
+      </if>
+      <if test="attribute3 != null">
+        #{attribute3,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="autotest.com.bocom.entity.ItasDataPreApplyExample" resultType="java.lang.Long">
+    select count(*) from ITAS_DATA_PRE_APPLY
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ITAS_DATA_PRE_APPLY
+    <set>
+      <if test="record.applyId != null">
+        APPLY_ID = #{record.applyId,jdbcType=INTEGER},
+      </if>
+      <if test="record.applyName != null">
+        APPLY_NAME = #{record.applyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.entityId != null">
+        ENTITY_ID = #{record.entityId,jdbcType=INTEGER},
+      </if>
+      <if test="record.applyStatus != null">
+        APPLY_STATUS = #{record.applyStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.entityType != null">
+        ENTITY_TYPE = #{record.entityType,jdbcType=CHAR},
+      </if>
+      <if test="record.businessId != null">
+        BUSINESS_ID = #{record.businessId,jdbcType=INTEGER},
+      </if>
+      <if test="record.productId != null">
+        PRODUCT_ID = #{record.productId,jdbcType=INTEGER},
+      </if>
+      <if test="record.dataUsage != null">
+        DATA_USAGE = #{record.dataUsage,jdbcType=CHAR},
+      </if>
+      <if test="record.applicant != null">
+        APPLICANT = #{record.applicant,jdbcType=INTEGER},
+      </if>
+      <if test="record.applyTime != null">
+        APPLY_TIME = #{record.applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.attribute1 != null">
+        ATTRIBUTE1 = #{record.attribute1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attribute2 != null">
+        ATTRIBUTE2 = #{record.attribute2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attribute3 != null">
+        ATTRIBUTE3 = #{record.attribute3,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ITAS_DATA_PRE_APPLY
+    set APPLY_ID = #{record.applyId,jdbcType=INTEGER},
+      APPLY_NAME = #{record.applyName,jdbcType=VARCHAR},
+      ENTITY_ID = #{record.entityId,jdbcType=INTEGER},
+      APPLY_STATUS = #{record.applyStatus,jdbcType=CHAR},
+      ENTITY_TYPE = #{record.entityType,jdbcType=CHAR},
+      BUSINESS_ID = #{record.businessId,jdbcType=INTEGER},
+      PRODUCT_ID = #{record.productId,jdbcType=INTEGER},
+      DATA_USAGE = #{record.dataUsage,jdbcType=CHAR},
+      APPLICANT = #{record.applicant,jdbcType=INTEGER},
+      APPLY_TIME = #{record.applyTime,jdbcType=TIMESTAMP},
+      ATTRIBUTE1 = #{record.attribute1,jdbcType=VARCHAR},
+      ATTRIBUTE2 = #{record.attribute2,jdbcType=VARCHAR},
+      ATTRIBUTE3 = #{record.attribute3,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="autotest.com.bocom.entity.ItasDataPreApply">
+    update ITAS_DATA_PRE_APPLY
+    <set>
+      <if test="applyName != null">
+        APPLY_NAME = #{applyName,jdbcType=VARCHAR},
+      </if>
+      <if test="entityId != null">
+        ENTITY_ID = #{entityId,jdbcType=INTEGER},
+      </if>
+      <if test="applyStatus != null">
+        APPLY_STATUS = #{applyStatus,jdbcType=CHAR},
+      </if>
+      <if test="entityType != null">
+        ENTITY_TYPE = #{entityType,jdbcType=CHAR},
+      </if>
+      <if test="businessId != null">
+        BUSINESS_ID = #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null">
+        PRODUCT_ID = #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="dataUsage != null">
+        DATA_USAGE = #{dataUsage,jdbcType=CHAR},
+      </if>
+      <if test="applicant != null">
+        APPLICANT = #{applicant,jdbcType=INTEGER},
+      </if>
+      <if test="applyTime != null">
+        APPLY_TIME = #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="attribute1 != null">
+        ATTRIBUTE1 = #{attribute1,jdbcType=VARCHAR},
+      </if>
+      <if test="attribute2 != null">
+        ATTRIBUTE2 = #{attribute2,jdbcType=VARCHAR},
+      </if>
+      <if test="attribute3 != null">
+        ATTRIBUTE3 = #{attribute3,jdbcType=INTEGER},
+      </if>
+    </set>
+    where APPLY_ID = #{applyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="autotest.com.bocom.entity.ItasDataPreApply">
+    update ITAS_DATA_PRE_APPLY
+    set APPLY_NAME = #{applyName,jdbcType=VARCHAR},
+      ENTITY_ID = #{entityId,jdbcType=INTEGER},
+      APPLY_STATUS = #{applyStatus,jdbcType=CHAR},
+      ENTITY_TYPE = #{entityType,jdbcType=CHAR},
+      BUSINESS_ID = #{businessId,jdbcType=INTEGER},
+      PRODUCT_ID = #{productId,jdbcType=INTEGER},
+      DATA_USAGE = #{dataUsage,jdbcType=CHAR},
+      APPLICANT = #{applicant,jdbcType=INTEGER},
+      APPLY_TIME = #{applyTime,jdbcType=TIMESTAMP},
+      ATTRIBUTE1 = #{attribute1,jdbcType=VARCHAR},
+      ATTRIBUTE2 = #{attribute2,jdbcType=VARCHAR},
+      ATTRIBUTE3 = #{attribute3,jdbcType=INTEGER}
+    where APPLY_ID = #{applyId,jdbcType=INTEGER}
+  </update>
+</mapper>

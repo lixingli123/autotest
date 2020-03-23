@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="autotest.com.bocom.dao.ItasTransferMapper">
+  <resultMap id="BaseResultMap" type="autotest.com.bocom.entity.ItasTransfer">
+    <id column="TRANSFER_ID" jdbcType="INTEGER" property="transferId" />
+    <result column="TRANSFER_NO" jdbcType="VARCHAR" property="transferNo" />
+    <result column="TRANSFER_NAME" jdbcType="VARCHAR" property="transferName" />
+    <result column="TRANSFER_EXPORT" jdbcType="CHAR" property="transferExport" />
+    <result column="TRANSFER_DESC" jdbcType="VARCHAR" property="transferDesc" />
+    <result column="CASE_NO" jdbcType="VARCHAR" property="caseNo" />
+    <result column="CREATOR" jdbcType="INTEGER" property="creator" />
+    <result column="REVISER" jdbcType="INTEGER" property="reviser" />
+    <result column="TIME_CREATED" jdbcType="TIMESTAMP" property="timeCreated" />
+    <result column="TIME_REVISED" jdbcType="TIMESTAMP" property="timeRevised" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="autotest.com.bocom.entity.ItasTransfer">
+    <result column="TRANSFER_VALUE" jdbcType="LONGVARCHAR" property="transferValue" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TRANSFER_ID, TRANSFER_NO, TRANSFER_NAME, TRANSFER_EXPORT, TRANSFER_DESC, CASE_NO, 
+    CREATOR, REVISER, TIME_CREATED, TIME_REVISED
+  </sql>
+  <sql id="Blob_Column_List">
+    TRANSFER_VALUE
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="autotest.com.bocom.entity.ItasTransferExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ITAS_TRANSFER
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="autotest.com.bocom.entity.ItasTransferExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from ITAS_TRANSFER
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ITAS_TRANSFER
+    where TRANSFER_ID = #{transferId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ITAS_TRANSFER
+    where TRANSFER_ID = #{transferId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="autotest.com.bocom.entity.ItasTransferExample">
+    delete from ITAS_TRANSFER
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="autotest.com.bocom.entity.ItasTransfer">
+    insert into ITAS_TRANSFER (TRANSFER_ID, TRANSFER_NO, TRANSFER_NAME, 
+      TRANSFER_EXPORT, TRANSFER_DESC, CASE_NO, 
+      CREATOR, REVISER, TIME_CREATED, 
+      TIME_REVISED, TRANSFER_VALUE)
+    values (#{transferId,jdbcType=INTEGER}, #{transferNo,jdbcType=VARCHAR}, #{transferName,jdbcType=VARCHAR}, 
+      #{transferExport,jdbcType=CHAR}, #{transferDesc,jdbcType=VARCHAR}, #{caseNo,jdbcType=VARCHAR}, 
+      #{creator,jdbcType=INTEGER}, #{reviser,jdbcType=INTEGER}, #{timeCreated,jdbcType=TIMESTAMP}, 
+      #{timeRevised,jdbcType=TIMESTAMP}, #{transferValue,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="autotest.com.bocom.entity.ItasTransfer">
+    insert into ITAS_TRANSFER
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="transferId != null">
+        TRANSFER_ID,
+      </if>
+      <if test="transferNo != null">
+        TRANSFER_NO,
+      </if>
+      <if test="transferName != null">
+        TRANSFER_NAME,
+      </if>
+      <if test="transferExport != null">
+        TRANSFER_EXPORT,
+      </if>
+      <if test="transferDesc != null">
+        TRANSFER_DESC,
+      </if>
+      <if test="caseNo != null">
+        CASE_NO,
+      </if>
+      <if test="creator != null">
+        CREATOR,
+      </if>
+      <if test="reviser != null">
+        REVISER,
+      </if>
+      <if test="timeCreated != null">
+        TIME_CREATED,
+      </if>
+      <if test="timeRevised != null">
+        TIME_REVISED,
+      </if>
+      <if test="transferValue != null">
+        TRANSFER_VALUE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="transferId != null">
+        #{transferId,jdbcType=INTEGER},
+      </if>
+      <if test="transferNo != null">
+        #{transferNo,jdbcType=VARCHAR},
+      </if>
+      <if test="transferName != null">
+        #{transferName,jdbcType=VARCHAR},
+      </if>
+      <if test="transferExport != null">
+        #{transferExport,jdbcType=CHAR},
+      </if>
+      <if test="transferDesc != null">
+        #{transferDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="caseNo != null">
+        #{caseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="reviser != null">
+        #{reviser,jdbcType=INTEGER},
+      </if>
+      <if test="timeCreated != null">
+        #{timeCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeRevised != null">
+        #{timeRevised,jdbcType=TIMESTAMP},
+      </if>
+      <if test="transferValue != null">
+        #{transferValue,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="autotest.com.bocom.entity.ItasTransferExample" resultType="java.lang.Long">
+    select count(*) from ITAS_TRANSFER
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ITAS_TRANSFER
+    <set>
+      <if test="record.transferId != null">
+        TRANSFER_ID = #{record.transferId,jdbcType=INTEGER},
+      </if>
+      <if test="record.transferNo != null">
+        TRANSFER_NO = #{record.transferNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transferName != null">
+        TRANSFER_NAME = #{record.transferName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transferExport != null">
+        TRANSFER_EXPORT = #{record.transferExport,jdbcType=CHAR},
+      </if>
+      <if test="record.transferDesc != null">
+        TRANSFER_DESC = #{record.transferDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.caseNo != null">
+        CASE_NO = #{record.caseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creator != null">
+        CREATOR = #{record.creator,jdbcType=INTEGER},
+      </if>
+      <if test="record.reviser != null">
+        REVISER = #{record.reviser,jdbcType=INTEGER},
+      </if>
+      <if test="record.timeCreated != null">
+        TIME_CREATED = #{record.timeCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.timeRevised != null">
+        TIME_REVISED = #{record.timeRevised,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.transferValue != null">
+        TRANSFER_VALUE = #{record.transferValue,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update ITAS_TRANSFER
+    set TRANSFER_ID = #{record.transferId,jdbcType=INTEGER},
+      TRANSFER_NO = #{record.transferNo,jdbcType=VARCHAR},
+      TRANSFER_NAME = #{record.transferName,jdbcType=VARCHAR},
+      TRANSFER_EXPORT = #{record.transferExport,jdbcType=CHAR},
+      TRANSFER_DESC = #{record.transferDesc,jdbcType=VARCHAR},
+      CASE_NO = #{record.caseNo,jdbcType=VARCHAR},
+      CREATOR = #{record.creator,jdbcType=INTEGER},
+      REVISER = #{record.reviser,jdbcType=INTEGER},
+      TIME_CREATED = #{record.timeCreated,jdbcType=TIMESTAMP},
+      TIME_REVISED = #{record.timeRevised,jdbcType=TIMESTAMP},
+      TRANSFER_VALUE = #{record.transferValue,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ITAS_TRANSFER
+    set TRANSFER_ID = #{record.transferId,jdbcType=INTEGER},
+      TRANSFER_NO = #{record.transferNo,jdbcType=VARCHAR},
+      TRANSFER_NAME = #{record.transferName,jdbcType=VARCHAR},
+      TRANSFER_EXPORT = #{record.transferExport,jdbcType=CHAR},
+      TRANSFER_DESC = #{record.transferDesc,jdbcType=VARCHAR},
+      CASE_NO = #{record.caseNo,jdbcType=VARCHAR},
+      CREATOR = #{record.creator,jdbcType=INTEGER},
+      REVISER = #{record.reviser,jdbcType=INTEGER},
+      TIME_CREATED = #{record.timeCreated,jdbcType=TIMESTAMP},
+      TIME_REVISED = #{record.timeRevised,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="autotest.com.bocom.entity.ItasTransfer">
+    update ITAS_TRANSFER
+    <set>
+      <if test="transferNo != null">
+        TRANSFER_NO = #{transferNo,jdbcType=VARCHAR},
+      </if>
+      <if test="transferName != null">
+        TRANSFER_NAME = #{transferName,jdbcType=VARCHAR},
+      </if>
+      <if test="transferExport != null">
+        TRANSFER_EXPORT = #{transferExport,jdbcType=CHAR},
+      </if>
+      <if test="transferDesc != null">
+        TRANSFER_DESC = #{transferDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="caseNo != null">
+        CASE_NO = #{caseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        CREATOR = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="reviser != null">
+        REVISER = #{reviser,jdbcType=INTEGER},
+      </if>
+      <if test="timeCreated != null">
+        TIME_CREATED = #{timeCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeRevised != null">
+        TIME_REVISED = #{timeRevised,jdbcType=TIMESTAMP},
+      </if>
+      <if test="transferValue != null">
+        TRANSFER_VALUE = #{transferValue,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where TRANSFER_ID = #{transferId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="autotest.com.bocom.entity.ItasTransfer">
+    update ITAS_TRANSFER
+    set TRANSFER_NO = #{transferNo,jdbcType=VARCHAR},
+      TRANSFER_NAME = #{transferName,jdbcType=VARCHAR},
+      TRANSFER_EXPORT = #{transferExport,jdbcType=CHAR},
+      TRANSFER_DESC = #{transferDesc,jdbcType=VARCHAR},
+      CASE_NO = #{caseNo,jdbcType=VARCHAR},
+      CREATOR = #{creator,jdbcType=INTEGER},
+      REVISER = #{reviser,jdbcType=INTEGER},
+      TIME_CREATED = #{timeCreated,jdbcType=TIMESTAMP},
+      TIME_REVISED = #{timeRevised,jdbcType=TIMESTAMP},
+      TRANSFER_VALUE = #{transferValue,jdbcType=LONGVARCHAR}
+    where TRANSFER_ID = #{transferId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="autotest.com.bocom.entity.ItasTransfer">
+    update ITAS_TRANSFER
+    set TRANSFER_NO = #{transferNo,jdbcType=VARCHAR},
+      TRANSFER_NAME = #{transferName,jdbcType=VARCHAR},
+      TRANSFER_EXPORT = #{transferExport,jdbcType=CHAR},
+      TRANSFER_DESC = #{transferDesc,jdbcType=VARCHAR},
+      CASE_NO = #{caseNo,jdbcType=VARCHAR},
+      CREATOR = #{creator,jdbcType=INTEGER},
+      REVISER = #{reviser,jdbcType=INTEGER},
+      TIME_CREATED = #{timeCreated,jdbcType=TIMESTAMP},
+      TIME_REVISED = #{timeRevised,jdbcType=TIMESTAMP}
+    where TRANSFER_ID = #{transferId,jdbcType=INTEGER}
+  </update>
+</mapper>

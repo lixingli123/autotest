@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="autotest.com.bocom.dao.ItasCaseElementMapper">
+  <resultMap id="BaseResultMap" type="autotest.com.bocom.entity.ItasCaseElement">
+    <result column="ELEMENT_ID" jdbcType="INTEGER" property="elementId" />
+    <result column="ELEMENT_NAME" jdbcType="VARCHAR" property="elementName" />
+    <result column="CASE_ID" jdbcType="INTEGER" property="caseId" />
+    <result column="ELEMENT_VALUE_TYPE" jdbcType="CHAR" property="elementValueType" />
+    <result column="ELEMENT_VALUE_STRING" jdbcType="VARCHAR" property="elementValueString" />
+    <result column="ELEMENT_FROM" jdbcType="CHAR" property="elementFrom" />
+    <result column="ELEMENT_KEY" jdbcType="VARCHAR" property="elementKey" />
+    <result column="ELEMENT_VALUE_REMARK" jdbcType="VARCHAR" property="elementValueRemark" />
+    <result column="ELEMENT_TYPE" jdbcType="CHAR" property="elementType" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="autotest.com.bocom.entity.ItasCaseElement">
+    <result column="ELEMENT_VALUE_JSON" jdbcType="LONGVARCHAR" property="elementValueJson" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ELEMENT_ID, ELEMENT_NAME, CASE_ID, ELEMENT_VALUE_TYPE, ELEMENT_VALUE_STRING, ELEMENT_FROM, 
+    ELEMENT_KEY, ELEMENT_VALUE_REMARK, ELEMENT_TYPE
+  </sql>
+  <sql id="Blob_Column_List">
+    ELEMENT_VALUE_JSON
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="autotest.com.bocom.entity.ItasCaseElementExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ITAS_CASE_ELEMENT
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="autotest.com.bocom.entity.ItasCaseElementExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from ITAS_CASE_ELEMENT
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="autotest.com.bocom.entity.ItasCaseElementExample">
+    delete from ITAS_CASE_ELEMENT
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="autotest.com.bocom.entity.ItasCaseElement">
+    insert into ITAS_CASE_ELEMENT (ELEMENT_ID, ELEMENT_NAME, CASE_ID, 
+      ELEMENT_VALUE_TYPE, ELEMENT_VALUE_STRING, ELEMENT_FROM, 
+      ELEMENT_KEY, ELEMENT_VALUE_REMARK, ELEMENT_TYPE, 
+      ELEMENT_VALUE_JSON)
+    values (#{elementId,jdbcType=INTEGER}, #{elementName,jdbcType=VARCHAR}, #{caseId,jdbcType=INTEGER}, 
+      #{elementValueType,jdbcType=CHAR}, #{elementValueString,jdbcType=VARCHAR}, #{elementFrom,jdbcType=CHAR}, 
+      #{elementKey,jdbcType=VARCHAR}, #{elementValueRemark,jdbcType=VARCHAR}, #{elementType,jdbcType=CHAR}, 
+      #{elementValueJson,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="autotest.com.bocom.entity.ItasCaseElement">
+    insert into ITAS_CASE_ELEMENT
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="elementId != null">
+        ELEMENT_ID,
+      </if>
+      <if test="elementName != null">
+        ELEMENT_NAME,
+      </if>
+      <if test="caseId != null">
+        CASE_ID,
+      </if>
+      <if test="elementValueType != null">
+        ELEMENT_VALUE_TYPE,
+      </if>
+      <if test="elementValueString != null">
+        ELEMENT_VALUE_STRING,
+      </if>
+      <if test="elementFrom != null">
+        ELEMENT_FROM,
+      </if>
+      <if test="elementKey != null">
+        ELEMENT_KEY,
+      </if>
+      <if test="elementValueRemark != null">
+        ELEMENT_VALUE_REMARK,
+      </if>
+      <if test="elementType != null">
+        ELEMENT_TYPE,
+      </if>
+      <if test="elementValueJson != null">
+        ELEMENT_VALUE_JSON,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="elementId != null">
+        #{elementId,jdbcType=INTEGER},
+      </if>
+      <if test="elementName != null">
+        #{elementName,jdbcType=VARCHAR},
+      </if>
+      <if test="caseId != null">
+        #{caseId,jdbcType=INTEGER},
+      </if>
+      <if test="elementValueType != null">
+        #{elementValueType,jdbcType=CHAR},
+      </if>
+      <if test="elementValueString != null">
+        #{elementValueString,jdbcType=VARCHAR},
+      </if>
+      <if test="elementFrom != null">
+        #{elementFrom,jdbcType=CHAR},
+      </if>
+      <if test="elementKey != null">
+        #{elementKey,jdbcType=VARCHAR},
+      </if>
+      <if test="elementValueRemark != null">
+        #{elementValueRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="elementType != null">
+        #{elementType,jdbcType=CHAR},
+      </if>
+      <if test="elementValueJson != null">
+        #{elementValueJson,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="autotest.com.bocom.entity.ItasCaseElementExample" resultType="java.lang.Long">
+    select count(*) from ITAS_CASE_ELEMENT
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ITAS_CASE_ELEMENT
+    <set>
+      <if test="record.elementId != null">
+        ELEMENT_ID = #{record.elementId,jdbcType=INTEGER},
+      </if>
+      <if test="record.elementName != null">
+        ELEMENT_NAME = #{record.elementName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.caseId != null">
+        CASE_ID = #{record.caseId,jdbcType=INTEGER},
+      </if>
+      <if test="record.elementValueType != null">
+        ELEMENT_VALUE_TYPE = #{record.elementValueType,jdbcType=CHAR},
+      </if>
+      <if test="record.elementValueString != null">
+        ELEMENT_VALUE_STRING = #{record.elementValueString,jdbcType=VARCHAR},
+      </if>
+      <if test="record.elementFrom != null">
+        ELEMENT_FROM = #{record.elementFrom,jdbcType=CHAR},
+      </if>
+      <if test="record.elementKey != null">
+        ELEMENT_KEY = #{record.elementKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.elementValueRemark != null">
+        ELEMENT_VALUE_REMARK = #{record.elementValueRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.elementType != null">
+        ELEMENT_TYPE = #{record.elementType,jdbcType=CHAR},
+      </if>
+      <if test="record.elementValueJson != null">
+        ELEMENT_VALUE_JSON = #{record.elementValueJson,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update ITAS_CASE_ELEMENT
+    set ELEMENT_ID = #{record.elementId,jdbcType=INTEGER},
+      ELEMENT_NAME = #{record.elementName,jdbcType=VARCHAR},
+      CASE_ID = #{record.caseId,jdbcType=INTEGER},
+      ELEMENT_VALUE_TYPE = #{record.elementValueType,jdbcType=CHAR},
+      ELEMENT_VALUE_STRING = #{record.elementValueString,jdbcType=VARCHAR},
+      ELEMENT_FROM = #{record.elementFrom,jdbcType=CHAR},
+      ELEMENT_KEY = #{record.elementKey,jdbcType=VARCHAR},
+      ELEMENT_VALUE_REMARK = #{record.elementValueRemark,jdbcType=VARCHAR},
+      ELEMENT_TYPE = #{record.elementType,jdbcType=CHAR},
+      ELEMENT_VALUE_JSON = #{record.elementValueJson,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ITAS_CASE_ELEMENT
+    set ELEMENT_ID = #{record.elementId,jdbcType=INTEGER},
+      ELEMENT_NAME = #{record.elementName,jdbcType=VARCHAR},
+      CASE_ID = #{record.caseId,jdbcType=INTEGER},
+      ELEMENT_VALUE_TYPE = #{record.elementValueType,jdbcType=CHAR},
+      ELEMENT_VALUE_STRING = #{record.elementValueString,jdbcType=VARCHAR},
+      ELEMENT_FROM = #{record.elementFrom,jdbcType=CHAR},
+      ELEMENT_KEY = #{record.elementKey,jdbcType=VARCHAR},
+      ELEMENT_VALUE_REMARK = #{record.elementValueRemark,jdbcType=VARCHAR},
+      ELEMENT_TYPE = #{record.elementType,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

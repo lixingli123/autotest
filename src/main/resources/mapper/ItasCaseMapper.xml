@@ -1,0 +1,815 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="autotest.com.bocom.dao.ItasCaseMapper">
+  <resultMap id="BaseResultMap" type="autotest.com.bocom.entity.ItasCase">
+    <id column="CASE_ID" jdbcType="INTEGER" property="caseId" />
+    <result column="CASE_KEY" jdbcType="INTEGER" property="caseKey" />
+    <result column="CASE_KIND" jdbcType="CHAR" property="caseKind" />
+    <result column="CASE_NO" jdbcType="VARCHAR" property="caseNo" />
+    <result column="CASE_NAME" jdbcType="VARCHAR" property="caseName" />
+    <result column="CASE_TYPE" jdbcType="CHAR" property="caseType" />
+    <result column="CASE_NATURE" jdbcType="CHAR" property="caseNature" />
+    <result column="CASE_STATUS" jdbcType="CHAR" property="caseStatus" />
+    <result column="CASE_FINISHED" jdbcType="CHAR" property="caseFinished" />
+    <result column="CASE_TEST_TYPE" jdbcType="CHAR" property="caseTestType" />
+    <result column="CASE_MASTER" jdbcType="INTEGER" property="caseMaster" />
+    <result column="CASE_LEVEL" jdbcType="CHAR" property="caseLevel" />
+    <result column="CASE_BASED" jdbcType="INTEGER" property="caseBased" />
+    <result column="CASE_ACTIVED" jdbcType="CHAR" property="caseActived" />
+    <result column="CASE_VERSION" jdbcType="DECIMAL" property="caseVersion" />
+    <result column="CASE_CHANGED" jdbcType="CHAR" property="caseChanged" />
+    <result column="PRD_DATE" jdbcType="VARCHAR" property="prdDate" />
+    <result column="FLOW_ID" jdbcType="INTEGER" property="flowId" />
+    <result column="API_ID" jdbcType="INTEGER" property="apiId" />
+    <result column="API_KEY" jdbcType="INTEGER" property="apiKey" />
+    <result column="REQ_SYS_ID" jdbcType="INTEGER" property="reqSysId" />
+    <result column="ENTRANCE_ID" jdbcType="INTEGER" property="entranceId" />
+    <result column="TEST_CONDITON" jdbcType="VARCHAR" property="testConditon" />
+    <result column="IS_DATA_SERVICE" jdbcType="CHAR" property="isDataService" />
+    <result column="CREATOR" jdbcType="VARCHAR" property="creator" />
+    <result column="REVISER" jdbcType="VARCHAR" property="reviser" />
+    <result column="TIME_CREATED" jdbcType="TIMESTAMP" property="timeCreated" />
+    <result column="TIME_REVISED" jdbcType="TIMESTAMP" property="timeRevised" />
+    <result column="FUNC_ID" jdbcType="INTEGER" property="funcId" />
+    <result column="REUSE_FLAG" jdbcType="INTEGER" property="reuseFlag" />
+    <result column="REQ_KEY" jdbcType="VARCHAR" property="reqKey" />
+    <result column="RSP_KEY" jdbcType="VARCHAR" property="rspKey" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="autotest.com.bocom.entity.ItasCaseWithBLOBs">
+    <result column="CASE_PURPOSE" jdbcType="LONGVARCHAR" property="casePurpose" />
+    <result column="CASE_CONDITON" jdbcType="LONGVARCHAR" property="caseConditon" />
+    <result column="CASE_DATA_REQ" jdbcType="LONGVARCHAR" property="caseDataReq" />
+    <result column="CASE_TEST_STEPS" jdbcType="LONGVARCHAR" property="caseTestSteps" />
+    <result column="CASE_EXPECTATION" jdbcType="LONGVARCHAR" property="caseExpectation" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    CASE_ID, CASE_KEY, CASE_KIND, CASE_NO, CASE_NAME, CASE_TYPE, CASE_NATURE, CASE_STATUS, 
+    CASE_FINISHED, CASE_TEST_TYPE, CASE_MASTER, CASE_LEVEL, CASE_BASED, CASE_ACTIVED, 
+    CASE_VERSION, CASE_CHANGED, PRD_DATE, FLOW_ID, API_ID, API_KEY, REQ_SYS_ID, ENTRANCE_ID, 
+    TEST_CONDITON, IS_DATA_SERVICE, CREATOR, REVISER, TIME_CREATED, TIME_REVISED, FUNC_ID, 
+    REUSE_FLAG, REQ_KEY, RSP_KEY
+  </sql>
+  <sql id="Blob_Column_List">
+    CASE_PURPOSE, CASE_CONDITON, CASE_DATA_REQ, CASE_TEST_STEPS, CASE_EXPECTATION
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="autotest.com.bocom.entity.ItasCaseExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ITAS_CASE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="autotest.com.bocom.entity.ItasCaseExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from ITAS_CASE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ITAS_CASE
+    where CASE_ID = #{caseId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ITAS_CASE
+    where CASE_ID = #{caseId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="autotest.com.bocom.entity.ItasCaseExample">
+    delete from ITAS_CASE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="autotest.com.bocom.entity.ItasCaseWithBLOBs">
+    insert into ITAS_CASE (CASE_ID, CASE_KEY, CASE_KIND, 
+      CASE_NO, CASE_NAME, CASE_TYPE, 
+      CASE_NATURE, CASE_STATUS, CASE_FINISHED, 
+      CASE_TEST_TYPE, CASE_MASTER, CASE_LEVEL, 
+      CASE_BASED, CASE_ACTIVED, CASE_VERSION, 
+      CASE_CHANGED, PRD_DATE, FLOW_ID, 
+      API_ID, API_KEY, REQ_SYS_ID, 
+      ENTRANCE_ID, TEST_CONDITON, IS_DATA_SERVICE, 
+      CREATOR, REVISER, TIME_CREATED, 
+      TIME_REVISED, FUNC_ID, REUSE_FLAG, 
+      REQ_KEY, RSP_KEY, CASE_PURPOSE, 
+      CASE_CONDITON, CASE_DATA_REQ, CASE_TEST_STEPS, 
+      CASE_EXPECTATION)
+    values (#{caseId,jdbcType=INTEGER}, #{caseKey,jdbcType=INTEGER}, #{caseKind,jdbcType=CHAR}, 
+      #{caseNo,jdbcType=VARCHAR}, #{caseName,jdbcType=VARCHAR}, #{caseType,jdbcType=CHAR}, 
+      #{caseNature,jdbcType=CHAR}, #{caseStatus,jdbcType=CHAR}, #{caseFinished,jdbcType=CHAR}, 
+      #{caseTestType,jdbcType=CHAR}, #{caseMaster,jdbcType=INTEGER}, #{caseLevel,jdbcType=CHAR}, 
+      #{caseBased,jdbcType=INTEGER}, #{caseActived,jdbcType=CHAR}, #{caseVersion,jdbcType=DECIMAL}, 
+      #{caseChanged,jdbcType=CHAR}, #{prdDate,jdbcType=VARCHAR}, #{flowId,jdbcType=INTEGER}, 
+      #{apiId,jdbcType=INTEGER}, #{apiKey,jdbcType=INTEGER}, #{reqSysId,jdbcType=INTEGER}, 
+      #{entranceId,jdbcType=INTEGER}, #{testConditon,jdbcType=VARCHAR}, #{isDataService,jdbcType=CHAR}, 
+      #{creator,jdbcType=VARCHAR}, #{reviser,jdbcType=VARCHAR}, #{timeCreated,jdbcType=TIMESTAMP}, 
+      #{timeRevised,jdbcType=TIMESTAMP}, #{funcId,jdbcType=INTEGER}, #{reuseFlag,jdbcType=INTEGER}, 
+      #{reqKey,jdbcType=VARCHAR}, #{rspKey,jdbcType=VARCHAR}, #{casePurpose,jdbcType=LONGVARCHAR}, 
+      #{caseConditon,jdbcType=LONGVARCHAR}, #{caseDataReq,jdbcType=LONGVARCHAR}, #{caseTestSteps,jdbcType=LONGVARCHAR}, 
+      #{caseExpectation,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="autotest.com.bocom.entity.ItasCaseWithBLOBs">
+    insert into ITAS_CASE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="caseId != null">
+        CASE_ID,
+      </if>
+      <if test="caseKey != null">
+        CASE_KEY,
+      </if>
+      <if test="caseKind != null">
+        CASE_KIND,
+      </if>
+      <if test="caseNo != null">
+        CASE_NO,
+      </if>
+      <if test="caseName != null">
+        CASE_NAME,
+      </if>
+      <if test="caseType != null">
+        CASE_TYPE,
+      </if>
+      <if test="caseNature != null">
+        CASE_NATURE,
+      </if>
+      <if test="caseStatus != null">
+        CASE_STATUS,
+      </if>
+      <if test="caseFinished != null">
+        CASE_FINISHED,
+      </if>
+      <if test="caseTestType != null">
+        CASE_TEST_TYPE,
+      </if>
+      <if test="caseMaster != null">
+        CASE_MASTER,
+      </if>
+      <if test="caseLevel != null">
+        CASE_LEVEL,
+      </if>
+      <if test="caseBased != null">
+        CASE_BASED,
+      </if>
+      <if test="caseActived != null">
+        CASE_ACTIVED,
+      </if>
+      <if test="caseVersion != null">
+        CASE_VERSION,
+      </if>
+      <if test="caseChanged != null">
+        CASE_CHANGED,
+      </if>
+      <if test="prdDate != null">
+        PRD_DATE,
+      </if>
+      <if test="flowId != null">
+        FLOW_ID,
+      </if>
+      <if test="apiId != null">
+        API_ID,
+      </if>
+      <if test="apiKey != null">
+        API_KEY,
+      </if>
+      <if test="reqSysId != null">
+        REQ_SYS_ID,
+      </if>
+      <if test="entranceId != null">
+        ENTRANCE_ID,
+      </if>
+      <if test="testConditon != null">
+        TEST_CONDITON,
+      </if>
+      <if test="isDataService != null">
+        IS_DATA_SERVICE,
+      </if>
+      <if test="creator != null">
+        CREATOR,
+      </if>
+      <if test="reviser != null">
+        REVISER,
+      </if>
+      <if test="timeCreated != null">
+        TIME_CREATED,
+      </if>
+      <if test="timeRevised != null">
+        TIME_REVISED,
+      </if>
+      <if test="funcId != null">
+        FUNC_ID,
+      </if>
+      <if test="reuseFlag != null">
+        REUSE_FLAG,
+      </if>
+      <if test="reqKey != null">
+        REQ_KEY,
+      </if>
+      <if test="rspKey != null">
+        RSP_KEY,
+      </if>
+      <if test="casePurpose != null">
+        CASE_PURPOSE,
+      </if>
+      <if test="caseConditon != null">
+        CASE_CONDITON,
+      </if>
+      <if test="caseDataReq != null">
+        CASE_DATA_REQ,
+      </if>
+      <if test="caseTestSteps != null">
+        CASE_TEST_STEPS,
+      </if>
+      <if test="caseExpectation != null">
+        CASE_EXPECTATION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="caseId != null">
+        #{caseId,jdbcType=INTEGER},
+      </if>
+      <if test="caseKey != null">
+        #{caseKey,jdbcType=INTEGER},
+      </if>
+      <if test="caseKind != null">
+        #{caseKind,jdbcType=CHAR},
+      </if>
+      <if test="caseNo != null">
+        #{caseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="caseName != null">
+        #{caseName,jdbcType=VARCHAR},
+      </if>
+      <if test="caseType != null">
+        #{caseType,jdbcType=CHAR},
+      </if>
+      <if test="caseNature != null">
+        #{caseNature,jdbcType=CHAR},
+      </if>
+      <if test="caseStatus != null">
+        #{caseStatus,jdbcType=CHAR},
+      </if>
+      <if test="caseFinished != null">
+        #{caseFinished,jdbcType=CHAR},
+      </if>
+      <if test="caseTestType != null">
+        #{caseTestType,jdbcType=CHAR},
+      </if>
+      <if test="caseMaster != null">
+        #{caseMaster,jdbcType=INTEGER},
+      </if>
+      <if test="caseLevel != null">
+        #{caseLevel,jdbcType=CHAR},
+      </if>
+      <if test="caseBased != null">
+        #{caseBased,jdbcType=INTEGER},
+      </if>
+      <if test="caseActived != null">
+        #{caseActived,jdbcType=CHAR},
+      </if>
+      <if test="caseVersion != null">
+        #{caseVersion,jdbcType=DECIMAL},
+      </if>
+      <if test="caseChanged != null">
+        #{caseChanged,jdbcType=CHAR},
+      </if>
+      <if test="prdDate != null">
+        #{prdDate,jdbcType=VARCHAR},
+      </if>
+      <if test="flowId != null">
+        #{flowId,jdbcType=INTEGER},
+      </if>
+      <if test="apiId != null">
+        #{apiId,jdbcType=INTEGER},
+      </if>
+      <if test="apiKey != null">
+        #{apiKey,jdbcType=INTEGER},
+      </if>
+      <if test="reqSysId != null">
+        #{reqSysId,jdbcType=INTEGER},
+      </if>
+      <if test="entranceId != null">
+        #{entranceId,jdbcType=INTEGER},
+      </if>
+      <if test="testConditon != null">
+        #{testConditon,jdbcType=VARCHAR},
+      </if>
+      <if test="isDataService != null">
+        #{isDataService,jdbcType=CHAR},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="reviser != null">
+        #{reviser,jdbcType=VARCHAR},
+      </if>
+      <if test="timeCreated != null">
+        #{timeCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeRevised != null">
+        #{timeRevised,jdbcType=TIMESTAMP},
+      </if>
+      <if test="funcId != null">
+        #{funcId,jdbcType=INTEGER},
+      </if>
+      <if test="reuseFlag != null">
+        #{reuseFlag,jdbcType=INTEGER},
+      </if>
+      <if test="reqKey != null">
+        #{reqKey,jdbcType=VARCHAR},
+      </if>
+      <if test="rspKey != null">
+        #{rspKey,jdbcType=VARCHAR},
+      </if>
+      <if test="casePurpose != null">
+        #{casePurpose,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="caseConditon != null">
+        #{caseConditon,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="caseDataReq != null">
+        #{caseDataReq,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="caseTestSteps != null">
+        #{caseTestSteps,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="caseExpectation != null">
+        #{caseExpectation,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="autotest.com.bocom.entity.ItasCaseExample" resultType="java.lang.Long">
+    select count(*) from ITAS_CASE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ITAS_CASE
+    <set>
+      <if test="record.caseId != null">
+        CASE_ID = #{record.caseId,jdbcType=INTEGER},
+      </if>
+      <if test="record.caseKey != null">
+        CASE_KEY = #{record.caseKey,jdbcType=INTEGER},
+      </if>
+      <if test="record.caseKind != null">
+        CASE_KIND = #{record.caseKind,jdbcType=CHAR},
+      </if>
+      <if test="record.caseNo != null">
+        CASE_NO = #{record.caseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.caseName != null">
+        CASE_NAME = #{record.caseName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.caseType != null">
+        CASE_TYPE = #{record.caseType,jdbcType=CHAR},
+      </if>
+      <if test="record.caseNature != null">
+        CASE_NATURE = #{record.caseNature,jdbcType=CHAR},
+      </if>
+      <if test="record.caseStatus != null">
+        CASE_STATUS = #{record.caseStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.caseFinished != null">
+        CASE_FINISHED = #{record.caseFinished,jdbcType=CHAR},
+      </if>
+      <if test="record.caseTestType != null">
+        CASE_TEST_TYPE = #{record.caseTestType,jdbcType=CHAR},
+      </if>
+      <if test="record.caseMaster != null">
+        CASE_MASTER = #{record.caseMaster,jdbcType=INTEGER},
+      </if>
+      <if test="record.caseLevel != null">
+        CASE_LEVEL = #{record.caseLevel,jdbcType=CHAR},
+      </if>
+      <if test="record.caseBased != null">
+        CASE_BASED = #{record.caseBased,jdbcType=INTEGER},
+      </if>
+      <if test="record.caseActived != null">
+        CASE_ACTIVED = #{record.caseActived,jdbcType=CHAR},
+      </if>
+      <if test="record.caseVersion != null">
+        CASE_VERSION = #{record.caseVersion,jdbcType=DECIMAL},
+      </if>
+      <if test="record.caseChanged != null">
+        CASE_CHANGED = #{record.caseChanged,jdbcType=CHAR},
+      </if>
+      <if test="record.prdDate != null">
+        PRD_DATE = #{record.prdDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.flowId != null">
+        FLOW_ID = #{record.flowId,jdbcType=INTEGER},
+      </if>
+      <if test="record.apiId != null">
+        API_ID = #{record.apiId,jdbcType=INTEGER},
+      </if>
+      <if test="record.apiKey != null">
+        API_KEY = #{record.apiKey,jdbcType=INTEGER},
+      </if>
+      <if test="record.reqSysId != null">
+        REQ_SYS_ID = #{record.reqSysId,jdbcType=INTEGER},
+      </if>
+      <if test="record.entranceId != null">
+        ENTRANCE_ID = #{record.entranceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.testConditon != null">
+        TEST_CONDITON = #{record.testConditon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDataService != null">
+        IS_DATA_SERVICE = #{record.isDataService,jdbcType=CHAR},
+      </if>
+      <if test="record.creator != null">
+        CREATOR = #{record.creator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reviser != null">
+        REVISER = #{record.reviser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timeCreated != null">
+        TIME_CREATED = #{record.timeCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.timeRevised != null">
+        TIME_REVISED = #{record.timeRevised,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.funcId != null">
+        FUNC_ID = #{record.funcId,jdbcType=INTEGER},
+      </if>
+      <if test="record.reuseFlag != null">
+        REUSE_FLAG = #{record.reuseFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.reqKey != null">
+        REQ_KEY = #{record.reqKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rspKey != null">
+        RSP_KEY = #{record.rspKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.casePurpose != null">
+        CASE_PURPOSE = #{record.casePurpose,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.caseConditon != null">
+        CASE_CONDITON = #{record.caseConditon,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.caseDataReq != null">
+        CASE_DATA_REQ = #{record.caseDataReq,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.caseTestSteps != null">
+        CASE_TEST_STEPS = #{record.caseTestSteps,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.caseExpectation != null">
+        CASE_EXPECTATION = #{record.caseExpectation,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update ITAS_CASE
+    set CASE_ID = #{record.caseId,jdbcType=INTEGER},
+      CASE_KEY = #{record.caseKey,jdbcType=INTEGER},
+      CASE_KIND = #{record.caseKind,jdbcType=CHAR},
+      CASE_NO = #{record.caseNo,jdbcType=VARCHAR},
+      CASE_NAME = #{record.caseName,jdbcType=VARCHAR},
+      CASE_TYPE = #{record.caseType,jdbcType=CHAR},
+      CASE_NATURE = #{record.caseNature,jdbcType=CHAR},
+      CASE_STATUS = #{record.caseStatus,jdbcType=CHAR},
+      CASE_FINISHED = #{record.caseFinished,jdbcType=CHAR},
+      CASE_TEST_TYPE = #{record.caseTestType,jdbcType=CHAR},
+      CASE_MASTER = #{record.caseMaster,jdbcType=INTEGER},
+      CASE_LEVEL = #{record.caseLevel,jdbcType=CHAR},
+      CASE_BASED = #{record.caseBased,jdbcType=INTEGER},
+      CASE_ACTIVED = #{record.caseActived,jdbcType=CHAR},
+      CASE_VERSION = #{record.caseVersion,jdbcType=DECIMAL},
+      CASE_CHANGED = #{record.caseChanged,jdbcType=CHAR},
+      PRD_DATE = #{record.prdDate,jdbcType=VARCHAR},
+      FLOW_ID = #{record.flowId,jdbcType=INTEGER},
+      API_ID = #{record.apiId,jdbcType=INTEGER},
+      API_KEY = #{record.apiKey,jdbcType=INTEGER},
+      REQ_SYS_ID = #{record.reqSysId,jdbcType=INTEGER},
+      ENTRANCE_ID = #{record.entranceId,jdbcType=INTEGER},
+      TEST_CONDITON = #{record.testConditon,jdbcType=VARCHAR},
+      IS_DATA_SERVICE = #{record.isDataService,jdbcType=CHAR},
+      CREATOR = #{record.creator,jdbcType=VARCHAR},
+      REVISER = #{record.reviser,jdbcType=VARCHAR},
+      TIME_CREATED = #{record.timeCreated,jdbcType=TIMESTAMP},
+      TIME_REVISED = #{record.timeRevised,jdbcType=TIMESTAMP},
+      FUNC_ID = #{record.funcId,jdbcType=INTEGER},
+      REUSE_FLAG = #{record.reuseFlag,jdbcType=INTEGER},
+      REQ_KEY = #{record.reqKey,jdbcType=VARCHAR},
+      RSP_KEY = #{record.rspKey,jdbcType=VARCHAR},
+      CASE_PURPOSE = #{record.casePurpose,jdbcType=LONGVARCHAR},
+      CASE_CONDITON = #{record.caseConditon,jdbcType=LONGVARCHAR},
+      CASE_DATA_REQ = #{record.caseDataReq,jdbcType=LONGVARCHAR},
+      CASE_TEST_STEPS = #{record.caseTestSteps,jdbcType=LONGVARCHAR},
+      CASE_EXPECTATION = #{record.caseExpectation,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ITAS_CASE
+    set CASE_ID = #{record.caseId,jdbcType=INTEGER},
+      CASE_KEY = #{record.caseKey,jdbcType=INTEGER},
+      CASE_KIND = #{record.caseKind,jdbcType=CHAR},
+      CASE_NO = #{record.caseNo,jdbcType=VARCHAR},
+      CASE_NAME = #{record.caseName,jdbcType=VARCHAR},
+      CASE_TYPE = #{record.caseType,jdbcType=CHAR},
+      CASE_NATURE = #{record.caseNature,jdbcType=CHAR},
+      CASE_STATUS = #{record.caseStatus,jdbcType=CHAR},
+      CASE_FINISHED = #{record.caseFinished,jdbcType=CHAR},
+      CASE_TEST_TYPE = #{record.caseTestType,jdbcType=CHAR},
+      CASE_MASTER = #{record.caseMaster,jdbcType=INTEGER},
+      CASE_LEVEL = #{record.caseLevel,jdbcType=CHAR},
+      CASE_BASED = #{record.caseBased,jdbcType=INTEGER},
+      CASE_ACTIVED = #{record.caseActived,jdbcType=CHAR},
+      CASE_VERSION = #{record.caseVersion,jdbcType=DECIMAL},
+      CASE_CHANGED = #{record.caseChanged,jdbcType=CHAR},
+      PRD_DATE = #{record.prdDate,jdbcType=VARCHAR},
+      FLOW_ID = #{record.flowId,jdbcType=INTEGER},
+      API_ID = #{record.apiId,jdbcType=INTEGER},
+      API_KEY = #{record.apiKey,jdbcType=INTEGER},
+      REQ_SYS_ID = #{record.reqSysId,jdbcType=INTEGER},
+      ENTRANCE_ID = #{record.entranceId,jdbcType=INTEGER},
+      TEST_CONDITON = #{record.testConditon,jdbcType=VARCHAR},
+      IS_DATA_SERVICE = #{record.isDataService,jdbcType=CHAR},
+      CREATOR = #{record.creator,jdbcType=VARCHAR},
+      REVISER = #{record.reviser,jdbcType=VARCHAR},
+      TIME_CREATED = #{record.timeCreated,jdbcType=TIMESTAMP},
+      TIME_REVISED = #{record.timeRevised,jdbcType=TIMESTAMP},
+      FUNC_ID = #{record.funcId,jdbcType=INTEGER},
+      REUSE_FLAG = #{record.reuseFlag,jdbcType=INTEGER},
+      REQ_KEY = #{record.reqKey,jdbcType=VARCHAR},
+      RSP_KEY = #{record.rspKey,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="autotest.com.bocom.entity.ItasCaseWithBLOBs">
+    update ITAS_CASE
+    <set>
+      <if test="caseKey != null">
+        CASE_KEY = #{caseKey,jdbcType=INTEGER},
+      </if>
+      <if test="caseKind != null">
+        CASE_KIND = #{caseKind,jdbcType=CHAR},
+      </if>
+      <if test="caseNo != null">
+        CASE_NO = #{caseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="caseName != null">
+        CASE_NAME = #{caseName,jdbcType=VARCHAR},
+      </if>
+      <if test="caseType != null">
+        CASE_TYPE = #{caseType,jdbcType=CHAR},
+      </if>
+      <if test="caseNature != null">
+        CASE_NATURE = #{caseNature,jdbcType=CHAR},
+      </if>
+      <if test="caseStatus != null">
+        CASE_STATUS = #{caseStatus,jdbcType=CHAR},
+      </if>
+      <if test="caseFinished != null">
+        CASE_FINISHED = #{caseFinished,jdbcType=CHAR},
+      </if>
+      <if test="caseTestType != null">
+        CASE_TEST_TYPE = #{caseTestType,jdbcType=CHAR},
+      </if>
+      <if test="caseMaster != null">
+        CASE_MASTER = #{caseMaster,jdbcType=INTEGER},
+      </if>
+      <if test="caseLevel != null">
+        CASE_LEVEL = #{caseLevel,jdbcType=CHAR},
+      </if>
+      <if test="caseBased != null">
+        CASE_BASED = #{caseBased,jdbcType=INTEGER},
+      </if>
+      <if test="caseActived != null">
+        CASE_ACTIVED = #{caseActived,jdbcType=CHAR},
+      </if>
+      <if test="caseVersion != null">
+        CASE_VERSION = #{caseVersion,jdbcType=DECIMAL},
+      </if>
+      <if test="caseChanged != null">
+        CASE_CHANGED = #{caseChanged,jdbcType=CHAR},
+      </if>
+      <if test="prdDate != null">
+        PRD_DATE = #{prdDate,jdbcType=VARCHAR},
+      </if>
+      <if test="flowId != null">
+        FLOW_ID = #{flowId,jdbcType=INTEGER},
+      </if>
+      <if test="apiId != null">
+        API_ID = #{apiId,jdbcType=INTEGER},
+      </if>
+      <if test="apiKey != null">
+        API_KEY = #{apiKey,jdbcType=INTEGER},
+      </if>
+      <if test="reqSysId != null">
+        REQ_SYS_ID = #{reqSysId,jdbcType=INTEGER},
+      </if>
+      <if test="entranceId != null">
+        ENTRANCE_ID = #{entranceId,jdbcType=INTEGER},
+      </if>
+      <if test="testConditon != null">
+        TEST_CONDITON = #{testConditon,jdbcType=VARCHAR},
+      </if>
+      <if test="isDataService != null">
+        IS_DATA_SERVICE = #{isDataService,jdbcType=CHAR},
+      </if>
+      <if test="creator != null">
+        CREATOR = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="reviser != null">
+        REVISER = #{reviser,jdbcType=VARCHAR},
+      </if>
+      <if test="timeCreated != null">
+        TIME_CREATED = #{timeCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeRevised != null">
+        TIME_REVISED = #{timeRevised,jdbcType=TIMESTAMP},
+      </if>
+      <if test="funcId != null">
+        FUNC_ID = #{funcId,jdbcType=INTEGER},
+      </if>
+      <if test="reuseFlag != null">
+        REUSE_FLAG = #{reuseFlag,jdbcType=INTEGER},
+      </if>
+      <if test="reqKey != null">
+        REQ_KEY = #{reqKey,jdbcType=VARCHAR},
+      </if>
+      <if test="rspKey != null">
+        RSP_KEY = #{rspKey,jdbcType=VARCHAR},
+      </if>
+      <if test="casePurpose != null">
+        CASE_PURPOSE = #{casePurpose,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="caseConditon != null">
+        CASE_CONDITON = #{caseConditon,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="caseDataReq != null">
+        CASE_DATA_REQ = #{caseDataReq,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="caseTestSteps != null">
+        CASE_TEST_STEPS = #{caseTestSteps,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="caseExpectation != null">
+        CASE_EXPECTATION = #{caseExpectation,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where CASE_ID = #{caseId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="autotest.com.bocom.entity.ItasCaseWithBLOBs">
+    update ITAS_CASE
+    set CASE_KEY = #{caseKey,jdbcType=INTEGER},
+      CASE_KIND = #{caseKind,jdbcType=CHAR},
+      CASE_NO = #{caseNo,jdbcType=VARCHAR},
+      CASE_NAME = #{caseName,jdbcType=VARCHAR},
+      CASE_TYPE = #{caseType,jdbcType=CHAR},
+      CASE_NATURE = #{caseNature,jdbcType=CHAR},
+      CASE_STATUS = #{caseStatus,jdbcType=CHAR},
+      CASE_FINISHED = #{caseFinished,jdbcType=CHAR},
+      CASE_TEST_TYPE = #{caseTestType,jdbcType=CHAR},
+      CASE_MASTER = #{caseMaster,jdbcType=INTEGER},
+      CASE_LEVEL = #{caseLevel,jdbcType=CHAR},
+      CASE_BASED = #{caseBased,jdbcType=INTEGER},
+      CASE_ACTIVED = #{caseActived,jdbcType=CHAR},
+      CASE_VERSION = #{caseVersion,jdbcType=DECIMAL},
+      CASE_CHANGED = #{caseChanged,jdbcType=CHAR},
+      PRD_DATE = #{prdDate,jdbcType=VARCHAR},
+      FLOW_ID = #{flowId,jdbcType=INTEGER},
+      API_ID = #{apiId,jdbcType=INTEGER},
+      API_KEY = #{apiKey,jdbcType=INTEGER},
+      REQ_SYS_ID = #{reqSysId,jdbcType=INTEGER},
+      ENTRANCE_ID = #{entranceId,jdbcType=INTEGER},
+      TEST_CONDITON = #{testConditon,jdbcType=VARCHAR},
+      IS_DATA_SERVICE = #{isDataService,jdbcType=CHAR},
+      CREATOR = #{creator,jdbcType=VARCHAR},
+      REVISER = #{reviser,jdbcType=VARCHAR},
+      TIME_CREATED = #{timeCreated,jdbcType=TIMESTAMP},
+      TIME_REVISED = #{timeRevised,jdbcType=TIMESTAMP},
+      FUNC_ID = #{funcId,jdbcType=INTEGER},
+      REUSE_FLAG = #{reuseFlag,jdbcType=INTEGER},
+      REQ_KEY = #{reqKey,jdbcType=VARCHAR},
+      RSP_KEY = #{rspKey,jdbcType=VARCHAR},
+      CASE_PURPOSE = #{casePurpose,jdbcType=LONGVARCHAR},
+      CASE_CONDITON = #{caseConditon,jdbcType=LONGVARCHAR},
+      CASE_DATA_REQ = #{caseDataReq,jdbcType=LONGVARCHAR},
+      CASE_TEST_STEPS = #{caseTestSteps,jdbcType=LONGVARCHAR},
+      CASE_EXPECTATION = #{caseExpectation,jdbcType=LONGVARCHAR}
+    where CASE_ID = #{caseId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="autotest.com.bocom.entity.ItasCase">
+    update ITAS_CASE
+    set CASE_KEY = #{caseKey,jdbcType=INTEGER},
+      CASE_KIND = #{caseKind,jdbcType=CHAR},
+      CASE_NO = #{caseNo,jdbcType=VARCHAR},
+      CASE_NAME = #{caseName,jdbcType=VARCHAR},
+      CASE_TYPE = #{caseType,jdbcType=CHAR},
+      CASE_NATURE = #{caseNature,jdbcType=CHAR},
+      CASE_STATUS = #{caseStatus,jdbcType=CHAR},
+      CASE_FINISHED = #{caseFinished,jdbcType=CHAR},
+      CASE_TEST_TYPE = #{caseTestType,jdbcType=CHAR},
+      CASE_MASTER = #{caseMaster,jdbcType=INTEGER},
+      CASE_LEVEL = #{caseLevel,jdbcType=CHAR},
+      CASE_BASED = #{caseBased,jdbcType=INTEGER},
+      CASE_ACTIVED = #{caseActived,jdbcType=CHAR},
+      CASE_VERSION = #{caseVersion,jdbcType=DECIMAL},
+      CASE_CHANGED = #{caseChanged,jdbcType=CHAR},
+      PRD_DATE = #{prdDate,jdbcType=VARCHAR},
+      FLOW_ID = #{flowId,jdbcType=INTEGER},
+      API_ID = #{apiId,jdbcType=INTEGER},
+      API_KEY = #{apiKey,jdbcType=INTEGER},
+      REQ_SYS_ID = #{reqSysId,jdbcType=INTEGER},
+      ENTRANCE_ID = #{entranceId,jdbcType=INTEGER},
+      TEST_CONDITON = #{testConditon,jdbcType=VARCHAR},
+      IS_DATA_SERVICE = #{isDataService,jdbcType=CHAR},
+      CREATOR = #{creator,jdbcType=VARCHAR},
+      REVISER = #{reviser,jdbcType=VARCHAR},
+      TIME_CREATED = #{timeCreated,jdbcType=TIMESTAMP},
+      TIME_REVISED = #{timeRevised,jdbcType=TIMESTAMP},
+      FUNC_ID = #{funcId,jdbcType=INTEGER},
+      REUSE_FLAG = #{reuseFlag,jdbcType=INTEGER},
+      REQ_KEY = #{reqKey,jdbcType=VARCHAR},
+      RSP_KEY = #{rspKey,jdbcType=VARCHAR}
+    where CASE_ID = #{caseId,jdbcType=INTEGER}
+  </update>
+</mapper>
