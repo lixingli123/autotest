@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="autotest.com.bocom.dao.ItasEngineParamMapper">
   <resultMap id="BaseResultMap" type="autotest.com.bocom.entity.ItasEngineParam">
-    <result column="ITAS_ENGINE_PARAM_ID" jdbcType="INTEGER" property="itasEngineParamId" />
+    <id column="ITAS_ENGINE_PARAM_ID" jdbcType="INTEGER" property="itasEngineParamId" />
     <result column="ENGINE_ID" jdbcType="INTEGER" property="engineId" />
     <result column="ITAS_ENGINE_PARAM_NAME" jdbcType="VARCHAR" property="itasEngineParamName" />
     <result column="ITAS_ENGINE_PARAM_VALUE" jdbcType="VARCHAR" property="itasEngineParamValue" />
@@ -89,6 +89,16 @@
       order by ${orderByClause}
     </if>
   </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ITAS_ENGINE_PARAM
+    where ITAS_ENGINE_PARAM_ID = #{itasEngineParamId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ITAS_ENGINE_PARAM
+    where ITAS_ENGINE_PARAM_ID = #{itasEngineParamId,jdbcType=INTEGER}
+  </delete>
   <delete id="deleteByExample" parameterType="autotest.com.bocom.entity.ItasEngineParamExample">
     delete from ITAS_ENGINE_PARAM
     <if test="_parameter != null">
@@ -221,5 +231,47 @@
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="autotest.com.bocom.entity.ItasEngineParam">
+    update ITAS_ENGINE_PARAM
+    <set>
+      <if test="engineId != null">
+        ENGINE_ID = #{engineId,jdbcType=INTEGER},
+      </if>
+      <if test="itasEngineParamName != null">
+        ITAS_ENGINE_PARAM_NAME = #{itasEngineParamName,jdbcType=VARCHAR},
+      </if>
+      <if test="itasEngineParamValue != null">
+        ITAS_ENGINE_PARAM_VALUE = #{itasEngineParamValue,jdbcType=VARCHAR},
+      </if>
+      <if test="itasEngineParamDesc != null">
+        ITAS_ENGINE_PARAM_DESC = #{itasEngineParamDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        CREATOR = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="reviser != null">
+        REVISER = #{reviser,jdbcType=INTEGER},
+      </if>
+      <if test="timeCreated != null">
+        TIME_CREATED = #{timeCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeRevised != null">
+        TIME_REVISED = #{timeRevised,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ITAS_ENGINE_PARAM_ID = #{itasEngineParamId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="autotest.com.bocom.entity.ItasEngineParam">
+    update ITAS_ENGINE_PARAM
+    set ENGINE_ID = #{engineId,jdbcType=INTEGER},
+      ITAS_ENGINE_PARAM_NAME = #{itasEngineParamName,jdbcType=VARCHAR},
+      ITAS_ENGINE_PARAM_VALUE = #{itasEngineParamValue,jdbcType=VARCHAR},
+      ITAS_ENGINE_PARAM_DESC = #{itasEngineParamDesc,jdbcType=VARCHAR},
+      CREATOR = #{creator,jdbcType=INTEGER},
+      REVISER = #{reviser,jdbcType=INTEGER},
+      TIME_CREATED = #{timeCreated,jdbcType=TIMESTAMP},
+      TIME_REVISED = #{timeRevised,jdbcType=TIMESTAMP}
+    where ITAS_ENGINE_PARAM_ID = #{itasEngineParamId,jdbcType=INTEGER}
   </update>
 </mapper>

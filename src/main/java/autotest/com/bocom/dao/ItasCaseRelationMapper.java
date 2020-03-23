@@ -10,13 +10,21 @@ public interface ItasCaseRelationMapper {
 
     int deleteByExample(ItasCaseRelationExample example);
 
+    int deleteByPrimaryKey(Integer id);
+
     int insert(ItasCaseRelation record);
 
     int insertSelective(ItasCaseRelation record);
 
     List<ItasCaseRelation> selectByExample(ItasCaseRelationExample example);
 
+    ItasCaseRelation selectByPrimaryKey(Integer id);
+
     int updateByExampleSelective(@Param("record") ItasCaseRelation record, @Param("example") ItasCaseRelationExample example);
 
     int updateByExample(@Param("record") ItasCaseRelation record, @Param("example") ItasCaseRelationExample example);
+
+    int updateByPrimaryKeySelective(ItasCaseRelation record);
+
+    int updateByPrimaryKey(ItasCaseRelation record);
 }

@@ -1,0 +1,860 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="autotest.com.bocom.dao.TestCaseMapper">
+  <resultMap id="BaseResultMap" type="autotest.com.bocom.entity.TestCase">
+    <id column="TEST_CASE_ID" jdbcType="INTEGER" property="testCaseId" />
+    <result column="SCOPE_ID" jdbcType="INTEGER" property="scopeId" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="STATE" jdbcType="INTEGER" property="state" />
+    <result column="CATEGORY" jdbcType="INTEGER" property="category" />
+    <result column="TEST_TYPE" jdbcType="INTEGER" property="testType" />
+    <result column="CASE_TYPE" jdbcType="INTEGER" property="caseType" />
+    <result column="EXECUTE_CONDITION" jdbcType="VARCHAR" property="executeCondition" />
+    <result column="EXECUTE_ENTRANCE" jdbcType="VARCHAR" property="executeEntrance" />
+    <result column="TARGET" jdbcType="VARCHAR" property="target" />
+    <result column="PRECONDITION" jdbcType="VARCHAR" property="precondition" />
+    <result column="DATA_REQ" jdbcType="VARCHAR" property="dataReq" />
+    <result column="STEPS" jdbcType="VARCHAR" property="steps" />
+    <result column="EXPECTATION" jdbcType="VARCHAR" property="expectation" />
+    <result column="TASK_CREATOR" jdbcType="VARCHAR" property="taskCreator" />
+    <result column="TASK_CREATEDTIME" jdbcType="TIMESTAMP" property="taskCreatedtime" />
+    <result column="STATUS" jdbcType="CHAR" property="status" />
+    <result column="REUSE_FLAG" jdbcType="INTEGER" property="reuseFlag" />
+    <result column="IS_CHANGED" jdbcType="INTEGER" property="isChanged" />
+    <result column="IS_EXECUTED" jdbcType="INTEGER" property="isExecuted" />
+    <result column="IS_TEST_BASE" jdbcType="INTEGER" property="isTestBase" />
+    <result column="CASE_LEVEL" jdbcType="VARCHAR" property="caseLevel" />
+    <result column="CASE_VERSION" jdbcType="VARCHAR" property="caseVersion" />
+    <result column="PARENT_ID" jdbcType="INTEGER" property="parentId" />
+    <result column="ATTACH_INFO" jdbcType="VARCHAR" property="attachInfo" />
+    <result column="FUNC_ID" jdbcType="INTEGER" property="funcId" />
+    <result column="BASE_RESULT" jdbcType="INTEGER" property="baseResult" />
+    <result column="UNTEST_REASON" jdbcType="INTEGER" property="untestReason" />
+    <result column="UNEXECUTE_REASON" jdbcType="VARCHAR" property="unexecuteReason" />
+    <result column="EXECUTER" jdbcType="VARCHAR" property="executer" />
+    <result column="EXECUTER_ENDPOINT" jdbcType="VARCHAR" property="executerEndpoint" />
+    <result column="RESULT" jdbcType="INTEGER" property="result" />
+    <result column="START_TIME" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="END_TIME" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="DURATION" jdbcType="INTEGER" property="duration" />
+    <result column="EXECUTE_DESC" jdbcType="VARCHAR" property="executeDesc" />
+    <result column="RETURN_CODE" jdbcType="INTEGER" property="returnCode" />
+    <result column="SUCCUSS_COUNT" jdbcType="INTEGER" property="succussCount" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="autotest.com.bocom.entity.TestCase">
+    <result column="SUCCUSS_RESPONSE" jdbcType="LONGVARCHAR" property="succussResponse" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TEST_CASE_ID, SCOPE_ID, NAME, STATE, CATEGORY, TEST_TYPE, CASE_TYPE, EXECUTE_CONDITION, 
+    EXECUTE_ENTRANCE, TARGET, PRECONDITION, DATA_REQ, STEPS, EXPECTATION, TASK_CREATOR, 
+    TASK_CREATEDTIME, STATUS, REUSE_FLAG, IS_CHANGED, IS_EXECUTED, IS_TEST_BASE, CASE_LEVEL, 
+    CASE_VERSION, PARENT_ID, ATTACH_INFO, FUNC_ID, BASE_RESULT, UNTEST_REASON, UNEXECUTE_REASON, 
+    EXECUTER, EXECUTER_ENDPOINT, RESULT, START_TIME, END_TIME, DURATION, EXECUTE_DESC, 
+    RETURN_CODE, SUCCUSS_COUNT
+  </sql>
+  <sql id="Blob_Column_List">
+    SUCCUSS_RESPONSE
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="autotest.com.bocom.entity.TestCaseExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from TEST_CASE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="autotest.com.bocom.entity.TestCaseExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from TEST_CASE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from TEST_CASE
+    where TEST_CASE_ID = #{testCaseId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from TEST_CASE
+    where TEST_CASE_ID = #{testCaseId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="autotest.com.bocom.entity.TestCaseExample">
+    delete from TEST_CASE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="autotest.com.bocom.entity.TestCase">
+    insert into TEST_CASE (TEST_CASE_ID, SCOPE_ID, NAME, 
+      STATE, CATEGORY, TEST_TYPE, 
+      CASE_TYPE, EXECUTE_CONDITION, EXECUTE_ENTRANCE, 
+      TARGET, PRECONDITION, DATA_REQ, 
+      STEPS, EXPECTATION, TASK_CREATOR, 
+      TASK_CREATEDTIME, STATUS, REUSE_FLAG, 
+      IS_CHANGED, IS_EXECUTED, IS_TEST_BASE, 
+      CASE_LEVEL, CASE_VERSION, PARENT_ID, 
+      ATTACH_INFO, FUNC_ID, BASE_RESULT, 
+      UNTEST_REASON, UNEXECUTE_REASON, EXECUTER, 
+      EXECUTER_ENDPOINT, RESULT, START_TIME, 
+      END_TIME, DURATION, EXECUTE_DESC, 
+      RETURN_CODE, SUCCUSS_COUNT, SUCCUSS_RESPONSE
+      )
+    values (#{testCaseId,jdbcType=INTEGER}, #{scopeId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{state,jdbcType=INTEGER}, #{category,jdbcType=INTEGER}, #{testType,jdbcType=INTEGER}, 
+      #{caseType,jdbcType=INTEGER}, #{executeCondition,jdbcType=VARCHAR}, #{executeEntrance,jdbcType=VARCHAR}, 
+      #{target,jdbcType=VARCHAR}, #{precondition,jdbcType=VARCHAR}, #{dataReq,jdbcType=VARCHAR}, 
+      #{steps,jdbcType=VARCHAR}, #{expectation,jdbcType=VARCHAR}, #{taskCreator,jdbcType=VARCHAR}, 
+      #{taskCreatedtime,jdbcType=TIMESTAMP}, #{status,jdbcType=CHAR}, #{reuseFlag,jdbcType=INTEGER}, 
+      #{isChanged,jdbcType=INTEGER}, #{isExecuted,jdbcType=INTEGER}, #{isTestBase,jdbcType=INTEGER}, 
+      #{caseLevel,jdbcType=VARCHAR}, #{caseVersion,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, 
+      #{attachInfo,jdbcType=VARCHAR}, #{funcId,jdbcType=INTEGER}, #{baseResult,jdbcType=INTEGER}, 
+      #{untestReason,jdbcType=INTEGER}, #{unexecuteReason,jdbcType=VARCHAR}, #{executer,jdbcType=VARCHAR}, 
+      #{executerEndpoint,jdbcType=VARCHAR}, #{result,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{endTime,jdbcType=TIMESTAMP}, #{duration,jdbcType=INTEGER}, #{executeDesc,jdbcType=VARCHAR}, 
+      #{returnCode,jdbcType=INTEGER}, #{succussCount,jdbcType=INTEGER}, #{succussResponse,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="autotest.com.bocom.entity.TestCase">
+    insert into TEST_CASE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="testCaseId != null">
+        TEST_CASE_ID,
+      </if>
+      <if test="scopeId != null">
+        SCOPE_ID,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="state != null">
+        STATE,
+      </if>
+      <if test="category != null">
+        CATEGORY,
+      </if>
+      <if test="testType != null">
+        TEST_TYPE,
+      </if>
+      <if test="caseType != null">
+        CASE_TYPE,
+      </if>
+      <if test="executeCondition != null">
+        EXECUTE_CONDITION,
+      </if>
+      <if test="executeEntrance != null">
+        EXECUTE_ENTRANCE,
+      </if>
+      <if test="target != null">
+        TARGET,
+      </if>
+      <if test="precondition != null">
+        PRECONDITION,
+      </if>
+      <if test="dataReq != null">
+        DATA_REQ,
+      </if>
+      <if test="steps != null">
+        STEPS,
+      </if>
+      <if test="expectation != null">
+        EXPECTATION,
+      </if>
+      <if test="taskCreator != null">
+        TASK_CREATOR,
+      </if>
+      <if test="taskCreatedtime != null">
+        TASK_CREATEDTIME,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="reuseFlag != null">
+        REUSE_FLAG,
+      </if>
+      <if test="isChanged != null">
+        IS_CHANGED,
+      </if>
+      <if test="isExecuted != null">
+        IS_EXECUTED,
+      </if>
+      <if test="isTestBase != null">
+        IS_TEST_BASE,
+      </if>
+      <if test="caseLevel != null">
+        CASE_LEVEL,
+      </if>
+      <if test="caseVersion != null">
+        CASE_VERSION,
+      </if>
+      <if test="parentId != null">
+        PARENT_ID,
+      </if>
+      <if test="attachInfo != null">
+        ATTACH_INFO,
+      </if>
+      <if test="funcId != null">
+        FUNC_ID,
+      </if>
+      <if test="baseResult != null">
+        BASE_RESULT,
+      </if>
+      <if test="untestReason != null">
+        UNTEST_REASON,
+      </if>
+      <if test="unexecuteReason != null">
+        UNEXECUTE_REASON,
+      </if>
+      <if test="executer != null">
+        EXECUTER,
+      </if>
+      <if test="executerEndpoint != null">
+        EXECUTER_ENDPOINT,
+      </if>
+      <if test="result != null">
+        RESULT,
+      </if>
+      <if test="startTime != null">
+        START_TIME,
+      </if>
+      <if test="endTime != null">
+        END_TIME,
+      </if>
+      <if test="duration != null">
+        DURATION,
+      </if>
+      <if test="executeDesc != null">
+        EXECUTE_DESC,
+      </if>
+      <if test="returnCode != null">
+        RETURN_CODE,
+      </if>
+      <if test="succussCount != null">
+        SUCCUSS_COUNT,
+      </if>
+      <if test="succussResponse != null">
+        SUCCUSS_RESPONSE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="testCaseId != null">
+        #{testCaseId,jdbcType=INTEGER},
+      </if>
+      <if test="scopeId != null">
+        #{scopeId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="category != null">
+        #{category,jdbcType=INTEGER},
+      </if>
+      <if test="testType != null">
+        #{testType,jdbcType=INTEGER},
+      </if>
+      <if test="caseType != null">
+        #{caseType,jdbcType=INTEGER},
+      </if>
+      <if test="executeCondition != null">
+        #{executeCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="executeEntrance != null">
+        #{executeEntrance,jdbcType=VARCHAR},
+      </if>
+      <if test="target != null">
+        #{target,jdbcType=VARCHAR},
+      </if>
+      <if test="precondition != null">
+        #{precondition,jdbcType=VARCHAR},
+      </if>
+      <if test="dataReq != null">
+        #{dataReq,jdbcType=VARCHAR},
+      </if>
+      <if test="steps != null">
+        #{steps,jdbcType=VARCHAR},
+      </if>
+      <if test="expectation != null">
+        #{expectation,jdbcType=VARCHAR},
+      </if>
+      <if test="taskCreator != null">
+        #{taskCreator,jdbcType=VARCHAR},
+      </if>
+      <if test="taskCreatedtime != null">
+        #{taskCreatedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="reuseFlag != null">
+        #{reuseFlag,jdbcType=INTEGER},
+      </if>
+      <if test="isChanged != null">
+        #{isChanged,jdbcType=INTEGER},
+      </if>
+      <if test="isExecuted != null">
+        #{isExecuted,jdbcType=INTEGER},
+      </if>
+      <if test="isTestBase != null">
+        #{isTestBase,jdbcType=INTEGER},
+      </if>
+      <if test="caseLevel != null">
+        #{caseLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="caseVersion != null">
+        #{caseVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="attachInfo != null">
+        #{attachInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="funcId != null">
+        #{funcId,jdbcType=INTEGER},
+      </if>
+      <if test="baseResult != null">
+        #{baseResult,jdbcType=INTEGER},
+      </if>
+      <if test="untestReason != null">
+        #{untestReason,jdbcType=INTEGER},
+      </if>
+      <if test="unexecuteReason != null">
+        #{unexecuteReason,jdbcType=VARCHAR},
+      </if>
+      <if test="executer != null">
+        #{executer,jdbcType=VARCHAR},
+      </if>
+      <if test="executerEndpoint != null">
+        #{executerEndpoint,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null">
+        #{result,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="duration != null">
+        #{duration,jdbcType=INTEGER},
+      </if>
+      <if test="executeDesc != null">
+        #{executeDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="returnCode != null">
+        #{returnCode,jdbcType=INTEGER},
+      </if>
+      <if test="succussCount != null">
+        #{succussCount,jdbcType=INTEGER},
+      </if>
+      <if test="succussResponse != null">
+        #{succussResponse,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="autotest.com.bocom.entity.TestCaseExample" resultType="java.lang.Long">
+    select count(*) from TEST_CASE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update TEST_CASE
+    <set>
+      <if test="record.testCaseId != null">
+        TEST_CASE_ID = #{record.testCaseId,jdbcType=INTEGER},
+      </if>
+      <if test="record.scopeId != null">
+        SCOPE_ID = #{record.scopeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null">
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null">
+        STATE = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.category != null">
+        CATEGORY = #{record.category,jdbcType=INTEGER},
+      </if>
+      <if test="record.testType != null">
+        TEST_TYPE = #{record.testType,jdbcType=INTEGER},
+      </if>
+      <if test="record.caseType != null">
+        CASE_TYPE = #{record.caseType,jdbcType=INTEGER},
+      </if>
+      <if test="record.executeCondition != null">
+        EXECUTE_CONDITION = #{record.executeCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="record.executeEntrance != null">
+        EXECUTE_ENTRANCE = #{record.executeEntrance,jdbcType=VARCHAR},
+      </if>
+      <if test="record.target != null">
+        TARGET = #{record.target,jdbcType=VARCHAR},
+      </if>
+      <if test="record.precondition != null">
+        PRECONDITION = #{record.precondition,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dataReq != null">
+        DATA_REQ = #{record.dataReq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.steps != null">
+        STEPS = #{record.steps,jdbcType=VARCHAR},
+      </if>
+      <if test="record.expectation != null">
+        EXPECTATION = #{record.expectation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskCreator != null">
+        TASK_CREATOR = #{record.taskCreator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskCreatedtime != null">
+        TASK_CREATEDTIME = #{record.taskCreatedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null">
+        STATUS = #{record.status,jdbcType=CHAR},
+      </if>
+      <if test="record.reuseFlag != null">
+        REUSE_FLAG = #{record.reuseFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.isChanged != null">
+        IS_CHANGED = #{record.isChanged,jdbcType=INTEGER},
+      </if>
+      <if test="record.isExecuted != null">
+        IS_EXECUTED = #{record.isExecuted,jdbcType=INTEGER},
+      </if>
+      <if test="record.isTestBase != null">
+        IS_TEST_BASE = #{record.isTestBase,jdbcType=INTEGER},
+      </if>
+      <if test="record.caseLevel != null">
+        CASE_LEVEL = #{record.caseLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.caseVersion != null">
+        CASE_VERSION = #{record.caseVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentId != null">
+        PARENT_ID = #{record.parentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.attachInfo != null">
+        ATTACH_INFO = #{record.attachInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.funcId != null">
+        FUNC_ID = #{record.funcId,jdbcType=INTEGER},
+      </if>
+      <if test="record.baseResult != null">
+        BASE_RESULT = #{record.baseResult,jdbcType=INTEGER},
+      </if>
+      <if test="record.untestReason != null">
+        UNTEST_REASON = #{record.untestReason,jdbcType=INTEGER},
+      </if>
+      <if test="record.unexecuteReason != null">
+        UNEXECUTE_REASON = #{record.unexecuteReason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.executer != null">
+        EXECUTER = #{record.executer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.executerEndpoint != null">
+        EXECUTER_ENDPOINT = #{record.executerEndpoint,jdbcType=VARCHAR},
+      </if>
+      <if test="record.result != null">
+        RESULT = #{record.result,jdbcType=INTEGER},
+      </if>
+      <if test="record.startTime != null">
+        START_TIME = #{record.startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endTime != null">
+        END_TIME = #{record.endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.duration != null">
+        DURATION = #{record.duration,jdbcType=INTEGER},
+      </if>
+      <if test="record.executeDesc != null">
+        EXECUTE_DESC = #{record.executeDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.returnCode != null">
+        RETURN_CODE = #{record.returnCode,jdbcType=INTEGER},
+      </if>
+      <if test="record.succussCount != null">
+        SUCCUSS_COUNT = #{record.succussCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.succussResponse != null">
+        SUCCUSS_RESPONSE = #{record.succussResponse,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update TEST_CASE
+    set TEST_CASE_ID = #{record.testCaseId,jdbcType=INTEGER},
+      SCOPE_ID = #{record.scopeId,jdbcType=INTEGER},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      STATE = #{record.state,jdbcType=INTEGER},
+      CATEGORY = #{record.category,jdbcType=INTEGER},
+      TEST_TYPE = #{record.testType,jdbcType=INTEGER},
+      CASE_TYPE = #{record.caseType,jdbcType=INTEGER},
+      EXECUTE_CONDITION = #{record.executeCondition,jdbcType=VARCHAR},
+      EXECUTE_ENTRANCE = #{record.executeEntrance,jdbcType=VARCHAR},
+      TARGET = #{record.target,jdbcType=VARCHAR},
+      PRECONDITION = #{record.precondition,jdbcType=VARCHAR},
+      DATA_REQ = #{record.dataReq,jdbcType=VARCHAR},
+      STEPS = #{record.steps,jdbcType=VARCHAR},
+      EXPECTATION = #{record.expectation,jdbcType=VARCHAR},
+      TASK_CREATOR = #{record.taskCreator,jdbcType=VARCHAR},
+      TASK_CREATEDTIME = #{record.taskCreatedtime,jdbcType=TIMESTAMP},
+      STATUS = #{record.status,jdbcType=CHAR},
+      REUSE_FLAG = #{record.reuseFlag,jdbcType=INTEGER},
+      IS_CHANGED = #{record.isChanged,jdbcType=INTEGER},
+      IS_EXECUTED = #{record.isExecuted,jdbcType=INTEGER},
+      IS_TEST_BASE = #{record.isTestBase,jdbcType=INTEGER},
+      CASE_LEVEL = #{record.caseLevel,jdbcType=VARCHAR},
+      CASE_VERSION = #{record.caseVersion,jdbcType=VARCHAR},
+      PARENT_ID = #{record.parentId,jdbcType=INTEGER},
+      ATTACH_INFO = #{record.attachInfo,jdbcType=VARCHAR},
+      FUNC_ID = #{record.funcId,jdbcType=INTEGER},
+      BASE_RESULT = #{record.baseResult,jdbcType=INTEGER},
+      UNTEST_REASON = #{record.untestReason,jdbcType=INTEGER},
+      UNEXECUTE_REASON = #{record.unexecuteReason,jdbcType=VARCHAR},
+      EXECUTER = #{record.executer,jdbcType=VARCHAR},
+      EXECUTER_ENDPOINT = #{record.executerEndpoint,jdbcType=VARCHAR},
+      RESULT = #{record.result,jdbcType=INTEGER},
+      START_TIME = #{record.startTime,jdbcType=TIMESTAMP},
+      END_TIME = #{record.endTime,jdbcType=TIMESTAMP},
+      DURATION = #{record.duration,jdbcType=INTEGER},
+      EXECUTE_DESC = #{record.executeDesc,jdbcType=VARCHAR},
+      RETURN_CODE = #{record.returnCode,jdbcType=INTEGER},
+      SUCCUSS_COUNT = #{record.succussCount,jdbcType=INTEGER},
+      SUCCUSS_RESPONSE = #{record.succussResponse,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update TEST_CASE
+    set TEST_CASE_ID = #{record.testCaseId,jdbcType=INTEGER},
+      SCOPE_ID = #{record.scopeId,jdbcType=INTEGER},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      STATE = #{record.state,jdbcType=INTEGER},
+      CATEGORY = #{record.category,jdbcType=INTEGER},
+      TEST_TYPE = #{record.testType,jdbcType=INTEGER},
+      CASE_TYPE = #{record.caseType,jdbcType=INTEGER},
+      EXECUTE_CONDITION = #{record.executeCondition,jdbcType=VARCHAR},
+      EXECUTE_ENTRANCE = #{record.executeEntrance,jdbcType=VARCHAR},
+      TARGET = #{record.target,jdbcType=VARCHAR},
+      PRECONDITION = #{record.precondition,jdbcType=VARCHAR},
+      DATA_REQ = #{record.dataReq,jdbcType=VARCHAR},
+      STEPS = #{record.steps,jdbcType=VARCHAR},
+      EXPECTATION = #{record.expectation,jdbcType=VARCHAR},
+      TASK_CREATOR = #{record.taskCreator,jdbcType=VARCHAR},
+      TASK_CREATEDTIME = #{record.taskCreatedtime,jdbcType=TIMESTAMP},
+      STATUS = #{record.status,jdbcType=CHAR},
+      REUSE_FLAG = #{record.reuseFlag,jdbcType=INTEGER},
+      IS_CHANGED = #{record.isChanged,jdbcType=INTEGER},
+      IS_EXECUTED = #{record.isExecuted,jdbcType=INTEGER},
+      IS_TEST_BASE = #{record.isTestBase,jdbcType=INTEGER},
+      CASE_LEVEL = #{record.caseLevel,jdbcType=VARCHAR},
+      CASE_VERSION = #{record.caseVersion,jdbcType=VARCHAR},
+      PARENT_ID = #{record.parentId,jdbcType=INTEGER},
+      ATTACH_INFO = #{record.attachInfo,jdbcType=VARCHAR},
+      FUNC_ID = #{record.funcId,jdbcType=INTEGER},
+      BASE_RESULT = #{record.baseResult,jdbcType=INTEGER},
+      UNTEST_REASON = #{record.untestReason,jdbcType=INTEGER},
+      UNEXECUTE_REASON = #{record.unexecuteReason,jdbcType=VARCHAR},
+      EXECUTER = #{record.executer,jdbcType=VARCHAR},
+      EXECUTER_ENDPOINT = #{record.executerEndpoint,jdbcType=VARCHAR},
+      RESULT = #{record.result,jdbcType=INTEGER},
+      START_TIME = #{record.startTime,jdbcType=TIMESTAMP},
+      END_TIME = #{record.endTime,jdbcType=TIMESTAMP},
+      DURATION = #{record.duration,jdbcType=INTEGER},
+      EXECUTE_DESC = #{record.executeDesc,jdbcType=VARCHAR},
+      RETURN_CODE = #{record.returnCode,jdbcType=INTEGER},
+      SUCCUSS_COUNT = #{record.succussCount,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="autotest.com.bocom.entity.TestCase">
+    update TEST_CASE
+    <set>
+      <if test="scopeId != null">
+        SCOPE_ID = #{scopeId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        STATE = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="category != null">
+        CATEGORY = #{category,jdbcType=INTEGER},
+      </if>
+      <if test="testType != null">
+        TEST_TYPE = #{testType,jdbcType=INTEGER},
+      </if>
+      <if test="caseType != null">
+        CASE_TYPE = #{caseType,jdbcType=INTEGER},
+      </if>
+      <if test="executeCondition != null">
+        EXECUTE_CONDITION = #{executeCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="executeEntrance != null">
+        EXECUTE_ENTRANCE = #{executeEntrance,jdbcType=VARCHAR},
+      </if>
+      <if test="target != null">
+        TARGET = #{target,jdbcType=VARCHAR},
+      </if>
+      <if test="precondition != null">
+        PRECONDITION = #{precondition,jdbcType=VARCHAR},
+      </if>
+      <if test="dataReq != null">
+        DATA_REQ = #{dataReq,jdbcType=VARCHAR},
+      </if>
+      <if test="steps != null">
+        STEPS = #{steps,jdbcType=VARCHAR},
+      </if>
+      <if test="expectation != null">
+        EXPECTATION = #{expectation,jdbcType=VARCHAR},
+      </if>
+      <if test="taskCreator != null">
+        TASK_CREATOR = #{taskCreator,jdbcType=VARCHAR},
+      </if>
+      <if test="taskCreatedtime != null">
+        TASK_CREATEDTIME = #{taskCreatedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="reuseFlag != null">
+        REUSE_FLAG = #{reuseFlag,jdbcType=INTEGER},
+      </if>
+      <if test="isChanged != null">
+        IS_CHANGED = #{isChanged,jdbcType=INTEGER},
+      </if>
+      <if test="isExecuted != null">
+        IS_EXECUTED = #{isExecuted,jdbcType=INTEGER},
+      </if>
+      <if test="isTestBase != null">
+        IS_TEST_BASE = #{isTestBase,jdbcType=INTEGER},
+      </if>
+      <if test="caseLevel != null">
+        CASE_LEVEL = #{caseLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="caseVersion != null">
+        CASE_VERSION = #{caseVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        PARENT_ID = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="attachInfo != null">
+        ATTACH_INFO = #{attachInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="funcId != null">
+        FUNC_ID = #{funcId,jdbcType=INTEGER},
+      </if>
+      <if test="baseResult != null">
+        BASE_RESULT = #{baseResult,jdbcType=INTEGER},
+      </if>
+      <if test="untestReason != null">
+        UNTEST_REASON = #{untestReason,jdbcType=INTEGER},
+      </if>
+      <if test="unexecuteReason != null">
+        UNEXECUTE_REASON = #{unexecuteReason,jdbcType=VARCHAR},
+      </if>
+      <if test="executer != null">
+        EXECUTER = #{executer,jdbcType=VARCHAR},
+      </if>
+      <if test="executerEndpoint != null">
+        EXECUTER_ENDPOINT = #{executerEndpoint,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null">
+        RESULT = #{result,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null">
+        START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="duration != null">
+        DURATION = #{duration,jdbcType=INTEGER},
+      </if>
+      <if test="executeDesc != null">
+        EXECUTE_DESC = #{executeDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="returnCode != null">
+        RETURN_CODE = #{returnCode,jdbcType=INTEGER},
+      </if>
+      <if test="succussCount != null">
+        SUCCUSS_COUNT = #{succussCount,jdbcType=INTEGER},
+      </if>
+      <if test="succussResponse != null">
+        SUCCUSS_RESPONSE = #{succussResponse,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where TEST_CASE_ID = #{testCaseId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="autotest.com.bocom.entity.TestCase">
+    update TEST_CASE
+    set SCOPE_ID = #{scopeId,jdbcType=INTEGER},
+      NAME = #{name,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=INTEGER},
+      CATEGORY = #{category,jdbcType=INTEGER},
+      TEST_TYPE = #{testType,jdbcType=INTEGER},
+      CASE_TYPE = #{caseType,jdbcType=INTEGER},
+      EXECUTE_CONDITION = #{executeCondition,jdbcType=VARCHAR},
+      EXECUTE_ENTRANCE = #{executeEntrance,jdbcType=VARCHAR},
+      TARGET = #{target,jdbcType=VARCHAR},
+      PRECONDITION = #{precondition,jdbcType=VARCHAR},
+      DATA_REQ = #{dataReq,jdbcType=VARCHAR},
+      STEPS = #{steps,jdbcType=VARCHAR},
+      EXPECTATION = #{expectation,jdbcType=VARCHAR},
+      TASK_CREATOR = #{taskCreator,jdbcType=VARCHAR},
+      TASK_CREATEDTIME = #{taskCreatedtime,jdbcType=TIMESTAMP},
+      STATUS = #{status,jdbcType=CHAR},
+      REUSE_FLAG = #{reuseFlag,jdbcType=INTEGER},
+      IS_CHANGED = #{isChanged,jdbcType=INTEGER},
+      IS_EXECUTED = #{isExecuted,jdbcType=INTEGER},
+      IS_TEST_BASE = #{isTestBase,jdbcType=INTEGER},
+      CASE_LEVEL = #{caseLevel,jdbcType=VARCHAR},
+      CASE_VERSION = #{caseVersion,jdbcType=VARCHAR},
+      PARENT_ID = #{parentId,jdbcType=INTEGER},
+      ATTACH_INFO = #{attachInfo,jdbcType=VARCHAR},
+      FUNC_ID = #{funcId,jdbcType=INTEGER},
+      BASE_RESULT = #{baseResult,jdbcType=INTEGER},
+      UNTEST_REASON = #{untestReason,jdbcType=INTEGER},
+      UNEXECUTE_REASON = #{unexecuteReason,jdbcType=VARCHAR},
+      EXECUTER = #{executer,jdbcType=VARCHAR},
+      EXECUTER_ENDPOINT = #{executerEndpoint,jdbcType=VARCHAR},
+      RESULT = #{result,jdbcType=INTEGER},
+      START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      DURATION = #{duration,jdbcType=INTEGER},
+      EXECUTE_DESC = #{executeDesc,jdbcType=VARCHAR},
+      RETURN_CODE = #{returnCode,jdbcType=INTEGER},
+      SUCCUSS_COUNT = #{succussCount,jdbcType=INTEGER},
+      SUCCUSS_RESPONSE = #{succussResponse,jdbcType=LONGVARCHAR}
+    where TEST_CASE_ID = #{testCaseId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="autotest.com.bocom.entity.TestCase">
+    update TEST_CASE
+    set SCOPE_ID = #{scopeId,jdbcType=INTEGER},
+      NAME = #{name,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=INTEGER},
+      CATEGORY = #{category,jdbcType=INTEGER},
+      TEST_TYPE = #{testType,jdbcType=INTEGER},
+      CASE_TYPE = #{caseType,jdbcType=INTEGER},
+      EXECUTE_CONDITION = #{executeCondition,jdbcType=VARCHAR},
+      EXECUTE_ENTRANCE = #{executeEntrance,jdbcType=VARCHAR},
+      TARGET = #{target,jdbcType=VARCHAR},
+      PRECONDITION = #{precondition,jdbcType=VARCHAR},
+      DATA_REQ = #{dataReq,jdbcType=VARCHAR},
+      STEPS = #{steps,jdbcType=VARCHAR},
+      EXPECTATION = #{expectation,jdbcType=VARCHAR},
+      TASK_CREATOR = #{taskCreator,jdbcType=VARCHAR},
+      TASK_CREATEDTIME = #{taskCreatedtime,jdbcType=TIMESTAMP},
+      STATUS = #{status,jdbcType=CHAR},
+      REUSE_FLAG = #{reuseFlag,jdbcType=INTEGER},
+      IS_CHANGED = #{isChanged,jdbcType=INTEGER},
+      IS_EXECUTED = #{isExecuted,jdbcType=INTEGER},
+      IS_TEST_BASE = #{isTestBase,jdbcType=INTEGER},
+      CASE_LEVEL = #{caseLevel,jdbcType=VARCHAR},
+      CASE_VERSION = #{caseVersion,jdbcType=VARCHAR},
+      PARENT_ID = #{parentId,jdbcType=INTEGER},
+      ATTACH_INFO = #{attachInfo,jdbcType=VARCHAR},
+      FUNC_ID = #{funcId,jdbcType=INTEGER},
+      BASE_RESULT = #{baseResult,jdbcType=INTEGER},
+      UNTEST_REASON = #{untestReason,jdbcType=INTEGER},
+      UNEXECUTE_REASON = #{unexecuteReason,jdbcType=VARCHAR},
+      EXECUTER = #{executer,jdbcType=VARCHAR},
+      EXECUTER_ENDPOINT = #{executerEndpoint,jdbcType=VARCHAR},
+      RESULT = #{result,jdbcType=INTEGER},
+      START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      DURATION = #{duration,jdbcType=INTEGER},
+      EXECUTE_DESC = #{executeDesc,jdbcType=VARCHAR},
+      RETURN_CODE = #{returnCode,jdbcType=INTEGER},
+      SUCCUSS_COUNT = #{succussCount,jdbcType=INTEGER}
+    where TEST_CASE_ID = #{testCaseId,jdbcType=INTEGER}
+  </update>
+</mapper>

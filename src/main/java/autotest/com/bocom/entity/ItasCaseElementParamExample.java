@@ -3,14 +3,14 @@ package autotest.com.bocom.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItasCaseEntranceParamExample {
+public class ItasCaseElementParamExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public ItasCaseEntranceParamExample() {
+    public ItasCaseElementParamExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 

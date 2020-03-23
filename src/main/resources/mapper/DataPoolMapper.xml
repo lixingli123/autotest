@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="autotest.com.bocom.dao.DataPoolMapper">
+  <resultMap id="BaseResultMap" type="autotest.com.bocom.entity.DataPool">
+    <id column="POOL_ID" jdbcType="INTEGER" property="poolId" />
+    <result column="PRODUCT_ID" jdbcType="INTEGER" property="productId" />
+    <result column="SOLUTION_ID" jdbcType="INTEGER" property="solutionId" />
+    <result column="ELEMENT_NAME" jdbcType="VARCHAR" property="elementName" />
+    <result column="DATA_ID" jdbcType="INTEGER" property="dataId" />
+    <result column="ELEMENT_VALUE" jdbcType="VARCHAR" property="elementValue" />
+    <result column="DATA_STATUS" jdbcType="CHAR" property="dataStatus" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="ATTRIBURE1" jdbcType="VARCHAR" property="attribure1" />
+    <result column="ATTRIBURE2" jdbcType="VARCHAR" property="attribure2" />
+    <result column="ATTRIBURE3" jdbcType="VARCHAR" property="attribure3" />
+    <result column="ATTRIBURE4" jdbcType="VARCHAR" property="attribure4" />
+    <result column="ATTRIBURE5" jdbcType="VARCHAR" property="attribure5" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    POOL_ID, PRODUCT_ID, SOLUTION_ID, ELEMENT_NAME, DATA_ID, ELEMENT_VALUE, DATA_STATUS, 
+    CREATE_TIME, ATTRIBURE1, ATTRIBURE2, ATTRIBURE3, ATTRIBURE4, ATTRIBURE5
+  </sql>
+  <select id="selectByExample" parameterType="autotest.com.bocom.entity.DataPoolExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from DATA_POOL
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from DATA_POOL
+    where POOL_ID = #{poolId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from DATA_POOL
+    where POOL_ID = #{poolId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="autotest.com.bocom.entity.DataPoolExample">
+    delete from DATA_POOL
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="autotest.com.bocom.entity.DataPool">
+    insert into DATA_POOL (POOL_ID, PRODUCT_ID, SOLUTION_ID, 
+      ELEMENT_NAME, DATA_ID, ELEMENT_VALUE, 
+      DATA_STATUS, CREATE_TIME, ATTRIBURE1, 
+      ATTRIBURE2, ATTRIBURE3, ATTRIBURE4, 
+      ATTRIBURE5)
+    values (#{poolId,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER}, #{solutionId,jdbcType=INTEGER}, 
+      #{elementName,jdbcType=VARCHAR}, #{dataId,jdbcType=INTEGER}, #{elementValue,jdbcType=VARCHAR}, 
+      #{dataStatus,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, #{attribure1,jdbcType=VARCHAR}, 
+      #{attribure2,jdbcType=VARCHAR}, #{attribure3,jdbcType=VARCHAR}, #{attribure4,jdbcType=VARCHAR}, 
+      #{attribure5,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="autotest.com.bocom.entity.DataPool">
+    insert into DATA_POOL
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="poolId != null">
+        POOL_ID,
+      </if>
+      <if test="productId != null">
+        PRODUCT_ID,
+      </if>
+      <if test="solutionId != null">
+        SOLUTION_ID,
+      </if>
+      <if test="elementName != null">
+        ELEMENT_NAME,
+      </if>
+      <if test="dataId != null">
+        DATA_ID,
+      </if>
+      <if test="elementValue != null">
+        ELEMENT_VALUE,
+      </if>
+      <if test="dataStatus != null">
+        DATA_STATUS,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="attribure1 != null">
+        ATTRIBURE1,
+      </if>
+      <if test="attribure2 != null">
+        ATTRIBURE2,
+      </if>
+      <if test="attribure3 != null">
+        ATTRIBURE3,
+      </if>
+      <if test="attribure4 != null">
+        ATTRIBURE4,
+      </if>
+      <if test="attribure5 != null">
+        ATTRIBURE5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="poolId != null">
+        #{poolId,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="solutionId != null">
+        #{solutionId,jdbcType=INTEGER},
+      </if>
+      <if test="elementName != null">
+        #{elementName,jdbcType=VARCHAR},
+      </if>
+      <if test="dataId != null">
+        #{dataId,jdbcType=INTEGER},
+      </if>
+      <if test="elementValue != null">
+        #{elementValue,jdbcType=VARCHAR},
+      </if>
+      <if test="dataStatus != null">
+        #{dataStatus,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="attribure1 != null">
+        #{attribure1,jdbcType=VARCHAR},
+      </if>
+      <if test="attribure2 != null">
+        #{attribure2,jdbcType=VARCHAR},
+      </if>
+      <if test="attribure3 != null">
+        #{attribure3,jdbcType=VARCHAR},
+      </if>
+      <if test="attribure4 != null">
+        #{attribure4,jdbcType=VARCHAR},
+      </if>
+      <if test="attribure5 != null">
+        #{attribure5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="autotest.com.bocom.entity.DataPoolExample" resultType="java.lang.Long">
+    select count(*) from DATA_POOL
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update DATA_POOL
+    <set>
+      <if test="record.poolId != null">
+        POOL_ID = #{record.poolId,jdbcType=INTEGER},
+      </if>
+      <if test="record.productId != null">
+        PRODUCT_ID = #{record.productId,jdbcType=INTEGER},
+      </if>
+      <if test="record.solutionId != null">
+        SOLUTION_ID = #{record.solutionId,jdbcType=INTEGER},
+      </if>
+      <if test="record.elementName != null">
+        ELEMENT_NAME = #{record.elementName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dataId != null">
+        DATA_ID = #{record.dataId,jdbcType=INTEGER},
+      </if>
+      <if test="record.elementValue != null">
+        ELEMENT_VALUE = #{record.elementValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dataStatus != null">
+        DATA_STATUS = #{record.dataStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.createTime != null">
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.attribure1 != null">
+        ATTRIBURE1 = #{record.attribure1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attribure2 != null">
+        ATTRIBURE2 = #{record.attribure2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attribure3 != null">
+        ATTRIBURE3 = #{record.attribure3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attribure4 != null">
+        ATTRIBURE4 = #{record.attribure4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attribure5 != null">
+        ATTRIBURE5 = #{record.attribure5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update DATA_POOL
+    set POOL_ID = #{record.poolId,jdbcType=INTEGER},
+      PRODUCT_ID = #{record.productId,jdbcType=INTEGER},
+      SOLUTION_ID = #{record.solutionId,jdbcType=INTEGER},
+      ELEMENT_NAME = #{record.elementName,jdbcType=VARCHAR},
+      DATA_ID = #{record.dataId,jdbcType=INTEGER},
+      ELEMENT_VALUE = #{record.elementValue,jdbcType=VARCHAR},
+      DATA_STATUS = #{record.dataStatus,jdbcType=CHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      ATTRIBURE1 = #{record.attribure1,jdbcType=VARCHAR},
+      ATTRIBURE2 = #{record.attribure2,jdbcType=VARCHAR},
+      ATTRIBURE3 = #{record.attribure3,jdbcType=VARCHAR},
+      ATTRIBURE4 = #{record.attribure4,jdbcType=VARCHAR},
+      ATTRIBURE5 = #{record.attribure5,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="autotest.com.bocom.entity.DataPool">
+    update DATA_POOL
+    <set>
+      <if test="productId != null">
+        PRODUCT_ID = #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="solutionId != null">
+        SOLUTION_ID = #{solutionId,jdbcType=INTEGER},
+      </if>
+      <if test="elementName != null">
+        ELEMENT_NAME = #{elementName,jdbcType=VARCHAR},
+      </if>
+      <if test="dataId != null">
+        DATA_ID = #{dataId,jdbcType=INTEGER},
+      </if>
+      <if test="elementValue != null">
+        ELEMENT_VALUE = #{elementValue,jdbcType=VARCHAR},
+      </if>
+      <if test="dataStatus != null">
+        DATA_STATUS = #{dataStatus,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="attribure1 != null">
+        ATTRIBURE1 = #{attribure1,jdbcType=VARCHAR},
+      </if>
+      <if test="attribure2 != null">
+        ATTRIBURE2 = #{attribure2,jdbcType=VARCHAR},
+      </if>
+      <if test="attribure3 != null">
+        ATTRIBURE3 = #{attribure3,jdbcType=VARCHAR},
+      </if>
+      <if test="attribure4 != null">
+        ATTRIBURE4 = #{attribure4,jdbcType=VARCHAR},
+      </if>
+      <if test="attribure5 != null">
+        ATTRIBURE5 = #{attribure5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where POOL_ID = #{poolId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="autotest.com.bocom.entity.DataPool">
+    update DATA_POOL
+    set PRODUCT_ID = #{productId,jdbcType=INTEGER},
+      SOLUTION_ID = #{solutionId,jdbcType=INTEGER},
+      ELEMENT_NAME = #{elementName,jdbcType=VARCHAR},
+      DATA_ID = #{dataId,jdbcType=INTEGER},
+      ELEMENT_VALUE = #{elementValue,jdbcType=VARCHAR},
+      DATA_STATUS = #{dataStatus,jdbcType=CHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      ATTRIBURE1 = #{attribure1,jdbcType=VARCHAR},
+      ATTRIBURE2 = #{attribure2,jdbcType=VARCHAR},
+      ATTRIBURE3 = #{attribure3,jdbcType=VARCHAR},
+      ATTRIBURE4 = #{attribure4,jdbcType=VARCHAR},
+      ATTRIBURE5 = #{attribure5,jdbcType=VARCHAR}
+    where POOL_ID = #{poolId,jdbcType=INTEGER}
+  </update>
+</mapper>

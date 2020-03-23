@@ -1,6 +1,6 @@
 package autotest.com.bocom.entity;
 
-public class ItasCaseEntranceParam {
+public class ItasCaseElementParam {
     private Integer caseEntranceParamId;
 
     private Integer caseId;

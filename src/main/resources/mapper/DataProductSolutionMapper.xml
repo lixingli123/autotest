@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="autotest.com.bocom.dao.DataProductSolutionMapper">
+  <resultMap id="BaseResultMap" type="autotest.com.bocom.entity.DataProductSolution">
+    <id column="SOLUTION_ID" jdbcType="INTEGER" property="solutionId" />
+    <result column="SOLUTION_NAME" jdbcType="VARCHAR" property="solutionName" />
+    <result column="PRODUCT_ID" jdbcType="INTEGER" property="productId" />
+    <result column="SOLUTION_DESC" jdbcType="VARCHAR" property="solutionDesc" />
+    <result column="SOLUTION_TYPE" jdbcType="CHAR" property="solutionType" />
+    <result column="DEFAULT_SOLUTION" jdbcType="CHAR" property="defaultSolution" />
+    <result column="CREATOR" jdbcType="VARCHAR" property="creator" />
+    <result column="CREATOR_ID" jdbcType="INTEGER" property="creatorId" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="MODIFIER" jdbcType="VARCHAR" property="modifier" />
+    <result column="MODIFIER_ID" jdbcType="INTEGER" property="modifierId" />
+    <result column="MODIFY_TIME" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="ATTRIBURE1" jdbcType="VARCHAR" property="attribure1" />
+    <result column="ATTRIBURE2" jdbcType="VARCHAR" property="attribure2" />
+    <result column="ATTRIBURE3" jdbcType="VARCHAR" property="attribure3" />
+    <result column="ATTRIBURE4" jdbcType="VARCHAR" property="attribure4" />
+    <result column="ATTRIBURE5" jdbcType="VARCHAR" property="attribure5" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    SOLUTION_ID, SOLUTION_NAME, PRODUCT_ID, SOLUTION_DESC, SOLUTION_TYPE, DEFAULT_SOLUTION, 
+    CREATOR, CREATOR_ID, CREATE_TIME, MODIFIER, MODIFIER_ID, MODIFY_TIME, ATTRIBURE1, 
+    ATTRIBURE2, ATTRIBURE3, ATTRIBURE4, ATTRIBURE5
+  </sql>
+  <select id="selectByExample" parameterType="autotest.com.bocom.entity.DataProductSolutionExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from DATA_PRODUCT_SOLUTION
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from DATA_PRODUCT_SOLUTION
+    where SOLUTION_ID = #{solutionId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from DATA_PRODUCT_SOLUTION
+    where SOLUTION_ID = #{solutionId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="autotest.com.bocom.entity.DataProductSolutionExample">
+    delete from DATA_PRODUCT_SOLUTION
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="autotest.com.bocom.entity.DataProductSolution">
+    insert into DATA_PRODUCT_SOLUTION (SOLUTION_ID, SOLUTION_NAME, PRODUCT_ID, 
+      SOLUTION_DESC, SOLUTION_TYPE, DEFAULT_SOLUTION, 
+      CREATOR, CREATOR_ID, CREATE_TIME, 
+      MODIFIER, MODIFIER_ID, MODIFY_TIME, 
+      ATTRIBURE1, ATTRIBURE2, ATTRIBURE3, 
+      ATTRIBURE4, ATTRIBURE5)
+    values (#{solutionId,jdbcType=INTEGER}, #{solutionName,jdbcType=VARCHAR}, #{productId,jdbcType=INTEGER}, 
+      #{solutionDesc,jdbcType=VARCHAR}, #{solutionType,jdbcType=CHAR}, #{defaultSolution,jdbcType=CHAR}, 
+      #{creator,jdbcType=VARCHAR}, #{creatorId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{modifier,jdbcType=VARCHAR}, #{modifierId,jdbcType=INTEGER}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{attribure1,jdbcType=VARCHAR}, #{attribure2,jdbcType=VARCHAR}, #{attribure3,jdbcType=VARCHAR}, 
+      #{attribure4,jdbcType=VARCHAR}, #{attribure5,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="autotest.com.bocom.entity.DataProductSolution">
+    insert into DATA_PRODUCT_SOLUTION
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="solutionId != null">
+        SOLUTION_ID,
+      </if>
+      <if test="solutionName != null">
+        SOLUTION_NAME,
+      </if>
+      <if test="productId != null">
+        PRODUCT_ID,
+      </if>
+      <if test="solutionDesc != null">
+        SOLUTION_DESC,
+      </if>
+      <if test="solutionType != null">
+        SOLUTION_TYPE,
+      </if>
+      <if test="defaultSolution != null">
+        DEFAULT_SOLUTION,
+      </if>
+      <if test="creator != null">
+        CREATOR,
+      </if>
+      <if test="creatorId != null">
+        CREATOR_ID,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="modifier != null">
+        MODIFIER,
+      </if>
+      <if test="modifierId != null">
+        MODIFIER_ID,
+      </if>
+      <if test="modifyTime != null">
+        MODIFY_TIME,
+      </if>
+      <if test="attribure1 != null">
+        ATTRIBURE1,
+      </if>
+      <if test="attribure2 != null">
+        ATTRIBURE2,
+      </if>
+      <if test="attribure3 != null">
+        ATTRIBURE3,
+      </if>
+      <if test="attribure4 != null">
+        ATTRIBURE4,
+      </if>
+      <if test="attribure5 != null">
+        ATTRIBURE5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="solutionId != null">
+        #{solutionId,jdbcType=INTEGER},
+      </if>
+      <if test="solutionName != null">
+        #{solutionName,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="solutionDesc != null">
+        #{solutionDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="solutionType != null">
+        #{solutionType,jdbcType=CHAR},
+      </if>
+      <if test="defaultSolution != null">
+        #{defaultSolution,jdbcType=CHAR},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null">
+        #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifierId != null">
+        #{modifierId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="attribure1 != null">
+        #{attribure1,jdbcType=VARCHAR},
+      </if>
+      <if test="attribure2 != null">
+        #{attribure2,jdbcType=VARCHAR},
+      </if>
+      <if test="attribure3 != null">
+        #{attribure3,jdbcType=VARCHAR},
+      </if>
+      <if test="attribure4 != null">
+        #{attribure4,jdbcType=VARCHAR},
+      </if>
+      <if test="attribure5 != null">
+        #{attribure5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="autotest.com.bocom.entity.DataProductSolutionExample" resultType="java.lang.Long">
+    select count(*) from DATA_PRODUCT_SOLUTION
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update DATA_PRODUCT_SOLUTION
+    <set>
+      <if test="record.solutionId != null">
+        SOLUTION_ID = #{record.solutionId,jdbcType=INTEGER},
+      </if>
+      <if test="record.solutionName != null">
+        SOLUTION_NAME = #{record.solutionName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productId != null">
+        PRODUCT_ID = #{record.productId,jdbcType=INTEGER},
+      </if>
+      <if test="record.solutionDesc != null">
+        SOLUTION_DESC = #{record.solutionDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.solutionType != null">
+        SOLUTION_TYPE = #{record.solutionType,jdbcType=CHAR},
+      </if>
+      <if test="record.defaultSolution != null">
+        DEFAULT_SOLUTION = #{record.defaultSolution,jdbcType=CHAR},
+      </if>
+      <if test="record.creator != null">
+        CREATOR = #{record.creator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creatorId != null">
+        CREATOR_ID = #{record.creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifier != null">
+        MODIFIER = #{record.modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modifierId != null">
+        MODIFIER_ID = #{record.modifierId,jdbcType=INTEGER},
+      </if>
+      <if test="record.modifyTime != null">
+        MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.attribure1 != null">
+        ATTRIBURE1 = #{record.attribure1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attribure2 != null">
+        ATTRIBURE2 = #{record.attribure2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attribure3 != null">
+        ATTRIBURE3 = #{record.attribure3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attribure4 != null">
+        ATTRIBURE4 = #{record.attribure4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attribure5 != null">
+        ATTRIBURE5 = #{record.attribure5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update DATA_PRODUCT_SOLUTION
+    set SOLUTION_ID = #{record.solutionId,jdbcType=INTEGER},
+      SOLUTION_NAME = #{record.solutionName,jdbcType=VARCHAR},
+      PRODUCT_ID = #{record.productId,jdbcType=INTEGER},
+      SOLUTION_DESC = #{record.solutionDesc,jdbcType=VARCHAR},
+      SOLUTION_TYPE = #{record.solutionType,jdbcType=CHAR},
+      DEFAULT_SOLUTION = #{record.defaultSolution,jdbcType=CHAR},
+      CREATOR = #{record.creator,jdbcType=VARCHAR},
+      CREATOR_ID = #{record.creatorId,jdbcType=INTEGER},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      MODIFIER = #{record.modifier,jdbcType=VARCHAR},
+      MODIFIER_ID = #{record.modifierId,jdbcType=INTEGER},
+      MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP},
+      ATTRIBURE1 = #{record.attribure1,jdbcType=VARCHAR},
+      ATTRIBURE2 = #{record.attribure2,jdbcType=VARCHAR},
+      ATTRIBURE3 = #{record.attribure3,jdbcType=VARCHAR},
+      ATTRIBURE4 = #{record.attribure4,jdbcType=VARCHAR},
+      ATTRIBURE5 = #{record.attribure5,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="autotest.com.bocom.entity.DataProductSolution">
+    update DATA_PRODUCT_SOLUTION
+    <set>
+      <if test="solutionName != null">
+        SOLUTION_NAME = #{solutionName,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        PRODUCT_ID = #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="solutionDesc != null">
+        SOLUTION_DESC = #{solutionDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="solutionType != null">
+        SOLUTION_TYPE = #{solutionType,jdbcType=CHAR},
+      </if>
+      <if test="defaultSolution != null">
+        DEFAULT_SOLUTION = #{defaultSolution,jdbcType=CHAR},
+      </if>
+      <if test="creator != null">
+        CREATOR = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null">
+        CREATOR_ID = #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        MODIFIER = #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifierId != null">
+        MODIFIER_ID = #{modifierId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyTime != null">
+        MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="attribure1 != null">
+        ATTRIBURE1 = #{attribure1,jdbcType=VARCHAR},
+      </if>
+      <if test="attribure2 != null">
+        ATTRIBURE2 = #{attribure2,jdbcType=VARCHAR},
+      </if>
+      <if test="attribure3 != null">
+        ATTRIBURE3 = #{attribure3,jdbcType=VARCHAR},
+      </if>
+      <if test="attribure4 != null">
+        ATTRIBURE4 = #{attribure4,jdbcType=VARCHAR},
+      </if>
+      <if test="attribure5 != null">
+        ATTRIBURE5 = #{attribure5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SOLUTION_ID = #{solutionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="autotest.com.bocom.entity.DataProductSolution">
+    update DATA_PRODUCT_SOLUTION
+    set SOLUTION_NAME = #{solutionName,jdbcType=VARCHAR},
+      PRODUCT_ID = #{productId,jdbcType=INTEGER},
+      SOLUTION_DESC = #{solutionDesc,jdbcType=VARCHAR},
+      SOLUTION_TYPE = #{solutionType,jdbcType=CHAR},
+      DEFAULT_SOLUTION = #{defaultSolution,jdbcType=CHAR},
+      CREATOR = #{creator,jdbcType=VARCHAR},
+      CREATOR_ID = #{creatorId,jdbcType=INTEGER},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      MODIFIER = #{modifier,jdbcType=VARCHAR},
+      MODIFIER_ID = #{modifierId,jdbcType=INTEGER},
+      MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+      ATTRIBURE1 = #{attribure1,jdbcType=VARCHAR},
+      ATTRIBURE2 = #{attribure2,jdbcType=VARCHAR},
+      ATTRIBURE3 = #{attribure3,jdbcType=VARCHAR},
+      ATTRIBURE4 = #{attribure4,jdbcType=VARCHAR},
+      ATTRIBURE5 = #{attribure5,jdbcType=VARCHAR}
+    where SOLUTION_ID = #{solutionId,jdbcType=INTEGER}
+  </update>
+</mapper>

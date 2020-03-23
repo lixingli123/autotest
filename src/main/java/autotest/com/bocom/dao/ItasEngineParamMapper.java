@@ -10,13 +10,21 @@ public interface ItasEngineParamMapper {
 
     int deleteByExample(ItasEngineParamExample example);
 
+    int deleteByPrimaryKey(Integer itasEngineParamId);
+
     int insert(ItasEngineParam record);
 
     int insertSelective(ItasEngineParam record);
 
     List<ItasEngineParam> selectByExample(ItasEngineParamExample example);
 
+    ItasEngineParam selectByPrimaryKey(Integer itasEngineParamId);
+
     int updateByExampleSelective(@Param("record") ItasEngineParam record, @Param("example") ItasEngineParamExample example);
 
     int updateByExample(@Param("record") ItasEngineParam record, @Param("example") ItasEngineParamExample example);
+
+    int updateByPrimaryKeySelective(ItasEngineParam record);
+
+    int updateByPrimaryKey(ItasEngineParam record);
 }

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="autotest.com.bocom.dao.ItasCaseRelationMapper">
-  <resultMap id="BaseResultMap" type="autotest.com.bocom.entity.ItasCaseRelation">
+<mapper namespace="autotest.com.bocom.dao.DataServiceCmcMapper">
+  <resultMap id="BaseResultMap" type="autotest.com.bocom.entity.DataServiceCmc">
     <id column="ID" jdbcType="INTEGER" property="id" />
-    <result column="FLOW_CASE_ID" jdbcType="INTEGER" property="flowCaseId" />
-    <result column="SUB_CASE_ID" jdbcType="INTEGER" property="subCaseId" />
-    <result column="SUB_CASE_SEQ" jdbcType="INTEGER" property="subCaseSeq" />
-    <result column="API_ID" jdbcType="INTEGER" property="apiId" />
+    <result column="CMC_TASK_ID" jdbcType="INTEGER" property="cmcTaskId" />
+    <result column="CMC_CASE_ID" jdbcType="INTEGER" property="cmcCaseId" />
+    <result column="DATA_TASK_ID" jdbcType="INTEGER" property="dataTaskId" />
+    <result column="ATTRIBUTE1" jdbcType="VARCHAR" property="attribute1" />
+    <result column="ATTRIBUTE2" jdbcType="VARCHAR" property="attribute2" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,16 +68,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    ID, FLOW_CASE_ID, SUB_CASE_ID, SUB_CASE_SEQ, API_ID
+    ID, CMC_TASK_ID, CMC_CASE_ID, DATA_TASK_ID, ATTRIBUTE1, ATTRIBUTE2
   </sql>
-  <select id="selectByExample" parameterType="autotest.com.bocom.entity.ItasCaseRelationExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="autotest.com.bocom.entity.DataServiceCmcExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     'true' as QUERYID,
     <include refid="Base_Column_List" />
-    from ITAS_CASE_RELATION
+    from DATA_SERVICE_CMC
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -87,85 +88,96 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from ITAS_CASE_RELATION
+    from DATA_SERVICE_CMC
     where ID = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from ITAS_CASE_RELATION
+    delete from DATA_SERVICE_CMC
     where ID = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="autotest.com.bocom.entity.ItasCaseRelationExample">
-    delete from ITAS_CASE_RELATION
+  <delete id="deleteByExample" parameterType="autotest.com.bocom.entity.DataServiceCmcExample">
+    delete from DATA_SERVICE_CMC
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="autotest.com.bocom.entity.ItasCaseRelation">
-    insert into ITAS_CASE_RELATION (ID, FLOW_CASE_ID, SUB_CASE_ID, 
-      SUB_CASE_SEQ, API_ID)
-    values (#{id,jdbcType=INTEGER}, #{flowCaseId,jdbcType=INTEGER}, #{subCaseId,jdbcType=INTEGER}, 
-      #{subCaseSeq,jdbcType=INTEGER}, #{apiId,jdbcType=INTEGER})
+  <insert id="insert" parameterType="autotest.com.bocom.entity.DataServiceCmc">
+    insert into DATA_SERVICE_CMC (ID, CMC_TASK_ID, CMC_CASE_ID, 
+      DATA_TASK_ID, ATTRIBUTE1, ATTRIBUTE2
+      )
+    values (#{id,jdbcType=INTEGER}, #{cmcTaskId,jdbcType=INTEGER}, #{cmcCaseId,jdbcType=INTEGER}, 
+      #{dataTaskId,jdbcType=INTEGER}, #{attribute1,jdbcType=VARCHAR}, #{attribute2,jdbcType=VARCHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="autotest.com.bocom.entity.ItasCaseRelation">
-    insert into ITAS_CASE_RELATION
+  <insert id="insertSelective" parameterType="autotest.com.bocom.entity.DataServiceCmc">
+    insert into DATA_SERVICE_CMC
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         ID,
       </if>
-      <if test="flowCaseId != null">
-        FLOW_CASE_ID,
+      <if test="cmcTaskId != null">
+        CMC_TASK_ID,
       </if>
-      <if test="subCaseId != null">
-        SUB_CASE_ID,
+      <if test="cmcCaseId != null">
+        CMC_CASE_ID,
       </if>
-      <if test="subCaseSeq != null">
-        SUB_CASE_SEQ,
+      <if test="dataTaskId != null">
+        DATA_TASK_ID,
       </if>
-      <if test="apiId != null">
-        API_ID,
+      <if test="attribute1 != null">
+        ATTRIBUTE1,
+      </if>
+      <if test="attribute2 != null">
+        ATTRIBUTE2,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="flowCaseId != null">
-        #{flowCaseId,jdbcType=INTEGER},
+      <if test="cmcTaskId != null">
+        #{cmcTaskId,jdbcType=INTEGER},
       </if>
-      <if test="subCaseId != null">
-        #{subCaseId,jdbcType=INTEGER},
+      <if test="cmcCaseId != null">
+        #{cmcCaseId,jdbcType=INTEGER},
       </if>
-      <if test="subCaseSeq != null">
-        #{subCaseSeq,jdbcType=INTEGER},
+      <if test="dataTaskId != null">
+        #{dataTaskId,jdbcType=INTEGER},
       </if>
-      <if test="apiId != null">
-        #{apiId,jdbcType=INTEGER},
+      <if test="attribute1 != null">
+        #{attribute1,jdbcType=VARCHAR},
+      </if>
+      <if test="attribute2 != null">
+        #{attribute2,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="autotest.com.bocom.entity.ItasCaseRelationExample" resultType="java.lang.Long">
-    select count(*) from ITAS_CASE_RELATION
+  <select id="countByExample" parameterType="autotest.com.bocom.entity.DataServiceCmcExample" resultType="java.lang.Long">
+    select count(*) from DATA_SERVICE_CMC
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update ITAS_CASE_RELATION
+    update DATA_SERVICE_CMC
     <set>
       <if test="record.id != null">
         ID = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.flowCaseId != null">
-        FLOW_CASE_ID = #{record.flowCaseId,jdbcType=INTEGER},
+      <if test="record.cmcTaskId != null">
+        CMC_TASK_ID = #{record.cmcTaskId,jdbcType=INTEGER},
       </if>
-      <if test="record.subCaseId != null">
-        SUB_CASE_ID = #{record.subCaseId,jdbcType=INTEGER},
+      <if test="record.cmcCaseId != null">
+        CMC_CASE_ID = #{record.cmcCaseId,jdbcType=INTEGER},
       </if>
-      <if test="record.subCaseSeq != null">
-        SUB_CASE_SEQ = #{record.subCaseSeq,jdbcType=INTEGER},
+      <if test="record.dataTaskId != null">
+        DATA_TASK_ID = #{record.dataTaskId,jdbcType=INTEGER},
       </if>
-      <if test="record.apiId != null">
-        API_ID = #{record.apiId,jdbcType=INTEGER},
+      <if test="record.attribute1 != null">
+        ATTRIBUTE1 = #{record.attribute1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attribute2 != null">
+        ATTRIBUTE2 = #{record.attribute2,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -173,40 +185,45 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update ITAS_CASE_RELATION
+    update DATA_SERVICE_CMC
     set ID = #{record.id,jdbcType=INTEGER},
-      FLOW_CASE_ID = #{record.flowCaseId,jdbcType=INTEGER},
-      SUB_CASE_ID = #{record.subCaseId,jdbcType=INTEGER},
-      SUB_CASE_SEQ = #{record.subCaseSeq,jdbcType=INTEGER},
-      API_ID = #{record.apiId,jdbcType=INTEGER}
+      CMC_TASK_ID = #{record.cmcTaskId,jdbcType=INTEGER},
+      CMC_CASE_ID = #{record.cmcCaseId,jdbcType=INTEGER},
+      DATA_TASK_ID = #{record.dataTaskId,jdbcType=INTEGER},
+      ATTRIBUTE1 = #{record.attribute1,jdbcType=VARCHAR},
+      ATTRIBUTE2 = #{record.attribute2,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="autotest.com.bocom.entity.ItasCaseRelation">
-    update ITAS_CASE_RELATION
+  <update id="updateByPrimaryKeySelective" parameterType="autotest.com.bocom.entity.DataServiceCmc">
+    update DATA_SERVICE_CMC
     <set>
-      <if test="flowCaseId != null">
-        FLOW_CASE_ID = #{flowCaseId,jdbcType=INTEGER},
+      <if test="cmcTaskId != null">
+        CMC_TASK_ID = #{cmcTaskId,jdbcType=INTEGER},
       </if>
-      <if test="subCaseId != null">
-        SUB_CASE_ID = #{subCaseId,jdbcType=INTEGER},
+      <if test="cmcCaseId != null">
+        CMC_CASE_ID = #{cmcCaseId,jdbcType=INTEGER},
       </if>
-      <if test="subCaseSeq != null">
-        SUB_CASE_SEQ = #{subCaseSeq,jdbcType=INTEGER},
+      <if test="dataTaskId != null">
+        DATA_TASK_ID = #{dataTaskId,jdbcType=INTEGER},
       </if>
-      <if test="apiId != null">
-        API_ID = #{apiId,jdbcType=INTEGER},
+      <if test="attribute1 != null">
+        ATTRIBUTE1 = #{attribute1,jdbcType=VARCHAR},
+      </if>
+      <if test="attribute2 != null">
+        ATTRIBUTE2 = #{attribute2,jdbcType=VARCHAR},
       </if>
     </set>
     where ID = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="autotest.com.bocom.entity.ItasCaseRelation">
-    update ITAS_CASE_RELATION
-    set FLOW_CASE_ID = #{flowCaseId,jdbcType=INTEGER},
-      SUB_CASE_ID = #{subCaseId,jdbcType=INTEGER},
-      SUB_CASE_SEQ = #{subCaseSeq,jdbcType=INTEGER},
-      API_ID = #{apiId,jdbcType=INTEGER}
+  <update id="updateByPrimaryKey" parameterType="autotest.com.bocom.entity.DataServiceCmc">
+    update DATA_SERVICE_CMC
+    set CMC_TASK_ID = #{cmcTaskId,jdbcType=INTEGER},
+      CMC_CASE_ID = #{cmcCaseId,jdbcType=INTEGER},
+      DATA_TASK_ID = #{dataTaskId,jdbcType=INTEGER},
+      ATTRIBUTE1 = #{attribute1,jdbcType=VARCHAR},
+      ATTRIBUTE2 = #{attribute2,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

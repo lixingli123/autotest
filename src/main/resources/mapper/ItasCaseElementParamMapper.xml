@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="autotest.com.bocom.dao.ItasCaseEntranceParamMapper">
-  <resultMap id="BaseResultMap" type="autotest.com.bocom.entity.ItasCaseEntranceParam">
+<mapper namespace="autotest.com.bocom.dao.ItasCaseElementParamMapper">
+  <resultMap id="BaseResultMap" type="autotest.com.bocom.entity.ItasCaseElementParam">
     <id column="CASE_ENTRANCE_PARAM_ID" jdbcType="INTEGER" property="caseEntranceParamId" />
     <result column="CASE_ID" jdbcType="INTEGER" property="caseId" />
     <result column="ENTRANCE_PARAM_ID" jdbcType="INTEGER" property="entranceParamId" />
@@ -69,7 +69,7 @@
   <sql id="Base_Column_List">
     CASE_ENTRANCE_PARAM_ID, CASE_ID, ENTRANCE_PARAM_ID, PARAM_VALUE, PARAM_DESC
   </sql>
-  <select id="selectByExample" parameterType="autotest.com.bocom.entity.ItasCaseEntranceParamExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="autotest.com.bocom.entity.ItasCaseElementParamExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -94,19 +94,19 @@
     delete from ITAS_CASE_ENTRANCE_PARAM
     where CASE_ENTRANCE_PARAM_ID = #{caseEntranceParamId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="autotest.com.bocom.entity.ItasCaseEntranceParamExample">
+  <delete id="deleteByExample" parameterType="autotest.com.bocom.entity.ItasCaseElementParamExample">
     delete from ITAS_CASE_ENTRANCE_PARAM
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="autotest.com.bocom.entity.ItasCaseEntranceParam">
+  <insert id="insert" parameterType="autotest.com.bocom.entity.ItasCaseElementParam">
     insert into ITAS_CASE_ENTRANCE_PARAM (CASE_ENTRANCE_PARAM_ID, CASE_ID, ENTRANCE_PARAM_ID, 
       PARAM_VALUE, PARAM_DESC)
     values (#{caseEntranceParamId,jdbcType=INTEGER}, #{caseId,jdbcType=INTEGER}, #{entranceParamId,jdbcType=INTEGER}, 
       #{paramValue,jdbcType=VARCHAR}, #{paramDesc,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="autotest.com.bocom.entity.ItasCaseEntranceParam">
+  <insert id="insertSelective" parameterType="autotest.com.bocom.entity.ItasCaseElementParam">
     insert into ITAS_CASE_ENTRANCE_PARAM
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="caseEntranceParamId != null">
@@ -143,7 +143,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="autotest.com.bocom.entity.ItasCaseEntranceParamExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="autotest.com.bocom.entity.ItasCaseElementParamExample" resultType="java.lang.Long">
     select count(*) from ITAS_CASE_ENTRANCE_PARAM
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -183,7 +183,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="autotest.com.bocom.entity.ItasCaseEntranceParam">
+  <update id="updateByPrimaryKeySelective" parameterType="autotest.com.bocom.entity.ItasCaseElementParam">
     update ITAS_CASE_ENTRANCE_PARAM
     <set>
       <if test="caseId != null">
@@ -201,7 +201,7 @@
     </set>
     where CASE_ENTRANCE_PARAM_ID = #{caseEntranceParamId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="autotest.com.bocom.entity.ItasCaseEntranceParam">
+  <update id="updateByPrimaryKey" parameterType="autotest.com.bocom.entity.ItasCaseElementParam">
     update ITAS_CASE_ENTRANCE_PARAM
     set CASE_ID = #{caseId,jdbcType=INTEGER},
       ENTRANCE_PARAM_ID = #{entranceParamId,jdbcType=INTEGER},

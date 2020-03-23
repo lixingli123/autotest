@@ -4,9 +4,7 @@ import autotest.com.bocom.entity.ItasApi;
 import autotest.com.bocom.entity.ItasApiExample;
 import autotest.com.bocom.entity.ItasApiWithBLOBs;
 import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
-
 
 public interface ItasApiMapper {
     long countByExample(ItasApiExample example);

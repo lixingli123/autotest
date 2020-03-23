@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="autotest.com.bocom.dao.ItasCaseElementMapper">
   <resultMap id="BaseResultMap" type="autotest.com.bocom.entity.ItasCaseElement">
-    <result column="ELEMENT_ID" jdbcType="INTEGER" property="elementId" />
+    <id column="ELEMENT_ID" jdbcType="INTEGER" property="elementId" />
     <result column="ELEMENT_NAME" jdbcType="VARCHAR" property="elementName" />
     <result column="CASE_ID" jdbcType="INTEGER" property="caseId" />
     <result column="ELEMENT_VALUE_TYPE" jdbcType="CHAR" property="elementValueType" />
@@ -112,6 +112,18 @@
       order by ${orderByClause}
     </if>
   </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ITAS_CASE_ELEMENT
+    where ELEMENT_ID = #{elementId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ITAS_CASE_ELEMENT
+    where ELEMENT_ID = #{elementId,jdbcType=INTEGER}
+  </delete>
   <delete id="deleteByExample" parameterType="autotest.com.bocom.entity.ItasCaseElementExample">
     delete from ITAS_CASE_ELEMENT
     <if test="_parameter != null">
@@ -269,5 +281,63 @@
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="autotest.com.bocom.entity.ItasCaseElement">
+    update ITAS_CASE_ELEMENT
+    <set>
+      <if test="elementName != null">
+        ELEMENT_NAME = #{elementName,jdbcType=VARCHAR},
+      </if>
+      <if test="caseId != null">
+        CASE_ID = #{caseId,jdbcType=INTEGER},
+      </if>
+      <if test="elementValueType != null">
+        ELEMENT_VALUE_TYPE = #{elementValueType,jdbcType=CHAR},
+      </if>
+      <if test="elementValueString != null">
+        ELEMENT_VALUE_STRING = #{elementValueString,jdbcType=VARCHAR},
+      </if>
+      <if test="elementFrom != null">
+        ELEMENT_FROM = #{elementFrom,jdbcType=CHAR},
+      </if>
+      <if test="elementKey != null">
+        ELEMENT_KEY = #{elementKey,jdbcType=VARCHAR},
+      </if>
+      <if test="elementValueRemark != null">
+        ELEMENT_VALUE_REMARK = #{elementValueRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="elementType != null">
+        ELEMENT_TYPE = #{elementType,jdbcType=CHAR},
+      </if>
+      <if test="elementValueJson != null">
+        ELEMENT_VALUE_JSON = #{elementValueJson,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ELEMENT_ID = #{elementId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="autotest.com.bocom.entity.ItasCaseElement">
+    update ITAS_CASE_ELEMENT
+    set ELEMENT_NAME = #{elementName,jdbcType=VARCHAR},
+      CASE_ID = #{caseId,jdbcType=INTEGER},
+      ELEMENT_VALUE_TYPE = #{elementValueType,jdbcType=CHAR},
+      ELEMENT_VALUE_STRING = #{elementValueString,jdbcType=VARCHAR},
+      ELEMENT_FROM = #{elementFrom,jdbcType=CHAR},
+      ELEMENT_KEY = #{elementKey,jdbcType=VARCHAR},
+      ELEMENT_VALUE_REMARK = #{elementValueRemark,jdbcType=VARCHAR},
+      ELEMENT_TYPE = #{elementType,jdbcType=CHAR},
+      ELEMENT_VALUE_JSON = #{elementValueJson,jdbcType=LONGVARCHAR}
+    where ELEMENT_ID = #{elementId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="autotest.com.bocom.entity.ItasCaseElement">
+    update ITAS_CASE_ELEMENT
+    set ELEMENT_NAME = #{elementName,jdbcType=VARCHAR},
+      CASE_ID = #{caseId,jdbcType=INTEGER},
+      ELEMENT_VALUE_TYPE = #{elementValueType,jdbcType=CHAR},
+      ELEMENT_VALUE_STRING = #{elementValueString,jdbcType=VARCHAR},
+      ELEMENT_FROM = #{elementFrom,jdbcType=CHAR},
+      ELEMENT_KEY = #{elementKey,jdbcType=VARCHAR},
+      ELEMENT_VALUE_REMARK = #{elementValueRemark,jdbcType=VARCHAR},
+      ELEMENT_TYPE = #{elementType,jdbcType=CHAR}
+    where ELEMENT_ID = #{elementId,jdbcType=INTEGER}
   </update>
 </mapper>

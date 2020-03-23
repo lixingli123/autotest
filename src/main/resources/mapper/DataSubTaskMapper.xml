@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="autotest.com.bocom.dao.DataSubTaskMapper">
+  <resultMap id="BaseResultMap" type="autotest.com.bocom.entity.DataSubTask">
+    <id column="SUB_TASK_ID" jdbcType="INTEGER" property="subTaskId" />
+    <result column="TASK_ID" jdbcType="INTEGER" property="taskId" />
+    <result column="PRODUCT_ID" jdbcType="INTEGER" property="productId" />
+    <result column="SUB_TASK_TYPE" jdbcType="CHAR" property="subTaskType" />
+    <result column="BUSINESS_ID" jdbcType="INTEGER" property="businessId" />
+    <result column="PRODUCT_STATUS" jdbcType="CHAR" property="productStatus" />
+    <result column="TASK_CURRENT_STATUS" jdbcType="CHAR" property="taskCurrentStatus" />
+    <result column="TASK_TYPE" jdbcType="CHAR" property="taskType" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="RESULT" jdbcType="VARCHAR" property="result" />
+    <result column="ATTRIBURE1" jdbcType="VARCHAR" property="attribure1" />
+    <result column="ATTRIBURE2" jdbcType="VARCHAR" property="attribure2" />
+    <result column="ATTRIBURE3" jdbcType="VARCHAR" property="attribure3" />
+    <result column="ATTRIBURE4" jdbcType="VARCHAR" property="attribure4" />
+    <result column="ATTRIBURE5" jdbcType="VARCHAR" property="attribure5" />
+    <result column="START_TIME" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="END_TIME" jdbcType="TIMESTAMP" property="endTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    SUB_TASK_ID, TASK_ID, PRODUCT_ID, SUB_TASK_TYPE, BUSINESS_ID, PRODUCT_STATUS, TASK_CURRENT_STATUS, 
+    TASK_TYPE, REMARK, RESULT, ATTRIBURE1, ATTRIBURE2, ATTRIBURE3, ATTRIBURE4, ATTRIBURE5, 
+    START_TIME, END_TIME
+  </sql>
+  <select id="selectByExample" parameterType="autotest.com.bocom.entity.DataSubTaskExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from DATA_SUB_TASK
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from DATA_SUB_TASK
+    where SUB_TASK_ID = #{subTaskId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from DATA_SUB_TASK
+    where SUB_TASK_ID = #{subTaskId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="autotest.com.bocom.entity.DataSubTaskExample">
+    delete from DATA_SUB_TASK
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="autotest.com.bocom.entity.DataSubTask">
+    insert into DATA_SUB_TASK (SUB_TASK_ID, TASK_ID, PRODUCT_ID, 
+      SUB_TASK_TYPE, BUSINESS_ID, PRODUCT_STATUS, 
+      TASK_CURRENT_STATUS, TASK_TYPE, REMARK, 
+      RESULT, ATTRIBURE1, ATTRIBURE2, 
+      ATTRIBURE3, ATTRIBURE4, ATTRIBURE5, 
+      START_TIME, END_TIME)
+    values (#{subTaskId,jdbcType=INTEGER}, #{taskId,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER}, 
+      #{subTaskType,jdbcType=CHAR}, #{businessId,jdbcType=INTEGER}, #{productStatus,jdbcType=CHAR}, 
+      #{taskCurrentStatus,jdbcType=CHAR}, #{taskType,jdbcType=CHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{result,jdbcType=VARCHAR}, #{attribure1,jdbcType=VARCHAR}, #{attribure2,jdbcType=VARCHAR}, 
+      #{attribure3,jdbcType=VARCHAR}, #{attribure4,jdbcType=VARCHAR}, #{attribure5,jdbcType=VARCHAR}, 
+      #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="autotest.com.bocom.entity.DataSubTask">
+    insert into DATA_SUB_TASK
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="subTaskId != null">
+        SUB_TASK_ID,
+      </if>
+      <if test="taskId != null">
+        TASK_ID,
+      </if>
+      <if test="productId != null">
+        PRODUCT_ID,
+      </if>
+      <if test="subTaskType != null">
+        SUB_TASK_TYPE,
+      </if>
+      <if test="businessId != null">
+        BUSINESS_ID,
+      </if>
+      <if test="productStatus != null">
+        PRODUCT_STATUS,
+      </if>
+      <if test="taskCurrentStatus != null">
+        TASK_CURRENT_STATUS,
+      </if>
+      <if test="taskType != null">
+        TASK_TYPE,
+      </if>
+      <if test="remark != null">
+        REMARK,
+      </if>
+      <if test="result != null">
+        RESULT,
+      </if>
+      <if test="attribure1 != null">
+        ATTRIBURE1,
+      </if>
+      <if test="attribure2 != null">
+        ATTRIBURE2,
+      </if>
+      <if test="attribure3 != null">
+        ATTRIBURE3,
+      </if>
+      <if test="attribure4 != null">
+        ATTRIBURE4,
+      </if>
+      <if test="attribure5 != null">
+        ATTRIBURE5,
+      </if>
+      <if test="startTime != null">
+        START_TIME,
+      </if>
+      <if test="endTime != null">
+        END_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="subTaskId != null">
+        #{subTaskId,jdbcType=INTEGER},
+      </if>
+      <if test="taskId != null">
+        #{taskId,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="subTaskType != null">
+        #{subTaskType,jdbcType=CHAR},
+      </if>
+      <if test="businessId != null">
+        #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="productStatus != null">
+        #{productStatus,jdbcType=CHAR},
+      </if>
+      <if test="taskCurrentStatus != null">
+        #{taskCurrentStatus,jdbcType=CHAR},
+      </if>
+      <if test="taskType != null">
+        #{taskType,jdbcType=CHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null">
+        #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="attribure1 != null">
+        #{attribure1,jdbcType=VARCHAR},
+      </if>
+      <if test="attribure2 != null">
+        #{attribure2,jdbcType=VARCHAR},
+      </if>
+      <if test="attribure3 != null">
+        #{attribure3,jdbcType=VARCHAR},
+      </if>
+      <if test="attribure4 != null">
+        #{attribure4,jdbcType=VARCHAR},
+      </if>
+      <if test="attribure5 != null">
+        #{attribure5,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="autotest.com.bocom.entity.DataSubTaskExample" resultType="java.lang.Long">
+    select count(*) from DATA_SUB_TASK
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update DATA_SUB_TASK
+    <set>
+      <if test="record.subTaskId != null">
+        SUB_TASK_ID = #{record.subTaskId,jdbcType=INTEGER},
+      </if>
+      <if test="record.taskId != null">
+        TASK_ID = #{record.taskId,jdbcType=INTEGER},
+      </if>
+      <if test="record.productId != null">
+        PRODUCT_ID = #{record.productId,jdbcType=INTEGER},
+      </if>
+      <if test="record.subTaskType != null">
+        SUB_TASK_TYPE = #{record.subTaskType,jdbcType=CHAR},
+      </if>
+      <if test="record.businessId != null">
+        BUSINESS_ID = #{record.businessId,jdbcType=INTEGER},
+      </if>
+      <if test="record.productStatus != null">
+        PRODUCT_STATUS = #{record.productStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.taskCurrentStatus != null">
+        TASK_CURRENT_STATUS = #{record.taskCurrentStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.taskType != null">
+        TASK_TYPE = #{record.taskType,jdbcType=CHAR},
+      </if>
+      <if test="record.remark != null">
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.result != null">
+        RESULT = #{record.result,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attribure1 != null">
+        ATTRIBURE1 = #{record.attribure1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attribure2 != null">
+        ATTRIBURE2 = #{record.attribure2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attribure3 != null">
+        ATTRIBURE3 = #{record.attribure3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attribure4 != null">
+        ATTRIBURE4 = #{record.attribure4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attribure5 != null">
+        ATTRIBURE5 = #{record.attribure5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startTime != null">
+        START_TIME = #{record.startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endTime != null">
+        END_TIME = #{record.endTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update DATA_SUB_TASK
+    set SUB_TASK_ID = #{record.subTaskId,jdbcType=INTEGER},
+      TASK_ID = #{record.taskId,jdbcType=INTEGER},
+      PRODUCT_ID = #{record.productId,jdbcType=INTEGER},
+      SUB_TASK_TYPE = #{record.subTaskType,jdbcType=CHAR},
+      BUSINESS_ID = #{record.businessId,jdbcType=INTEGER},
+      PRODUCT_STATUS = #{record.productStatus,jdbcType=CHAR},
+      TASK_CURRENT_STATUS = #{record.taskCurrentStatus,jdbcType=CHAR},
+      TASK_TYPE = #{record.taskType,jdbcType=CHAR},
+      REMARK = #{record.remark,jdbcType=VARCHAR},
+      RESULT = #{record.result,jdbcType=VARCHAR},
+      ATTRIBURE1 = #{record.attribure1,jdbcType=VARCHAR},
+      ATTRIBURE2 = #{record.attribure2,jdbcType=VARCHAR},
+      ATTRIBURE3 = #{record.attribure3,jdbcType=VARCHAR},
+      ATTRIBURE4 = #{record.attribure4,jdbcType=VARCHAR},
+      ATTRIBURE5 = #{record.attribure5,jdbcType=VARCHAR},
+      START_TIME = #{record.startTime,jdbcType=TIMESTAMP},
+      END_TIME = #{record.endTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="autotest.com.bocom.entity.DataSubTask">
+    update DATA_SUB_TASK
+    <set>
+      <if test="taskId != null">
+        TASK_ID = #{taskId,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null">
+        PRODUCT_ID = #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="subTaskType != null">
+        SUB_TASK_TYPE = #{subTaskType,jdbcType=CHAR},
+      </if>
+      <if test="businessId != null">
+        BUSINESS_ID = #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="productStatus != null">
+        PRODUCT_STATUS = #{productStatus,jdbcType=CHAR},
+      </if>
+      <if test="taskCurrentStatus != null">
+        TASK_CURRENT_STATUS = #{taskCurrentStatus,jdbcType=CHAR},
+      </if>
+      <if test="taskType != null">
+        TASK_TYPE = #{taskType,jdbcType=CHAR},
+      </if>
+      <if test="remark != null">
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null">
+        RESULT = #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="attribure1 != null">
+        ATTRIBURE1 = #{attribure1,jdbcType=VARCHAR},
+      </if>
+      <if test="attribure2 != null">
+        ATTRIBURE2 = #{attribure2,jdbcType=VARCHAR},
+      </if>
+      <if test="attribure3 != null">
+        ATTRIBURE3 = #{attribure3,jdbcType=VARCHAR},
+      </if>
+      <if test="attribure4 != null">
+        ATTRIBURE4 = #{attribure4,jdbcType=VARCHAR},
+      </if>
+      <if test="attribure5 != null">
+        ATTRIBURE5 = #{attribure5,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where SUB_TASK_ID = #{subTaskId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="autotest.com.bocom.entity.DataSubTask">
+    update DATA_SUB_TASK
+    set TASK_ID = #{taskId,jdbcType=INTEGER},
+      PRODUCT_ID = #{productId,jdbcType=INTEGER},
+      SUB_TASK_TYPE = #{subTaskType,jdbcType=CHAR},
+      BUSINESS_ID = #{businessId,jdbcType=INTEGER},
+      PRODUCT_STATUS = #{productStatus,jdbcType=CHAR},
+      TASK_CURRENT_STATUS = #{taskCurrentStatus,jdbcType=CHAR},
+      TASK_TYPE = #{taskType,jdbcType=CHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      RESULT = #{result,jdbcType=VARCHAR},
+      ATTRIBURE1 = #{attribure1,jdbcType=VARCHAR},
+      ATTRIBURE2 = #{attribure2,jdbcType=VARCHAR},
+      ATTRIBURE3 = #{attribure3,jdbcType=VARCHAR},
+      ATTRIBURE4 = #{attribure4,jdbcType=VARCHAR},
+      ATTRIBURE5 = #{attribure5,jdbcType=VARCHAR},
+      START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      END_TIME = #{endTime,jdbcType=TIMESTAMP}
+    where SUB_TASK_ID = #{subTaskId,jdbcType=INTEGER}
+  </update>
+</mapper>
